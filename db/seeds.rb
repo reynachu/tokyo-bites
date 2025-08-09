@@ -7,3 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require 'csv'
+
+csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
+
+CSV.foreach(csv_path, headers: true) do |row|
+  Restaurant.create!(
+    name: row['name']&.strip,
+    address: row['address']&.strip,
+    opening_hours: row['holiday']&.strip, # Consider renaming later
+    category: row['genre']&.strip
+  )
+end
