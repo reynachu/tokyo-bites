@@ -8,6 +8,6 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :wishlists, through: :bookmarks
 
-  validates :first_name, :last_name, :email, :username, presence: true
+  validates :first_name, :last_name, :email,:username, presence: true
   validates :email, :username, uniqueness: true
 end
