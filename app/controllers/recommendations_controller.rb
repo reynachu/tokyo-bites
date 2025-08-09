@@ -1,7 +1,12 @@
 class RecommendationsController < ApplicationController
-  before_action :set_restaurant
+  before_action :set_restaurant, exept: [:index]
   def index
-    @recommendations = @restaurant.recommendations
+    if params[:restaurant_id]
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @recommendations = @restaurant.recommendations
+    else
+      @recommendations = Recommendation.all
+    end
   end
 
   def new
