@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'restaurants/index'
-  get 'restaurants/show'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -15,4 +13,7 @@ Rails.application.routes.draw do
   resources :restaurants, only: [:index, :show] do
     resources :recommendations, only: [:index, :new, :create]
   end
+
+  # Global recommendations index (all restaurants)
+  resources :recommendations, only: [:index]
 end
