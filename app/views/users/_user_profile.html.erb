@@ -8,6 +8,6 @@
       <%= image_tag "default_avatar.png", size: "150x150", alt: user.username, class: "rounded-circle" %>
     <% end %>
 
-    <%= link_to "Close", root_path, data: { turbo_frame: "main_content" }, class: "btn btn-secondary mt-3" %>
+    <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary mt-3" %>
   </div>
 </turbo-frame>
