@@ -1,0 +1,59 @@
+/* Feed styling */
+.feed {
+  padding-bottom: 70px; /* leave room for bottom nav */
+}
+
+.post-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.rating-badge {
+  background-color: #ffcc00;
+  color: black;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0;
+  z-index: 1000;
+}
+
+.bottom-nav .nav-item {
+  font-size: 22px;
+  text-decoration: none;
+  color: black;
+}
+
+.bottom-nav .plus-btn {
+  font-size: 26px;
+  background: #ff4081;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 50%;
+}
