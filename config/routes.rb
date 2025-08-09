@@ -26,4 +26,7 @@ Rails.application.routes.draw do
   # plans
   resources :plans, only: [:index]
 
+  #users
+  resources :users, only: [:show]
+
 end

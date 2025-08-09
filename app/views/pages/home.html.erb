@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center mb-2">
           <%= image_tag "default-avatar.png", class: "rounded-circle me-2", size: "40x40" %>
           <div>
-            <strong><%= rec.user.first_name %></strong><br>
+            <strong><%= link_to(rec.user.username, profile_path, class: "text-decoration-none text-dark") %></strong><br>
             <small class="text-muted"><%= time_ago_in_words(rec.created_at) %> ago</small>
           </div>
         </div>
