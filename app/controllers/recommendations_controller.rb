@@ -1,6 +1,6 @@
 class RecommendationsController < ApplicationController
 
-  before_action :set_restaurant, if: -> { params[:restaurant_id].present? 
+  before_action :set_restaurant, if: -> { params[:restaurant_id].present? }
   skip_after_action :verify_authorized, only: [:new, :create]
   skip_after_action :verify_policy_scoped, only: [:index]
 

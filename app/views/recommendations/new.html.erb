@@ -1,22 +1,43 @@
-<h1>New Recommendation for <%= @restaurant.name %></h1>
+<% if @restaurant.present? %>
+  <h1>New Recommendation for <%= @restaurant.name %></h1>
+  <%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
+    <div>
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
 
-<%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+    <div>
+      <%= form.label :restaurant_tags %>
+      <%= form.text_field :restaurant_tags %>
+    </div>
 
-  <div>
-    <%= form.label :restaurant_tags %>
-    <%= form.text_field :restaurant_tags %>
-  </div>
+    <div>
+      <%= form.submit "Create Recommendation" %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= form.submit "Create Recommendation" %>
-  </div>
-  
+<% else %>
+  <h1>New Recommendation</h1>
+  <%= form_with model: @recommendation, local: true do |form| %>
+    <div>
+      <%= form.label :restaurant_id, "Select a restaurant" %>
+      <%= form.collection_select :restaurant_id, Restaurant.all, :id, :name, prompt: "Choose a restaurant" %>
+    </div>
+
+    <div>
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div>
+      <%= form.label :restaurant_tags %>
+      <%= form.text_field :restaurant_tags %>
+    </div>
+
+    <div>
+      <%= form.submit "Create Recommendation" %>
+    </div>
+  <% end %>
 <% end %>
 
-
 <%= render "shared/bottom_nav" %>
-
