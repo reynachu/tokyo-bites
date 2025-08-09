@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'plans/index'
+  get "map", to: "pages#map"
+  get "profile", to: "users#profile", as: :profile
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -14,6 +17,13 @@ Rails.application.routes.draw do
     resources :recommendations, only: [:index, :new, :create]
   end
 
+  # unnested recommendation resource
+  resources :recommendations, only: [:index, :new, :create]
+
   # Global recommendations index (all restaurants)
   resources :recommendations, only: [:index]
+
+  # plans
+  resources :plans, only: [:index]
+
 end

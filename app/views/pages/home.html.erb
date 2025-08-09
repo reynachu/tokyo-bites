@@ -1,2 +1,28 @@
 <h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container mt-3 mb-5">
+  <% @recommendations.each do |rec| %>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <!-- Post header -->
+        <div class="d-flex align-items-center mb-2">
+          <%= image_tag "default-avatar.png", class: "rounded-circle me-2", size: "40x40" %>
+          <div>
+            <strong><%= rec.user.first_name %></strong><br>
+            <small class="text-muted"><%= time_ago_in_words(rec.created_at) %> ago</small>
+          </div>
+        </div>
+
+        <!-- Post body -->
+        <h5 class="card-title mb-1"><%= rec.restaurant.name %></h5>
+        <p class="card-text"><%= rec.comment %></p>
+        <span class="badge bg-warning text-dark">⭐ <%= rec.rating %>/5</span>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @recommendations.empty? %>
+    <p class="text-center text-muted">No recommendations yet.</p>
+  <% end %>
+</div>
+
+<%= render "shared/bottom_nav" %>

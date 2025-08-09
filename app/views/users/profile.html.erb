@@ -1,0 +1,15 @@
+<h1>My Profile</h1>
+
+<p><strong>Name:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
+<p><strong>Username:</strong> <%= @user.username %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+
+<hr>
+
+<h2>My Recommendations</h2>
+<% @user.recommendations.each do |rec| %>
+  <div>
+    <strong><%= rec.restaurant.name %></strong>
+    <p><%= rec.comment %></p>
+  </div>
+<% end %>
