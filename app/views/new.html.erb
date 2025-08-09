@@ -1,0 +1,34 @@
+<h1>New Recommendation for <%= @restaurant.name %></h1>
+
+<%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
+  <% if @recommendation.errors.any? %>
+  <div class="alert alert-danger">
+    <h2><%= pluralize(@recommendation.errors.count, "error") %> prevented this recommendation from being saved:</h2>
+    <ul>
+      <% @recommendation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="mb-3">
+  <%= form.label :description %>
+  <%= form.text_area :description, class: "form-control", rows: 4 %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :restaurant_tags, "Tags (comma-separated)" %>
+  <%= form.text_area :restaurant_tags, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :photos%>
+  <%= form.text_field :photos, class: "form-control" %>
+  <%= form.file_field :photos, class: "form-control" %>
+</div>
+
+  <%= form.submit "Create Reccomendation", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "Back to Recommendations", restaurant_recommendations_path(@restaurant), class: "btn btn-secondary mt-3" %>
