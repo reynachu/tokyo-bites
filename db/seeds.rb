@@ -32,15 +32,15 @@ end
     password_confirmation: "password"
   )
 
-  2.times do
-    restaurant = restaurants.sample
-    Recommendation.create!(
-      description: "Recommendation by #{user.email} for #{restaurant.name}",
-      restaurant_tags: "tag1, tag2",
-      restaurant: restaurant,
-      user: user
-    )
-  end
+  # 2.times do
+  #   restaurant = restaurants.sample
+  #   Recommendation.create!(
+  #     description: "Recommendation by #{user.email} for #{restaurant.name}",
+  #     restaurant_tags: "tag1, tag2",
+  #     restaurant: restaurant,
+  #     user: user
+  #   )
+  # end
 end
 
 puts "Seeded #{User.count} users, #{Restaurant.count} restaurants, and #{Recommendation.count} recommendations."

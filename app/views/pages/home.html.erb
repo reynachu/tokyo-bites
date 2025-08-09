@@ -5,17 +5,23 @@
       <div class="card-body">
         <!-- Post header -->
         <div class="d-flex align-items-center mb-2">
-          <%= image_tag "default-avatar.png", class: "rounded-circle me-2", size: "40x40" %>
+          <%# Placeholder avatar (no rec.user) %>
+          <%= image_tag "https://i.pravatar.cc/100", class: "rounded-circle me-2", size: "40x40" %>
           <div>
-            <strong><%= link_to(rec.user.username, profile_path, class: "text-decoration-none text-dark") %></strong><br>
-            <small class="text-muted"><%= time_ago_in_words(rec.created_at) %> ago</small>
+            <%# Placeholder username %>
+            <strong><%= link_to("username_placeholder", profile_path, class: "text-decoration-none text-dark") %></strong><br>
+            <%# Placeholder time %>
+            <small class="text-muted">5 minutes ago</small>
           </div>
         </div>
 
         <!-- Post body -->
-        <h5 class="card-title mb-1"><%= rec.restaurant.name %></h5>
-        <p class="card-text"><%= rec.comment %></p>
-        <span class="badge bg-warning text-dark">⭐ <%= rec.rating %>/5</span>
+        <%# Placeholder restaurant name %>
+        <h5 class="card-title mb-1">Restaurant Placeholder</h5>
+        <%# Placeholder comment %>
+        <p class="card-text">This is a sample recommendation comment.</p>
+        <%# Placeholder rating %>
+        <span class="badge bg-warning text-dark">⭐ 4/5</span>
       </div>
     </div>
   <% end %>
