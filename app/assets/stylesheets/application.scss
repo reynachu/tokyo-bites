@@ -10,3 +10,22 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+// profile modal styling below - miz
+#modal {
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  overflow: auto;
+  z-index: 9999;
+  padding: 20px;
+}
+
+#modal:empty {
+  display: none;
+}
