@@ -1,4 +1,22 @@
-<h1>New Recommendation</h1>
+<h1>New Recommendation for <%= @restaurant.name %></h1>
 
-<%# TODO: Replace this placeholder text with actual recommendation data %>
+<%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :restaurant_tags %>
+    <%= form.text_field :restaurant_tags %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Recommendation" %>
+  </div>
+  
+<% end %>
+
+
 <%= render "shared/bottom_nav" %>
+

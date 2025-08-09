@@ -1,2 +1,14 @@
-<h1>Recommendations#index</h1>
-<p>Find me in app/views/recommendations/index.html.erb</p>
+<h1> Recommendations for <%= @restaurant.name %></h1>
+
+<%= link_to "Add New Recommendation", new_restaurant_recommendation_path(@restaurant), class: "btn btn-primary mb-3" %>
+
+<ul>
+  <% @recommendations.each do |recommendation| %>
+  <li>
+    <strong>Description:</strong> <%= recommendation.description %><br>
+    <strong>Tags:</strong> <%= recommendation.restaurant_tags %>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to Restaurant", restaurant_path(@restaurant), class: "btn btn-secondary mt-3" %> 
