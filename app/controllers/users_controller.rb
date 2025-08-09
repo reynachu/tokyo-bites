@@ -8,5 +8,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    if turbo_frame_request?
+      render partial: "user_profile", locals: { user: @user }, layout: false
+    else
+      render :show
+    end
   end
 end

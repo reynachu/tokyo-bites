@@ -16,6 +16,12 @@ class PagesController < ApplicationController
   def home
   # For now, just show all recommendations until friends feature is ready
     @recommendations = Recommendation.order(created_at: :desc).limit(20)
+
+    if turbo_frame_request?
+      render partial: "pages/recommendations_feed", locals: { recommendations: @recommendations }, layout: false
+    else
+      render :home
+    end
   end
 
   def map

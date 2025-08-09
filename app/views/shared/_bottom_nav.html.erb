@@ -1,9 +1,13 @@
 <nav class="navbar navbar-light bg-light fixed-bottom border-top">
   <div class="container-fluid justify-content-around">
-    <%= link_to root_path, class: "text-dark fs-4" do %>🏠<% end %>
-    <%= link_to map_path, class: "text-dark fs-4" do %>🗺<% end %>
-    <%= link_to new_recommendation_path, class: "btn btn-primary rounded-circle fs-4 px-3" do %>➕<% end %>
-    <%= link_to plans_path, class: "text-dark fs-4" do %>📅<% end %>
-    <%= link_to profile_path, class: "text-dark fs-4" do %>👤<% end %>
+    <%= link_to root_path, data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>🏠<% end %>
+    <%= link_to map_path, data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>🗺<% end %>
+    <%= link_to new_recommendation_path, data: { turbo_frame: "main_content" }, class: "btn btn-primary rounded-circle fs-4 px-3" do %>➕<% end %>
+    <%= link_to plans_path, data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>📅<% end %>
+    <% if current_user %>
+      <%= link_to user_path(current_user), data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>👤<% end %>
+    <% else %>
+      <%= link_to new_user_session_path, class: "text-dark fs-4" do %>👤<% end %>
+    <% end %>
   </div>
 </nav>
