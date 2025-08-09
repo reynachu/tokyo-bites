@@ -4,8 +4,8 @@ class Restaurant < ApplicationRecord
 
   # === Associations ===
   has_many :recommendations, dependent: :destroy
-  has_many :plans, dependent: :destroy
-  has_many :bookmarks, dependent: :destroy
+  #has_many :plans, dependent: :destroy
+  #has_many :bookmarks, dependent: :destroy
 
   has_many :wishlists, through: :bookmarks
 
