@@ -7,6 +7,18 @@
     <% else %>
       <%= image_tag "default_avatar.png", size: "150x150", alt: user.username, class: "rounded-circle" %>
     <% end %>
+    <h2>Recommendations</h2>
+    <% if user.recommendations.any? %>
+      <ul>
+        <% user.recommendations.each do |recommendation| %>
+          <li><%= recommendation.user_id %></li>
+          <li><%= recommendation.restaurant_id %></li>
+          <li><%= recommendation.content %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No recommendations yet.</p>
+    <% end %>
 
     <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary mt-3" %>
   </div>
