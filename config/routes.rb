@@ -29,4 +29,8 @@ Rails.application.routes.draw do
   #users
   resources :users, only: [:show]
 
+  resources :users, only: [:show] do
+    post 'follow', to: 'socializations#follow'
+    delete 'unfollow', to: 'socailizations#unfollow'
+  end
 end
