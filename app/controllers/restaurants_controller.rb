@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: :show
+  skip_after_action :verify_authorized, only: [:show]
 
   def index
     @restaurants = Restaurant.all
