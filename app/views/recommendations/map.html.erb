@@ -1,13 +1,3 @@
-<h1>Restaurants</h1>
-
-<ul>
-  <% @restaurants.each do |restaurant| %>
-    <li>
-      <%= link_to restaurant.name, restaurant_path(restaurant) %>
-    </li>
-  <% end %>
-</ul>
-
 <div style="width: 100%; height: 600px;"
   data-controller="map"
   data-map-markers-value="<%= @markers.to_json %>"
