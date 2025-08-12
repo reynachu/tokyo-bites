@@ -3,18 +3,20 @@ class SocializationsController < ApplicationController
   before_action :load_socializable
 
   def follow
-    current_user.follow!(@socializable)
-    redirect_to @socializable
+    authorize @user, :follow?
+    current_user.follow!(@user)
+    redirect_to @user
   end
 
   def unfollow
-    current_user.unfollow!(@socializable)
-    redirect_to @socializable
+    authorize @user, :unfollow?
+    current_user.unfollow!(@user)
+    redirect_to @user
   end
 
   private
 
   def load_socializable
-    @socializable = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
   end
 end
