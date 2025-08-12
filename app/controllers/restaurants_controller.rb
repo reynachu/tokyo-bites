@@ -37,6 +37,10 @@ class RestaurantsController < ApplicationController
         lng: restaurant.longitude
       }
     end
+    # @recommendations = @restaurant.recommendations
+    # added a more efficient way to get both recommendations and associated users in one go?
+    @recommendations = @restaurant.recommendations.includes(:user).order(created_at: :desc)
+    authorize @restaurant
   end
 
   def set_restaurant
