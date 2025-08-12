@@ -1,25 +1,35 @@
 <turbo-frame id="main_content">
-  <div class="profile-page">
-    <div>Profile works for <%= user.username %></div>
-    <h2><%= user.username %></h2>
-    <% if user.profile_picture.attached? %>
-      <%= image_tag user.profile_picture.variant(resize_to_limit: [150, 150]), alt: user.username, class: "rounded-circle" %>
-    <% else %>
-      <%= image_tag "default_avatar.png", size: "150x150", alt: user.username, class: "rounded-circle" %>
-    <% end %>
-    <h2>Recommendations</h2>
-    <% if user.recommendations.any? %>
-      <ul>
-        <% user.recommendations.each do |recommendation| %>
-          <li><%= recommendation.user_id %></li>
-          <li><%= recommendation.restaurant_id %></li>
-          <li><%= recommendation.content %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>No recommendations yet.</p>
-    <% end %>
+  <div class="profile-page container pt-4 pb-2">
 
-    <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary mt-3" %>
+    <div class="text-center mb-4">
+      <% if user.profile_picture.attached? %>
+        <%= image_tag user.profile_picture.variant(resize_to_limit: [150, 150]), alt: user.username, class: "rounded-circle mb-3 shadow-sm" %>
+      <% else %>
+        <%= image_tag "default_avatar.png", size: "150x150", alt: user.username, class: "rounded-circle mb-3 shadow-sm" %>
+      <% end %>
+      <h1 class="h3"><%= user.username %></h1>
+    </div>
+
+    <section class="recommendations">
+      <h2 class="h4 mb-3">Recommendations</h2>
+      <% if user.recommendations.any? %>
+        <ul class="list-group">
+          <% user.recommendations.each do |recommendation| %>
+            <li class="list-group-item mb-2">
+              <strong>From User ID:</strong> <%= recommendation.user_id %><br>
+              <strong>Restaurant ID:</strong> <%= recommendation.restaurant_id %><br>
+              <p class="mb-0"><%= recommendation.content %></p>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">No recommendations yet.</p>
+      <% end %>
+    </section>
+
+    <div class="py-5 mt-5 text-center">
+      <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary" %>
+    </div>
+
   </div>
 </turbo-frame>
