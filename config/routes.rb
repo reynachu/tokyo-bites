@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:index, :show] do
     resources :recommendations, only: [:index, :new, :create]
+     collection do
+      get :map
+    end
   end
 
   # unnested recommendation resource

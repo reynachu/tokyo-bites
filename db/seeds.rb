@@ -45,15 +45,34 @@ end
 
 puts "Seeded #{User.count} users, #{Restaurant.count} restaurants, and #{Recommendation.count} recommendations."
 
-require 'csv'
+# require 'csv'
 
-csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
+# csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
 
-CSV.foreach(csv_path, headers: true) do |row|
-  Restaurant.create!(
-    name: row['name']&.strip,
-    address: row['address']&.strip,
-    opening_hours: row['holiday']&.strip, # Consider renaming later
-    category: row['genre']&.strip
-  )
+# CSV.foreach(csv_path, headers: true) do |row|
+#   Restaurant.create!(
+#     name: row['name']&.strip,
+#     address: row['address']&.strip,
+#     opening_hours: row['holiday']&.strip, # Consider renaming later
+#     category: row['genre']&.strip
+#   )
+# end
+
+
+# map
+puts "Geocoding restaurants..."
+
+Restaurant.find_each do |restaurant|
+  if restaurant.latitude.blank? || restaurant.longitude.blank?
+    if restaurant.address.present?
+      restaurant.geocode
+      restaurant.save(validates: false) # skip validations if needed
+      puts "Geocode #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
+    else
+      puts "No address for #{restaurant.name}, skipping..."
+    end
+      puts "Coordinates already set for #{restaurant.name}, skipping..."
+  end
 end
+
+puts "Done geocoding!"

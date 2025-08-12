@@ -11,6 +11,8 @@
 @import "components/index";
 @import "pages/index";
 
+@import url("https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css");
+
 // profile modal styling below - miz
 #modal {
   position: fixed;
@@ -38,3 +40,4 @@ body {
   width: 100%;
   max-width: 600px;
 }
+
