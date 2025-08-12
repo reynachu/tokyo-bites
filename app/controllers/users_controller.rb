@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @recommendations = @user.recommendations.includes(:restaurant).order(created_at: :desc)
 
     if turbo_frame_request?
       render partial: "user_profile", locals: { user: @user }, layout: false

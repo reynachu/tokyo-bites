@@ -1,4 +1,17 @@
+<div class="d-flex justify-content-center mt-3 mb-5">
+  <div class="feed-column">
+    <% recommendations.each do |recommendation| %>
+      <%= render "recommendations/recommendation_card", recommendation: recommendation %>
+    <% end %>
 
+    <% if recommendations.empty? %>
+      <p class="text-center text-muted">No recommendations yet.</p>
+    <% end %>
+  </div>
+</div>
+
+
+<!--
 <div class="container mt-3 mb-5">
   <% recommendations.each do |rec| %>
     <div class="card mb-3 shadow-sm">
@@ -23,3 +36,4 @@
   <p><%= link_to "#{User.last.username}'s Profile", user_path(User.last) %></p>
   <p><%= link_to "#{User.first.username}'s Profile", user_path(User.first) %></p>
 </div>
+-->

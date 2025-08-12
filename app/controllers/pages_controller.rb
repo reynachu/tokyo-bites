@@ -14,11 +14,16 @@ class PagesController < ApplicationController
   # end
 
   def home
-  # For now, just show all recommendations until friends feature is ready
-    @recommendations = Recommendation.order(created_at: :desc).limit(20)
+    # For now, just show all recommendations until friends feature is ready
+    @recommendations = Recommendation
+      .includes(:user, :restaurant) # avoids N+1 queries
+      .order(created_at: :desc)
+      .limit(20)
 
     if turbo_frame_request?
-      render partial: "pages/recommendations_feed", locals: { recommendations: @recommendations }, layout: false
+      render partial: "pages/recommendations_feed",
+            locals: { recommendations: @recommendations },
+            layout: false
     else
       render :home
     end
