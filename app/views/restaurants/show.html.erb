@@ -1,14 +1,70 @@
-<h1>Restaurants#show</h1>
-<h1><%= @restaurant.name %></h1>
-<p><%= @restaurant.address %></p>
+<%# <h1>Restaurants#show</h1> %>
+<%# <h1><%= @restaurant.name %></h1>
+<%# <p><%= @restaurant.address %></p>
 
-<h2>Recommendations</h2>
-<% if @recommendations.any? %>
-  <ul>
-    <% @recommendations.each do |recommendation| %>
-      <li><%= recommendation.content %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No recommendations yet.</p>
-<% end %>
+<%# <h2>Recommendations</h2> %>
+<%# if @recommendations.any? %>
+  <%# <ul> %>
+    <%# @recommendations.each do |recommendation| %>
+      <%# <li><%= recommendation.content %></li>
+    <%# end %>
+  <%# </ul> %>
+<%# else %>
+  <%# <p>No recommendations yet.</p> %>
+<%# end %>
+
+<div class="container my-5">
+  <!-- Restaurant Image -->
+  <div class="row mb-4">
+    <div class="col text-center">
+      <% if @restaurant.photos.attached? %>
+        <%= image_tag @restaurant.photo,
+              class: "img-fluid rounded shadow-sm",
+              style: "max-height: 400px; object-fit: cover;" %>
+      <% else %>
+        <%= image_tag "default_avatar.png",
+              class: "img-fluid rounded shadow-sm",
+              style: "max-height: 400px; object-fit: cover;" %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Restaurant Header -->
+  <div class="row mb-4">
+    <div class="col text-center">
+      <h1 class="fw-bold"><%= @restaurant.name %></h1>
+      <p class="text-muted fs-5">
+        <i class="bi bi-geo-alt-fill me-1"></i> <%= @restaurant.address %>
+      </p>
+    </div>
+  </div>
+
+  <!-- Recommendations Section -->
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h3 class="mb-3 text-center">🍽 Recommendations</h3>
+
+      <% if @recommendations.any? %>
+        <div class="list-group shadow-sm rounded">
+          <% @recommendations.each do |recommendation| %>
+            <div class="list-group-item list-group-item-action">
+              <p class="mb-1"><%= recommendation.content %></p>
+              <small class="text-muted">
+                — Recommended by <%= recommendation.user.name if recommendation.user %>
+              </small>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-center text-muted fst-italic">No recommendations yet.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Back button -->
+  <div class="row mt-5">
+    <div class="col text-center">
+      <%= link_to "← Back to Restaurants", restaurants_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+</div>
