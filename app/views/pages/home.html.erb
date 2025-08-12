@@ -1,3 +1,7 @@
 <turbo-frame id="main_content">
-  <%= render "pages/recommendations_feed", recommendations: @recommendations %>
+  <div class="d-flex justify-content-center mt-3 mb-5">
+    <div class="feed-column">
+      <%= render "pages/recommendations_feed", recommendations: @recommendations %>
+    </div>
+  </div>
 </turbo-frame>
