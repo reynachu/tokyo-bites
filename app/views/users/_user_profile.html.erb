@@ -13,7 +13,7 @@
         <% user.recommendations.each do |recommendation| %>
           <li><%= recommendation.user_id %></li>
           <li><%= recommendation.restaurant_id %></li>
-          <li><%= recommendation.content %></li>
+          <li><%= recommendation.description %></li>
         <% end %>
       </ul>
     <% else %>
