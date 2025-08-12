@@ -1,3 +1,14 @@
 <h1>Restaurants#show</h1>
 <h1><%= @restaurant.name %></h1>
 <p><%= @restaurant.address %></p>
+
+<h2>Recommendations</h2>
+<% if @recommendations.any? %>
+  <ul>
+    <% @recommendations.each do |recommendation| %>
+      <li><%= recommendation.content %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No recommendations yet.</p>
+<% end %>

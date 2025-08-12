@@ -1,0 +1,25 @@
+
+<div class="container mt-3 mb-5">
+  <% recommendations.each do |rec| %>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-2">
+          <%= image_tag "https://i.pravatar.cc/100", class: "rounded-circle me-2", size: "40x40" %>
+          <div>
+            <strong><%= link_to("username_placeholder", profile_path, class: "text-decoration-none text-dark") %></strong><br>
+            <small class="text-muted">5 minutes ago</small>
+          </div>
+        </div>
+        <h5 class="card-title mb-1">Restaurant Placeholder</h5>
+        <p class="card-text">This is a sample recommendation comment.</p>
+        <span class="badge bg-warning text-dark">⭐ 4/5</span>
+      </div>
+    </div>
+  <% end %>
+
+  <% if recommendations.empty? %>
+    <p class="text-center text-muted">No recommendations yet.</p>
+  <% end %>
+  <p><%= link_to "#{User.last.username}'s Profile", user_path(User.last) %></p>
+  <p><%= link_to "#{User.first.username}'s Profile", user_path(User.first) %></p>
+</div>
