@@ -2,27 +2,19 @@
   <div class="card-body">
     <!-- Header -->
     <div class="d-flex align-items-center mb-2">
-      <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+      <% if recommendation.user.profile_picture.attached? %>
+        <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "40x40" %>
+      <% else %>
+        <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+      <% end %>
       <div>
         <strong><%= link_to recommendation.user.username, user_path(recommendation.user), class: "text-decoration-none text-dark" %></strong><br>
         <small class="text-muted"><%= time_ago_in_words(recommendation.created_at) %> ago</small>
+        <h5 class="card-title mb-1"><%= recommendation.restaurant.name %></h5>
       </div>
     </div>
 
-    <!-- Body -->
-    <h5 class="card-title mb-1"><%= recommendation.restaurant.name %></h5>
-    <p class="card-text"><%= recommendation.description %></p>
-
-    <% if recommendation.restaurant_tags.present? %>
-      <div class="mt-1">
-        <% recommendation.restaurant_tags.split(',').each do |tag| %>
-          <span class="badge bg-secondary"><%= tag.strip %></span>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <% if recommendation.photos.attached? %>
+      <% if recommendation.photos.attached? %>
     <% carousel_id = "rec-#{recommendation.id}-carousel" %>
     <div id="<%= carousel_id %>" class="carousel slide"
          data-bs-ride="false" data-bs-interval="false"
@@ -63,4 +55,18 @@
       <% end %>
     </div>
   <% end %>
+
+    <!-- Body -->
+    <p class="card-text"><%= recommendation.description %></p>
+
+    <% if recommendation.restaurant_tags.present? %>
+      <div class="mt-1">
+        <% recommendation.restaurant_tags.split(',').each do |tag| %>
+          <span class="badge bg-secondary"><%= tag.strip %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+
 </div>

@@ -20,6 +20,7 @@
 #     root: <%= Rails.root.join("storage") %>
 
 # db/seeds.rb
+require "open-uri"
 
 User.destroy_all
 Restaurant.destroy_all
@@ -72,6 +73,13 @@ end
     email: "user#{i + 1}@example.com",
     password: "password",
     password_confirmation: "password"
+  )
+
+  # Attach profile picture from pravatar
+  user.profile_picture.attach(
+    io: URI.open("https://i.pravatar.cc/100?u=#{user.id}"),
+    filename: "avatar-#{user.id}.jpg",
+    content_type: "image/jpeg"
   )
 
   2.times do

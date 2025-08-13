@@ -3,9 +3,13 @@
     <div>Profile works for <%= user.username %></div>
     <h2><%= user.username %></h2>
     <% if user.profile_picture.attached? %>
-      <%= image_tag user.profile_picture.variant(resize_to_limit: [150, 150]), alt: user.username, class: "rounded-circle" %>
+      <%= image_tag user.profile_picture,
+            alt: user.username,
+            class: "rounded-circle avatar-150" %>
     <% else %>
-      <%= image_tag "default_avatar.png", size: "150x150", alt: user.username, class: "rounded-circle" %>
+      <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}",
+            alt: user.username,
+            class: "rounded-circle avatar-150" %>
     <% end %>
     <h2>Recommendations</h2>
     <% if user.recommendations.any? %>
