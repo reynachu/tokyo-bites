@@ -8,9 +8,51 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# db/seeds.rb
+# Uses local Active Storage (Disk) and attaches 3 images to every Recommendation.
+
+# Make sure in config/environments/development.rb:
+#   config.active_storage.service = :local
+#
+# And in config/storage.yml you have:
+#   local:
+#     service: Disk
+#     root: <%= Rails.root.join("storage") %>
+
+# db/seeds.rb
+
 User.destroy_all
 Restaurant.destroy_all
 Recommendation.destroy_all
+
+# Verify image files exist
+images_dir = Rails.root.join("app/assets/images")
+%w[sushi.jpg mochi.jpg restaurant.jpg].each do |fname|
+  path = images_dir.join(fname)
+  raise "Missing image file: #{path}" unless File.exist?(path)
+end
+
+# Upload each image once to reuse
+blobs = {
+  sushi:      ActiveStorage::Blob.create_and_upload!(
+                io: File.open(images_dir.join("sushi.jpg")),
+                filename: "sushi.jpg",
+                content_type: "image/jpeg",
+                identify: false
+              ),
+  mochi:      ActiveStorage::Blob.create_and_upload!(
+                io: File.open(images_dir.join("mochi.jpg")),
+                filename: "mochi.jpg",
+                content_type: "image/jpeg",
+                identify: false
+              ),
+  restaurant: ActiveStorage::Blob.create_and_upload!(
+                io: File.open(images_dir.join("restaurant.jpg")),
+                filename: "restaurant.jpg",
+                content_type: "image/jpeg",
+                identify: false
+              )
+}
 
 restaurants = []
 5.times do |i|
@@ -34,26 +76,17 @@ end
 
   2.times do
     restaurant = restaurants.sample
-    Recommendation.create!(
+    rec = Recommendation.create!(
       description: "Recommendation by #{user.email} for #{restaurant.name}",
       restaurant_tags: "tag1, tag2",
       restaurant: restaurant,
       user: user
     )
+
+    # Attach the 3 local images
+    rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
   end
 end
 
-puts "Seeded #{User.count} users, #{Restaurant.count} restaurants, and #{Recommendation.count} recommendations."
-
-require 'csv'
-
-csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
-
-CSV.foreach(csv_path, headers: true) do |row|
-  Restaurant.create!(
-    name: row['name']&.strip,
-    address: row['address']&.strip,
-    opening_hours: row['holiday']&.strip, # Consider renaming later
-    category: row['genre']&.strip
-  )
-end
+photos_each = Recommendation.first&.photos&.count || 0
+puts "Seeded #{User.count} users, #{Restaurant.count} restaurants, and #{Recommendation.count} recommendations (#{photos_each} photos each)."
