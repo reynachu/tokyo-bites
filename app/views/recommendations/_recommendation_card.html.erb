@@ -17,7 +17,7 @@
       </div>
     </div>
 
-      <% if recommendation.photos.attached? %>
+  <% if recommendation.photos.attached? %>
     <% carousel_id = "rec-#{recommendation.id}-carousel" %>
     <div id="<%= carousel_id %>" class="carousel slide"
          data-bs-ride="false" data-bs-interval="false"
