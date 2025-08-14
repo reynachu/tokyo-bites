@@ -55,6 +55,7 @@ gem "sassc-rails"
 
 gem "devise"
 gem "cloudinary"
+gem "activestorage-cloudinary-service"
 gem "pundit"
 gem "socialization"
 
