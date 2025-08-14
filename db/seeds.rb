@@ -22,49 +22,51 @@
 # db/seeds.rb
 require "open-uri"
 
-User.destroy_all
-Restaurant.destroy_all
+# --- wipe (simple & explicit) ---
 Recommendation.destroy_all
+Restaurant.destroy_all
+User.destroy_all
 
-# Verify image files exist
+# --- sanity: local source images must exist (we'll upload them to the current service) ---
 images_dir = Rails.root.join("app/assets/images")
 %w[sushi.jpg mochi.jpg restaurant.jpg].each do |fname|
   path = images_dir.join(fname)
   raise "Missing image file: #{path}" unless File.exist?(path)
 end
 
-# Upload each image once to reuse
+# --- upload each image ONCE; reuse the blobs for every recommendation ---
 blobs = {
-  sushi:      ActiveStorage::Blob.create_and_upload!(
-                io: File.open(images_dir.join("sushi.jpg")),
-                filename: "sushi.jpg",
-                content_type: "image/jpeg",
-                identify: false
-              ),
-  mochi:      ActiveStorage::Blob.create_and_upload!(
-                io: File.open(images_dir.join("mochi.jpg")),
-                filename: "mochi.jpg",
-                content_type: "image/jpeg",
-                identify: false
-              ),
+  sushi: ActiveStorage::Blob.create_and_upload!(
+    io: File.open(images_dir.join("sushi.jpg")),
+    filename: "sushi.jpg",
+    content_type: "image/jpeg",
+    identify: false
+  ),
+  mochi: ActiveStorage::Blob.create_and_upload!(
+    io: File.open(images_dir.join("mochi.jpg")),
+    filename: "mochi.jpg",
+    content_type: "image/jpeg",
+    identify: false
+  ),
   restaurant: ActiveStorage::Blob.create_and_upload!(
-                io: File.open(images_dir.join("restaurant.jpg")),
-                filename: "restaurant.jpg",
-                content_type: "image/jpeg",
-                identify: false
-              )
+    io: File.open(images_dir.join("restaurant.jpg")),
+    filename: "restaurant.jpg",
+    content_type: "image/jpeg",
+    identify: false
+  )
 }
 
-restaurants = []
-5.times do |i|
-  restaurants << Restaurant.create!(
+# --- restaurants ---
+restaurants = 5.times.map do |i|
+  Restaurant.create!(
     name: "Restaurant #{i + 1}",
     description: "Description for restaurant #{i + 1}",
     address: "123 Main St, City #{i + 1}",
-    category: ["Italian", "Japanese", "Mexican", "French", "Chinese"].sample
+    category: %w[Italian Japanese Mexican French Chinese].sample
   )
 end
 
+# --- users + recommendations ---
 10.times do |i|
   user = User.create!(
     first_name: "First#{i + 1}",
@@ -75,9 +77,9 @@ end
     password_confirmation: "password"
   )
 
-  # Attach profile picture from pravatar
+  # avatar -> pravatar (uploads to the current Active Storage service; Cloudinary if enabled)
   user.profile_picture.attach(
-    io: URI.open("https://i.pravatar.cc/100?u=#{user.id}"),
+    io: URI.open("https://i.pravatar.cc/150?u=#{user.id}"),
     filename: "avatar-#{user.id}.jpg",
     content_type: "image/jpeg"
   )
@@ -91,10 +93,9 @@ end
       user: user
     )
 
-    # Attach the 3 local images
     rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
   end
 end
 
 photos_each = Recommendation.first&.photos&.count || 0
-puts "Seeded #{User.count} users, #{Restaurant.count} restaurants, and #{Recommendation.count} recommendations (#{photos_each} photos each)."
+puts "✅ Seeded #{User.count} users, #{Restaurant.count} restaurants, #{Recommendation.count} recommendations (#{photos_each} photos/rec)."

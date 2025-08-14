@@ -10,7 +10,10 @@
       <div>
         <strong><%= link_to recommendation.user.username, user_path(recommendation.user), class: "text-decoration-none text-dark" %></strong><br>
         <small class="text-muted"><%= time_ago_in_words(recommendation.created_at) %> ago</small>
-        <h5 class="card-title mb-1"><%= recommendation.restaurant.name %></h5>
+        <h5 class="card-title mb-1">
+          <%= link_to recommendation.restaurant.name, restaurant_path(recommendation.restaurant), class: "text-decoration-none text-dark" %>
+        </h5>
+
       </div>
     </div>
 
