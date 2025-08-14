@@ -22,18 +22,21 @@
 # db/seeds.rb
 
 # --- wipe (simple & explicit) ---
+# db/seeds.rb
+require "open-uri"
+
 Recommendation.destroy_all
 Restaurant.destroy_all
 User.destroy_all
 
-# --- sanity: local source images must exist (we'll upload them to the current service) ---
+# local source images we’ll upload to the current Active Storage service
 images_dir = Rails.root.join("app/assets/images")
 %w[sushi.jpg mochi.jpg restaurant.jpg].each do |fname|
   path = images_dir.join(fname)
   raise "Missing image file: #{path}" unless File.exist?(path)
 end
 
-# --- upload each image ONCE; reuse the blobs for every recommendation ---
+# upload once, reuse blobs
 blobs = {
   sushi: ActiveStorage::Blob.create_and_upload!(
     io: File.open(images_dir.join("sushi.jpg")),
@@ -55,7 +58,6 @@ blobs = {
   )
 }
 
-# --- restaurants ---
 restaurants = 5.times.map do |i|
   Restaurant.create!(
     name: "Restaurant #{i + 1}",
@@ -65,7 +67,6 @@ restaurants = 5.times.map do |i|
   )
 end
 
-# --- users + recommendations ---
 10.times do |i|
   user = User.create!(
     first_name: "First#{i + 1}",
@@ -76,7 +77,7 @@ end
     password_confirmation: "password"
   )
 
-  # avatar -> pravatar (uploads to the current Active Storage service; Cloudinary if enabled)
+  # avatar -> pravatar (goes to Cloudinary if that service is active)
   user.profile_picture.attach(
     io: URI.open("https://i.pravatar.cc/150?u=#{user.id}"),
     filename: "avatar-#{user.id}.jpg",
@@ -99,20 +100,18 @@ end
 photos_each = Recommendation.first&.photos&.count || 0
 puts "✅ Seeded #{User.count} users, #{Restaurant.count} restaurants, #{Recommendation.count} recommendations (#{photos_each} photos/rec)."
 
-# map
 puts "Geocoding restaurants..."
-
 Restaurant.find_each do |restaurant|
   if restaurant.latitude.blank? || restaurant.longitude.blank?
     if restaurant.address.present?
       restaurant.geocode
-      restaurant.save(validates: false) # skip validations if needed
-      puts "Geocode #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
+      restaurant.save(validate: false)
+      puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
     else
       puts "No address for #{restaurant.name}, skipping..."
     end
-      puts "Coordinates already set for #{restaurant.name}, skipping..."
+  else
+    puts "Coordinates already set for #{restaurant.name}, skipping..."
   end
 end
-
 puts "Done geocoding!"
