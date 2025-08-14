@@ -20,7 +20,6 @@
 #     root: <%= Rails.root.join("storage") %>
 
 # db/seeds.rb
-require "open-uri"
 
 # --- wipe (simple & explicit) ---
 Recommendation.destroy_all
