@@ -1,18 +1,65 @@
 <div class="card mb-3 shadow-sm">
   <div class="card-body">
-    <!-- Post header -->
+    <!-- Header -->
     <div class="d-flex align-items-center mb-2">
-      <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+      <% if recommendation.user.profile_picture.attached? %>
+        <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "40x40" %>
+      <% else %>
+        <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+      <% end %>
       <div>
-        <strong>
-          <%= link_to recommendation.user.username, user_path(recommendation.user), class: "text-decoration-none text-dark" %>
-        </strong><br>
+        <strong><%= link_to recommendation.user.username, user_path(recommendation.user), class: "text-decoration-none text-dark" %></strong><br>
         <small class="text-muted"><%= time_ago_in_words(recommendation.created_at) %> ago</small>
+        <h5 class="card-title mb-1">
+          <%= link_to recommendation.restaurant.name, restaurant_path(recommendation.restaurant), class: "text-decoration-none text-dark" %>
+        </h5>
+
       </div>
     </div>
 
-    <!-- Post body -->
-    <h5 class="card-title mb-1"><%= recommendation.restaurant.name %></h5>
+      <% if recommendation.photos.attached? %>
+    <% carousel_id = "rec-#{recommendation.id}-carousel" %>
+    <div id="<%= carousel_id %>" class="carousel slide"
+         data-bs-ride="false" data-bs-interval="false"
+         data-bs-touch="true" data-bs-keyboard="true">
+
+      <% if recommendation.photos.size > 1 %>
+        <div class="carousel-indicators">
+          <% recommendation.photos.each_with_index do |_, idx| %>
+            <button type="button"
+                    data-bs-target="#<%= carousel_id %>"
+                    data-bs-slide-to="<%= idx %>"
+                    class="<%= 'active' if idx.zero? %>"
+                    aria-current="<%= idx.zero? %>"
+                    aria-label="Slide <%= idx + 1 %>"></button>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="carousel-inner">
+        <% recommendation.photos.each_with_index do |photo, idx| %>
+          <div class="carousel-item <%= 'active' if idx.zero? %>">
+            <div class="ratio ratio-1x1">
+              <%= image_tag photo, class: "w-100 h-100", style: "object-fit: cover;" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if recommendation.photos.size > 1 %>
+        <button class="carousel-control-prev" type="button">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+
+    <!-- Body -->
     <p class="card-text"><%= recommendation.description %></p>
 
     <% if recommendation.restaurant_tags.present? %>
@@ -23,4 +70,6 @@
       </div>
     <% end %>
   </div>
+
+
 </div>

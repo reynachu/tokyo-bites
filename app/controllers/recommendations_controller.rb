@@ -61,6 +61,6 @@ class RecommendationsController < ApplicationController
   end
 
   def recommendation_params
-    params.require(:recommendation).permit(:description, :restaurant_tags, :restaurant_id)
+    params.require(:recommendation).permit(:description, :restaurant_tags, :restaurant_id, photos: [])
   end
 end

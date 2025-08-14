@@ -8,20 +8,65 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.destroy_all
-Restaurant.destroy_all
-Recommendation.destroy_all
+# db/seeds.rb
+# Uses local Active Storage (Disk) and attaches 3 images to every Recommendation.
 
-restaurants = []
-5.times do |i|
-  restaurants << Restaurant.create!(
+# Make sure in config/environments/development.rb:
+#   config.active_storage.service = :local
+#
+# And in config/storage.yml you have:
+#   local:
+#     service: Disk
+#     root: <%= Rails.root.join("storage") %>
+
+# db/seeds.rb
+require "open-uri"
+
+# --- wipe (simple & explicit) ---
+Recommendation.destroy_all
+Restaurant.destroy_all
+User.destroy_all
+
+# --- sanity: local source images must exist (we'll upload them to the current service) ---
+images_dir = Rails.root.join("app/assets/images")
+%w[sushi.jpg mochi.jpg restaurant.jpg].each do |fname|
+  path = images_dir.join(fname)
+  raise "Missing image file: #{path}" unless File.exist?(path)
+end
+
+# --- upload each image ONCE; reuse the blobs for every recommendation ---
+blobs = {
+  sushi: ActiveStorage::Blob.create_and_upload!(
+    io: File.open(images_dir.join("sushi.jpg")),
+    filename: "sushi.jpg",
+    content_type: "image/jpeg",
+    identify: false
+  ),
+  mochi: ActiveStorage::Blob.create_and_upload!(
+    io: File.open(images_dir.join("mochi.jpg")),
+    filename: "mochi.jpg",
+    content_type: "image/jpeg",
+    identify: false
+  ),
+  restaurant: ActiveStorage::Blob.create_and_upload!(
+    io: File.open(images_dir.join("restaurant.jpg")),
+    filename: "restaurant.jpg",
+    content_type: "image/jpeg",
+    identify: false
+  )
+}
+
+# --- restaurants ---
+restaurants = 5.times.map do |i|
+  Restaurant.create!(
     name: "Restaurant #{i + 1}",
     description: "Description for restaurant #{i + 1}",
     address: "123 Main St, City #{i + 1}",
-    category: ["Italian", "Japanese", "Mexican", "French", "Chinese"].sample
+    category: %w[Italian Japanese Mexican French Chinese].sample
   )
 end
 
+# --- users + recommendations ---
 10.times do |i|
   user = User.create!(
     first_name: "First#{i + 1}",
@@ -32,32 +77,28 @@ end
     password_confirmation: "password"
   )
 
+  # avatar -> pravatar (uploads to the current Active Storage service; Cloudinary if enabled)
+  user.profile_picture.attach(
+    io: URI.open("https://i.pravatar.cc/150?u=#{user.id}"),
+    filename: "avatar-#{user.id}.jpg",
+    content_type: "image/jpeg"
+  )
+
   2.times do
     restaurant = restaurants.sample
-    Recommendation.create!(
+    rec = Recommendation.create!(
       description: "Recommendation by #{user.email} for #{restaurant.name}",
       restaurant_tags: "tag1, tag2",
       restaurant: restaurant,
       user: user
     )
+
+    rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
   end
 end
 
-puts "Seeded #{User.count} users, #{Restaurant.count} restaurants, and #{Recommendation.count} recommendations."
-
-# require 'csv'
-
-# csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
-
-# CSV.foreach(csv_path, headers: true) do |row|
-#   Restaurant.create!(
-#     name: row['name']&.strip,
-#     address: row['address']&.strip,
-#     opening_hours: row['holiday']&.strip, # Consider renaming later
-#     category: row['genre']&.strip
-#   )
-# end
-
+photos_each = Recommendation.first&.photos&.count || 0
+puts "✅ Seeded #{User.count} users, #{Restaurant.count} restaurants, #{Recommendation.count} recommendations (#{photos_each} photos/rec)."
 
 # map
 puts "Geocoding restaurants..."

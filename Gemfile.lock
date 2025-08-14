@@ -73,6 +73,7 @@ GEM
       activerecord (= 7.1.5.1)
       activesupport (= 7.1.5.1)
       marcel (~> 1.0)
+    activestorage-cloudinary-service (0.2.3)
     activesupport (7.1.5.1)
       base64
       benchmark (>= 0.3)
@@ -163,7 +164,10 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.2.3)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
+    importmap-rails (2.2.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -187,6 +191,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
+    mini_magick (5.3.0)
+      logger
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
@@ -284,6 +290,9 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
+    ruby-vips (2.2.4)
+      ffi (~> 1.12)
+      logger
     rubyzip (2.4.1)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -351,6 +360,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  activestorage-cloudinary-service
   autoprefixer-rails
   bootsnap
   bootstrap (~> 5.3)
@@ -360,8 +370,9 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass (~> 6.1)
-  geocoder
-  importmap-rails (~> 1.2.3)
+  gem "image_processing"
+  gem "geocoder"
+  gem "importmap-rails", "~> 1.2.3"
   jbuilder
   ostruct
   pg (~> 1.1)

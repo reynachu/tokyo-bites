@@ -41,3 +41,16 @@ body {
   max-width: 600px;
 }
 
+/* Make sure carousel controls are always clickable above slide content */
+.carousel .carousel-control-prev,
+.carousel .carousel-control-next {
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* safety: make images ignore clicks so arrows receive them */
+.carousel .carousel-inner img {
+  pointer-events: none;
+}
+
+.avatar-150 { width: 150px; height: 150px; object-fit: cover; }

@@ -34,6 +34,11 @@
         <%= form.text_field :restaurant_tags %>
       </div>
 
+      <div class="mb-3">
+        <%= form.label :photos, "Add photos" %>
+        <%= form.file_field :photos, multiple: true, direct_upload: true, class: "form-control" %>
+      </div>
+
       <div>
         <%= form.submit "Create Recommendation" %>
       </div>
