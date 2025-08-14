@@ -115,3 +115,31 @@ Restaurant.find_each do |restaurant|
   end
 end
 puts "Done geocoding!"
+
+require 'csv'
+
+# Path to the CSV
+csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
+
+unless File.exist?(csv_path)
+  puts "CSV file not found at #{csv_path}. Skipping CSV import."
+else
+  puts "Importing restaurants from CSV..."
+
+  CSV.foreach(csv_path, headers: true) do |row|
+    begin
+      # Use safe navigation to handle missing columns
+      restaurant = Restaurant.create!(
+        name: row['name']&.strip || "Unnamed Restaurant",
+        address: row['address']&.strip || "No Address",
+        opening_hours: row['holiday']&.strip,
+        category: row['category']&.strip
+      )
+      puts "Created restaurant: #{restaurant.name}"
+    rescue => e
+      puts "Failed to create restaurant from row #{row.inspect}: #{e.message}"
+    end
+  end
+
+  puts "CSV import complete. Total restaurants: #{Restaurant.count}"
+end
