@@ -1,23 +1,31 @@
 <turbo-frame id="main_content">
-  <div class="profile-page container py-4">
-
-    <div class="text-center mb-4">
-      <% if user.profile_picture.attached? %>
-        <%= image_tag user.profile_picture, class: "rounded-circle me-2", size: "40x40" %>
-      <% else %>
-        <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
-      <% end %>
-      <h1 class="h3 mb-2"><%= user.username %></h1>
-
-      <% if current_user != user %>
-        <% if current_user.follows?(user) %>
-          <%= button_to "Unfollow", user_unfollow_path(user), method: :delete, class: "btn btn-danger" %>
+  <div class="container py-4">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <% if user.profile_picture.attached? %>
+          <%= image_tag user.profile_picture.variant(resize_to_limit: [150, 150]), alt: user.username, class: "rounded-circle mb-3 shadow-sm" %>
         <% else %>
-          <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary" %>
+          <%= image_tag "default_avatar.png", size: "150x150", alt: user.username, class: "rounded-circle mb-3 shadow-sm" %>
         <% end %>
-      <% end %>
+      </div>
+      <div class="col">
+        <h1 class="h3 mb-2"><%= user.username %></h1>
+        <div class="d-flex gap-4 my-2">
+          <span><%= user.followers(User).count %> Followers</span>
+          <span><%= user.followees(User).count %> Following</span>
+        </div>
+        <% if current_user != user %>
+          <div class="mt-2 text-start">
+            <% if current_user.follows?(user) %>
+              <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success" %>
+            <% else %>
+              <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
-
+    <hr>
     <section>
       <h2 class="h4 mb-3">Recommendations</h2>
       <% if user.recommendations.any? %>
@@ -34,10 +42,8 @@
         <p class="text-muted">No recommendations yet.</p>
       <% end %>
     </section>
-
     <div class="mt-4 text-center">
       <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary" %>
     </div>
-
   </div>
 </turbo-frame>
