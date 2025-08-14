@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:index, :show] do
     resources :recommendations, only: [:index, :new, :create]
+     collection do
+      get :map
+    end
   end
 
   # unnested recommendation resource
@@ -27,6 +30,8 @@ Rails.application.routes.draw do
   resources :plans, only: [:index]
 
   #users
-  resources :users, only: [:show]
-
+  resources :users, only: [:show] do
+    post 'follow', to: 'socializations#follow', as: :follow
+    delete 'unfollow', to: 'socializations#unfollow', as: :unfollow
+  end
 end

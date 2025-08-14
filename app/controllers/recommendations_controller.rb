@@ -1,6 +1,7 @@
 class RecommendationsController < ApplicationController
 
   before_action :set_restaurant, if: -> { params[:restaurant_id].present? }
+  before_action :authenticate_user!
   skip_after_action :verify_authorized, only: [:new, :create]
   skip_after_action :verify_policy_scoped, only: [:index]
 
@@ -11,6 +12,20 @@ class RecommendationsController < ApplicationController
     else
       # Global: /recommendations
       @recommendations = Recommendation.all
+    end
+  end
+
+  def map
+    @recommendations = Recommendation.includes(:restaurant)
+    @markers = @recommendations.map do |rec|
+      {
+        lat: rec.latitude,
+        lng: rec.longitude,
+          info_window_html: render_to_sring(
+            partial: "info_window",
+            locals: { restaurant: rec.restaurant}
+          )
+      }
     end
   end
 

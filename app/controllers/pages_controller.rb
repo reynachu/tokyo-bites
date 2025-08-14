@@ -30,5 +30,17 @@ class PagesController < ApplicationController
   end
 
   def map
+    @restaurants = Restaurant.all
+
+    @markers = @restaurants.map do |restaurant|
+    {
+      lat: restaurant.latitude,
+      lng: restaurant.longitude,
+      info_window_html: render_to_string(
+        partial: "restaurants/info_window",
+        locals: { restaurant: restaurant }
+      )
+    }
+    end
   end
 end

@@ -99,3 +99,21 @@ end
 
 photos_each = Recommendation.first&.photos&.count || 0
 puts "✅ Seeded #{User.count} users, #{Restaurant.count} restaurants, #{Recommendation.count} recommendations (#{photos_each} photos/rec)."
+
+# map
+puts "Geocoding restaurants..."
+
+Restaurant.find_each do |restaurant|
+  if restaurant.latitude.blank? || restaurant.longitude.blank?
+    if restaurant.address.present?
+      restaurant.geocode
+      restaurant.save(validates: false) # skip validations if needed
+      puts "Geocode #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
+    else
+      puts "No address for #{restaurant.name}, skipping..."
+    end
+      puts "Coordinates already set for #{restaurant.name}, skipping..."
+  end
+end
+
+puts "Done geocoding!"
