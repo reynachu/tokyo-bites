@@ -10,40 +10,110 @@
       </div>
       <div class="col">
         <h1 class="h3 mb-2"><%= user.username %></h1>
-        <div class="d-flex gap-4 my-2">
+
+        <!-- Counters (with placeholder "Places visited") -->
+        <div class="d-flex flex-wrap gap-4 my-2">
           <span><%= user.followers(User).count %> Followers</span>
           <span><%= user.followees(User).count %> Following</span>
+          <span><%= rand(12..87) %> Places visited</span> <!-- placeholder -->
         </div>
-        <% if current_user != user %>
-          <div class="mt-2 text-start">
-            <% if current_user.follows?(user) %>
-              <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success" %>
-            <% else %>
-              <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary" %>
-            <% end %>
-          </div>
-        <% end %>
+
+        <!-- Badges (placeholders) -->
+        <hr class="my-3">
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge rounded-pill text-bg-light">
+            <i class="bi bi-award me-1"></i> Newcomer
+          </span>
+          <span class="badge rounded-pill text-bg-light">
+            <i class="bi bi-fire me-1"></i> Streak x3
+          </span>
+          <span class="badge rounded-pill text-bg-light">
+            <i class="bi bi-star-fill me-1"></i> Foodie
+          </span>
+          <span class="badge rounded-pill text-bg-light">
+            <i class="bi bi-geo-fill me-1"></i> Explorer
+          </span>
+        </div>
       </div>
     </div>
-    <hr>
-    <section>
-      <h2 class="h4 mb-3">Recommendations</h2>
-      <% if @recommendations.present? %>
-        <div class="list-group shadow-sm rounded overflow-hidden">
-          <% @recommendations.each do |recommendation| %>
-            <div class="list-group-item">
-              <p class="mb-1"><%= recommendation.description %></p>
-              <small class="text-muted">
-                — Recommended by
-                <%= link_to(recommendation.user.username, user_path(recommendation.user)) if recommendation.user %>
-              </small>
-            </div>
+
+    <hr class="my-4">
+
+    <!-- Bottom layout -->
+    <div class="row g-4">
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
+        <!-- Recommended restaurants (names only) -->
+        <section class="mb-4">
+          <h2 class="h5 mb-2">Recommended restaurants</h2>
+          <% rec_restaurants = @recommendations.map(&:restaurant).compact.uniq { |r| r.id } %>
+          <% if rec_restaurants.any? %>
+            <ul class="list-unstyled small mb-0">
+              <% rec_restaurants.first(8).each do |r| %>
+                <li class="mb-1">
+                  <i class="bi bi-geo-alt me-1"></i>
+                  <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted small mb-0">No restaurants yet.</p>
           <% end %>
-        </div>
-      <% else %>
-        <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
-      <% end %>
-    </section>
+        </section>
+
+        <!-- Cards (compact) -->
+        <section>
+          <h2 class="h5 mb-3">Posts</h2>
+          <% if @recommendations.present? %>
+            <div class="row row-cols-1 row-cols-sm-2 g-3">
+              <% @recommendations.each do |rec| %>
+                <div class="col">
+                  <%= render "recommendations/recommendation_card", recommendation: rec, compact: true %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
+          <% end %>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-5">
+        <!-- Top categories (placeholders) -->
+        <section class="mb-4">
+          <h2 class="h5 mb-3">Top categories</h2>
+          <ul class="list-group small">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Japanese <span class="badge bg-secondary rounded-pill">12</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Italian <span class="badge bg-secondary rounded-pill">8</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Cafe <span class="badge bg-secondary rounded-pill">5</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Most revisited (placeholders) -->
+        <section>
+          <h2 class="h5 mb-3">Most revisited</h2>
+          <ul class="list-group small">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Sushi Ginza <span class="badge bg-secondary rounded-pill">3×</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Pasta & Co. <span class="badge bg-secondary rounded-pill">2×</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Blue Bird Cafe <span class="badge bg-secondary rounded-pill">2×</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
     <div class="mt-4 text-center">
       <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary" %>
     </div>
