@@ -1,0 +1,11 @@
+<turbo-stream target="restaurants_list">
+  <template>
+    <%= render partial: "restaurants_list", locals: { restaurants: @restaurants } %>
+  </template>
+</turbo-stream>
+
+<turbo-stream target="restaurants_map">
+  <template>
+    <%= render partial: "restaurants_map", locals: { markers: @markers } %>
+  </template>
+</turbo-stream>

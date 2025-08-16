@@ -17,6 +17,15 @@
           <li class="nav-item">
             <%= link_to "Messages", "#", class: "nav-link" %>
           </li>
+
+<!-- Search form -->
+      <%= form_with url: map_path, method: :get, data: { turbo_frame: "restaurants_map" }, html: { class: "d-flex" }, local: false do %>
+        <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
+              class: "form-control me-2",
+              data: { controller: "search", action: "input->search#submit" } %>
+      <% end %>
+
+
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= image_tag "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F005%2F129%2F844%2Fnon_2x%2Fprofile-user-icon-isolated-on-white-background-eps10-free-vector.jpg&f=1&nofb=1&ipt=3e128654ad941b4612602c01d72f76d70b5f7ef757bae99c7dcbc2a0e6fac0ea", class: "avatar", alt: "dropdown menu" %>

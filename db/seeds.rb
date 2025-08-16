@@ -58,15 +58,7 @@ blobs = {
   )
 }
 
-restaurants = 5.times.map do |i|
-  Restaurant.create!(
-    name: "Restaurant #{i + 1}",
-    description: "Description for restaurant #{i + 1}",
-    address: "123 Main St, City #{i + 1}",
-    category: %w[Italian Japanese Mexican French Chinese].sample
-  )
-end
-
+puts "Creating users..."
 10.times do |i|
   user = User.create!(
     first_name: "First#{i + 1}",
@@ -76,6 +68,31 @@ end
     password: "password",
     password_confirmation: "password"
   )
+end
+
+restaurants = restaurants.map do |r|
+  restaurant = Restaurant.find_or_initialize_by(name: r[:name])
+  restaurant.address = r[:address]
+  restaurant.category = r[:category]
+  restaurant.latitude = nil    # force re-geocode
+  restaurant.longitude = nil
+  restaurant.save!
+  restaurant.geocode
+  restaurant.save!
+  puts "#{restaurant.name} => #{restaurant.latitude}, #{restaurant.longitude}"
+  restaurant
+end
+
+puts "Creating recommendations..."
+restaurants.each do |restaurant|
+  users.sample(2).each do |user|
+    Recommendation.create!(
+      user: user,
+      restaurant: restaurant,
+      description: "Recommendation by #{user.email} for #{restaurant.name}"
+    )
+  end
+end
 
   # avatar -> pravatar (goes to Cloudinary if that service is active)
   user.profile_picture.attach(
@@ -83,39 +100,22 @@ end
     filename: "avatar-#{user.id}.jpg",
     content_type: "image/jpeg"
   )
-
-  2.times do
-    restaurant = restaurants.sample
-    rec = Recommendation.create!(
-      description: "Recommendation by #{user.email} for #{restaurant.name}",
-      restaurant_tags: "tag1, tag2",
-      restaurant: restaurant,
-      user: user
-    )
-
     rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
-  end
-end
 
 photos_each = Recommendation.first&.photos&.count || 0
 puts "✅ Seeded #{User.count} users, #{Restaurant.count} restaurants, #{Recommendation.count} recommendations (#{photos_each} photos/rec)."
 
 puts "Geocoding restaurants..."
 Restaurant.find_each do |restaurant|
-  if restaurant.latitude.blank? || restaurant.longitude.blank?
-    if restaurant.address.present?
-      restaurant.geocode
-      restaurant.save(validate: false)
-      puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
-    else
-      puts "No address for #{restaurant.name}, skipping..."
-    end
-  else
-    puts "Coordinates already set for #{restaurant.name}, skipping..."
+  # if restaurant.latitude.blank? || restaurant.longitude.blank?
+  if restaurant.address.present?
+    restaurant.geocode
+    restaurant.save(validate: false)
+    puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
   end
 end
 puts "Done geocoding!"
-
+  
 require 'csv'
 
 # Path to the CSV
