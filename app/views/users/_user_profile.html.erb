@@ -5,7 +5,7 @@
         <% if user.profile_picture.attached? %>
           <%= image_tag user.profile_picture, class: "rounded-circle me-2", size: "150x150" %>
         <% else %>
-          <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "150x150" %>
+          <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle me-2", size: "150x150" %>
         <% end %>
       </div>
       <div class="col">
