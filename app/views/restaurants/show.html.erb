@@ -1,62 +1,92 @@
 <turbo-frame id="main_content">
+  <div class="container my-5">
 
-<div class="container my-5" style="padding-bottom: 24px;">
-  <!-- Restaurant Image -->
-  <div class="row mb-4">
-    <div class="col text-center">
-      <% if @restaurant.photos.attached? %>
-        <%= image_tag @restaurant.photo,
-              class: "img-fluid rounded shadow-sm",
-              style: "max-height: 400px; object-fit: cover;" %>
-      <% else %>
-        <%= image_tag "default_avatar.png",
-              class: "img-fluid rounded shadow-sm",
-              style: "max-height: 400px; object-fit: cover;" %>
-      <% end %>
+    <!-- Header: image left, info right -->
+    <div class="row g-4 align-items-start mb-4">
+      <div class="col-md-4">
+        <% primary_photo = @restaurant.photos.attached? ? @restaurant.photos.first : nil %>
+        <% if primary_photo %>
+          <%= image_tag primary_photo,
+                class: "img-fluid rounded shadow-sm w-100",
+                style: "height: 220px; object-fit: cover;" %>
+        <% else %>
+          <%= image_tag "default_avatar.png",
+                class: "img-fluid rounded shadow-sm w-100",
+                style: "height: 220px; object-fit: cover;" %>
+        <% end %>
+      </div>
+
+      <div class="col-md-8">
+        <h1 class="fw-bold mb-2"><%= @restaurant.name %></h1>
+        <dl class="row text-muted mb-0">
+          <dt class="col-sm-3"><i class="bi bi-tag-fill me-1"></i> category:</dt>
+          <dd class="col-sm-9"><%= @restaurant.category.presence || "—" %></dd>
+
+          <dt class="col-sm-3"><i class="bi bi-geo-alt-fill me-1"></i> address:</dt>
+          <dd class="col-sm-9"><%= @restaurant.address.presence || "—" %></dd>
+
+          <dt class="col-sm-3"><i class="bi bi-clock-fill me-1"></i> opening hours:</dt>
+          <dd class="col-sm-9"><%= @restaurant.opening_hours.presence || "—" %></dd>
+        </dl>
+      </div>
     </div>
-  </div>
 
-  <!-- Restaurant Header -->
-  <div class="row mb-4">
-    <div class="col text-center">
-      <h1 class="fw-bold"><%= @restaurant.name %></h1>
-      <p class="text-muted fs-5">
-        <i class="bi bi-geo-alt-fill me-1"></i> <%= @restaurant.address %>
-      </p>
-    </div>
-  </div>
+    <hr class="my-4">
 
-  <!-- Recommendations Section -->
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h3 class="mb-3 text-center">🍽 Recommendations</h3>
+    <!-- Body: recommendations left, map right -->
+    <div class="row g-4">
+    <div class="col-lg-7">
+      <h3 class="mb-3">🍽 Recommendations</h3>
 
       <% if @recommendations.present? %>
-        <div class="list-group shadow-sm rounded">
+        <div class="list-group shadow-sm rounded overflow-hidden">
           <% @recommendations.each do |recommendation| %>
-            <div class="list-group-item list-group-item-action">
+            <div class="list-group-item">
               <p class="mb-1"><%= recommendation.description %></p>
               <small class="text-muted">
-                — Recommended by <%= recommendation.user.first_name if recommendation.user %>
+                — Recommended by
+                <%= link_to(recommendation.user.username, user_path(recommendation.user)) if recommendation.user %>
               </small>
             </div>
           <% end %>
         </div>
       <% else %>
-        <p class="text-center text-muted fst-italic">No recommendations yet.</p>
+        <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
+      <% end %>
+
+      <hr class="my-4">
+
+      <h3 class="mb-3">📸 Photos</h3>
+      <% if @rec_photos.any? %>
+        <div class="row g-2">
+          <% @rec_photos.first(12).each do |photo| %>
+            <div class="col-4 col-md-3">
+              <div class="ratio ratio-4x3 rounded overflow-hidden">
+                <%= image_tag photo,
+                              class: "w-100 h-100",
+                              style: "object-fit: cover;",
+                              loading: "lazy",
+                              decoding: "async" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted fst-italic mb-0">No photos yet.</p>
       <% end %>
     </div>
-  </div>
 
-  <div style="width: 100%; height: 600px;"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
 
-  <!-- Back button -->
-  <div class="row mt-5 mb-5">
-    <div class="col text-center">
-      <%= link_to "← Back to Restaurants", restaurants_path, class: "btn btn-outline-secondary" %>
+      <div class="col-lg-5">
+        <h3 class="mb-3">🗺 Map</h3>
+          <div
+            data-controller="map"
+            data-map-markers-value='<%= @markers.to_json %>'
+            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+            class="rounded shadow-sm" style="height: 350px;">
+          </div>
+      </div>
     </div>
+
   </div>
-</div></turbo-frame>
+</turbo-frame>
