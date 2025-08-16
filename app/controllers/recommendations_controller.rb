@@ -48,7 +48,7 @@ class RecommendationsController < ApplicationController
     @recommendation.user = current_user
 
     if @recommendation.save
-      redirect_to restaurant_recommendations_path(@recommendation.restaurant), notice: "Recommendation created successfully"
+      redirect_to restaurant_path(@recommendation.restaurant), notice: "Recommendation created successfully"
     else
       render :new, status: :unprocessable_entity
     end
