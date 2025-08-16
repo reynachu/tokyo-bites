@@ -1,47 +1,49 @@
 <turbo-frame id="main_content">
-  <% if @restaurant.present? %>
-    <h1>New Recommendation for <%= @restaurant.name %></h1>
-    <%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
-      <div>
-        <%= form.label :description %>
-        <%= form.text_area :description %>
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card shadow-lg p-2 mx-auto" style="max-width: 1000px; width: 100%;">
+      <div class="card-body text-center">
+        <% if @restaurant.present? %>
+          <h1>New Recommendation for <%= @restaurant.name %></h1>
+          <%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
+            <div>
+              <%= form.label :description %>
+              <%= form.text_area :description %>
+            </div>
+            <div>
+              <%= form.label :restaurant_tags %>
+              <%= form.text_field :restaurant_tags %>
+            </div>
+            <div>
+              <%= form.submit "Create Recommendation" %>
+            </div>
+          <% end %>
+        <% else %>
+          <h1 class="mb-4">New Recommendation</h1>
+          <%= form_with model: @recommendation, local: true do |form| %>
+            <div class="mb-3">
+              <%= form.label :restaurant_id, "Select a Restaurant", class: "form-label fw-bold" %>
+              <%= form.collection_select :restaurant_id, Restaurant.all, :id, :name,
+                { prompt: "Where would you like to recommend..." },
+                { class: "form-select" } %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label fw-bold" %>
+              <%= form.text_area :description, rows:4, class: "form-control", placeholder: "Write your recommendation here..." %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :restaurant_tags,"Tags", class: "form-label fw-bold" %>
+              <%= form.text_field :restaurant_tags, class: "form-control", placeholder: "e.g., sushi, casual, izakaya" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :photos, "Add Photos", class: "form-label fw-bold" %>
+              <%= form.file_field :photos, multiple: true, direct_upload: true, class: "form-control" %>
+            </div>
+            <div>
+              <%= form.submit "Create Recommendation", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
-
-      <div>
-        <%= form.label :restaurant_tags %>
-        <%= form.text_field :restaurant_tags %>
-      </div>
-
-      <div>
-        <%= form.submit "Create Recommendation" %>
-      </div>
-    <% end %>
-  <% else %>
-    <h1>New Recommendation</h1>
-    <%= form_with model: @recommendation, local: true do |form| %>
-      <div>
-        <%= form.label :restaurant_id, "Select a restaurant" %>
-        <%= form.collection_select :restaurant_id, Restaurant.all, :id, :name, prompt: "Choose a restaurant" %>
-      </div>
-
-      <div>
-        <%= form.label :description %>
-        <%= form.text_area :description %>
-      </div>
-
-      <div>
-        <%= form.label :restaurant_tags %>
-        <%= form.text_field :restaurant_tags %>
-      </div>
-
-      <div class="mb-3">
-        <%= form.label :photos, "Add photos" %>
-        <%= form.file_field :photos, multiple: true, direct_upload: true, class: "form-control" %>
-      </div>
-
-      <div>
-        <%= form.submit "Create Recommendation" %>
-      </div>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 </turbo-frame>
