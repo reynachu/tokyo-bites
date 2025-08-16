@@ -1,11 +1,17 @@
 <turbo-stream target="restaurants_list">
   <template>
-    <%= render partial: "restaurants_list", locals: { restaurants: @restaurants } %>
+    <%= render partial: "restaurants/list", locals: { restaurants: @restaurants } %>
   </template>
 </turbo-stream>
 
 <turbo-stream target="restaurants_map">
   <template>
-    <%= render partial: "restaurants_map", locals: { markers: @markers } %>
+    <div data-controller="map"
+         data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+         data-map-markers-value="<%= raw @markers.to_json %>"
+         data-action="turbo:load->map#updateMarkers"
+         style="width: 100%; height: 600px;">
+    </div>
   </template>
 </turbo-stream>
+
