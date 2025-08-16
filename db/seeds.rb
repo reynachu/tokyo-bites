@@ -24,12 +24,58 @@
 # --- wipe (simple & explicit) ---
 # db/seeds.rb
 require "open-uri"
+require 'csv'
 
 Recommendation.destroy_all
 Restaurant.destroy_all
 User.destroy_all
 
-# local source images we’ll upload to the current Active Storage service
+# Path to the CSV
+csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
+
+
+# Load restaurants from CSV
+unless File.exist?(csv_path)
+  puts "CSV file not found at #{csv_path}. Skipping CSV import."
+else
+  puts "Importing restaurants from CSV..."
+
+  CSV.foreach(csv_path, headers: true) do |row|
+    begin
+      # Use safe navigation to handle missing columns
+      restaurant = Restaurant.create!(
+        name: row['name']&.strip || "Unnamed Restaurant",
+        address: row['address']&.strip || "No Address",
+        opening_hours: row['holiday']&.strip,
+        category: row['category']&.strip
+      )
+      puts "Created restaurant: #{restaurant.name}"
+    rescue => e
+      puts "Failed to create restaurant from row #{row.inspect}: #{e.message}"
+    end
+  end
+
+  puts "CSV import complete. Total restaurants: #{Restaurant.count}"
+end
+
+# Geocode restaurants
+puts "Geocoding restaurants..."
+Restaurant.find_each do |restaurant|
+  if restaurant.latitude.blank? || restaurant.longitude.blank?
+    if restaurant.address.present?
+      restaurant.geocode
+      restaurant.save(validate: false)
+      puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
+    else
+      puts "No address for #{restaurant.name}, skipping..."
+    end
+  else
+    puts "Coordinates already set for #{restaurant.name}, skipping..."
+  end
+end
+puts "Done geocoding!"
+
+# local source images upload to the current Active Storage service
 images_dir = Rails.root.join("app/assets/images")
 %w[sushi.jpg mochi.jpg restaurant.jpg].each do |fname|
   path = images_dir.join(fname)
@@ -58,88 +104,57 @@ blobs = {
   )
 }
 
-restaurants = 5.times.map do |i|
-  Restaurant.create!(
-    name: "Restaurant #{i + 1}",
-    description: "Description for restaurant #{i + 1}",
-    address: "123 Main St, City #{i + 1}",
-    category: %w[Italian Japanese Mexican French Chinese].sample
-  )
+# restaurants = 5.times.map do |i|
+#   Restaurant.create!(
+#     name: "Restaurant #{i + 1}",
+#     description: "Description for restaurant #{i + 1}",
+#     address: "123 Main St, City #{i + 1}",
+#     category: %w[Italian Japanese Mexican French Chinese].sample
+#   )
+# end
+
+# get a random restaurant
+def random_restaurant
+  count = Restaurant.count
+  return nil if count.zero?
+  Restaurant.offset(rand(count)).first
 end
 
-10.times do |i|
-  user = User.create!(
-    first_name: "First#{i + 1}",
-    last_name: "Last#{i + 1}",
-    username: "user#{i + 1}",
-    email: "user#{i + 1}@example.com",
-    password: "password",
-    password_confirmation: "password"
-  )
-
-  # avatar -> pravatar (goes to Cloudinary if that service is active)
-  user.profile_picture.attach(
-    io: URI.open("https://i.pravatar.cc/150?u=#{user.id}"),
-    filename: "avatar-#{user.id}.jpg",
-    content_type: "image/jpeg"
-  )
-
-  2.times do
-    restaurant = restaurants.sample
-    rec = Recommendation.create!(
-      description: "Recommendation by #{user.email} for #{restaurant.name}",
-      restaurant_tags: "tag1, tag2",
-      restaurant: restaurant,
-      user: user
+# seed user and recommendations using restaurants from csv
+if Restaurant.count.zero?
+  puts "❌ No restaurants found (CSV empty or path wrong). Skipping recommendations/users."
+else
+  10.times do |i|
+    user = User.create!(
+      first_name: "First#{i + 1}",
+      last_name:  "Last#{i + 1}",
+      username:   "user#{i + 1}",
+      email:      "user#{i + 1}@example.com",
+      password:   "password",
+      password_confirmation: "password"
     )
 
-    rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
+    user.profile_picture.attach(
+      io: URI.open("https://i.pravatar.cc/150?u=#{user.id}"),
+      filename: "avatar-#{user.id}.jpg",
+      content_type: "image/jpeg"
+    )
+
+    2.times do
+      restaurant = random_restaurant
+      next unless restaurant
+
+      rec = Recommendation.create!(
+        description: "Recommendation by #{user.email} for #{restaurant.name}",
+        restaurant_tags: "tag1, tag2",
+        restaurant: restaurant,
+        user: user
+      )
+
+      rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
+    end
   end
 end
 
 photos_each = Recommendation.first&.photos&.count || 0
 puts "✅ Seeded #{User.count} users, #{Restaurant.count} restaurants, #{Recommendation.count} recommendations (#{photos_each} photos/rec)."
-
-puts "Geocoding restaurants..."
-Restaurant.find_each do |restaurant|
-  if restaurant.latitude.blank? || restaurant.longitude.blank?
-    if restaurant.address.present?
-      restaurant.geocode
-      restaurant.save(validate: false)
-      puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
-    else
-      puts "No address for #{restaurant.name}, skipping..."
-    end
-  else
-    puts "Coordinates already set for #{restaurant.name}, skipping..."
-  end
-end
-puts "Done geocoding!"
-
-require 'csv'
-
-# Path to the CSV
-csv_path = Rails.root.join('db', 'data', 'Tokyo_Restaurant_Reviews_Tabelog.csv')
-
-unless File.exist?(csv_path)
-  puts "CSV file not found at #{csv_path}. Skipping CSV import."
-else
-  puts "Importing restaurants from CSV..."
-
-  CSV.foreach(csv_path, headers: true) do |row|
-    begin
-      # Use safe navigation to handle missing columns
-      restaurant = Restaurant.create!(
-        name: row['name']&.strip || "Unnamed Restaurant",
-        address: row['address']&.strip || "No Address",
-        opening_hours: row['holiday']&.strip,
-        category: row['category']&.strip
-      )
-      puts "Created restaurant: #{restaurant.name}"
-    rescue => e
-      puts "Failed to create restaurant from row #{row.inspect}: #{e.message}"
-    end
-  end
-
-  puts "CSV import complete. Total restaurants: #{Restaurant.count}"
-end
