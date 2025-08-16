@@ -3,7 +3,11 @@ class RestaurantsController < ApplicationController
   skip_after_action :verify_authorized, only: [:show]
 
   def index
-    @restaurants = Restaurant.all
+    @restaurants = if params[:q].present?
+      Restaurant.where("name ILIKE :query OR address ILIKE :query", query: "%#{params[:q]}%")
+    else
+      Restaurant.all
+    end
 
     @markers = @restaurants.map do |restaurant|
       {
@@ -14,6 +18,11 @@ class RestaurantsController < ApplicationController
           locals: { restaurant: restaurant}
         )
       }
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
     end
   end
 
