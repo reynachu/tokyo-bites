@@ -61,16 +61,11 @@ end
 # Geocode restaurants
 puts "Geocoding restaurants..."
 Restaurant.find_each do |restaurant|
-  if restaurant.latitude.blank? || restaurant.longitude.blank?
-    if restaurant.address.present?
-      restaurant.geocode
-      restaurant.save(validate: false)
-      puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
-    else
-      puts "No address for #{restaurant.name}, skipping..."
-    end
-  else
-    puts "Coordinates already set for #{restaurant.name}, skipping..."
+  # if restaurant.latitude.blank? || restaurant.longitude.blank?
+  if restaurant.address.present?
+    restaurant.geocode
+    restaurant.save(validate: false)
+    puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
   end
 end
 puts "Done geocoding!"
@@ -143,14 +138,12 @@ else
     2.times do
       restaurant = random_restaurant
       next unless restaurant
-
       rec = Recommendation.create!(
         description: "Recommendation by #{user.email} for #{restaurant.name}",
         restaurant_tags: "tag1, tag2",
         restaurant: restaurant,
         user: user
       )
-
       rec.photos.attach([blobs[:sushi], blobs[:mochi], blobs[:restaurant]])
     end
   end

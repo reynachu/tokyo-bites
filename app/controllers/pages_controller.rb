@@ -30,17 +30,26 @@ class PagesController < ApplicationController
   end
 
   def map
-    @restaurants = Restaurant.all
+    if params[:q].present?
+      @restaurants = Restaurant.where("name ILIKE ?", "%#{params[:q]}%")
+    else
+      @restaurants = Restaurant.all
+    end
 
     @markers = @restaurants.map do |restaurant|
-    {
-      lat: restaurant.latitude,
-      lng: restaurant.longitude,
-      info_window_html: render_to_string(
-        partial: "restaurants/info_window",
-        locals: { restaurant: restaurant }
-      )
-    }
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
+          info_window_html: render_to_string(
+          partial: "restaurants/info_window",
+          locals: { restaurant: restaurant }
+          )
+      }
+    end
+
+    respond_to do |format|
+      format.html # normal full-page load
+      format.turbo_stream # for turbo updates
     end
   end
 end

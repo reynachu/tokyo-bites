@@ -1,18 +1,26 @@
 <turbo-frame id="main_content">
-<h1>Restaurants</h1>
+  <h1>Restaurants</h1>
 
-<ul>
-  <% @restaurants.each do |restaurant| %>
-    <li>
-      <%= link_to restaurant.name, restaurant_path(restaurant) %>
-    </li>
+  <%= form_with url: restaurants_path, method: :get,
+                data: { turbo_frame: "restaurants_list" },
+                id: "search_form" do %>
+    <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
+          data: { controller: "search", action: "input->search#submit" } %>
   <% end %>
-</ul>
 
-<div style="width: 100%; height: 600px;"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-</div>
+  <!-- Map frame -->
+  <turbo-frame id="restaurants_map">
+    <div style="width: 100%; height: 600px;"
+         data-controller="map"
+         data-map-markers-value="<%= raw @markers.to_json %>"
+         data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+  </turbo-frame>
 
+  <!-- Results frame (receives the index partial on search) -->
+  <turbo-frame id="restaurants_list">
+    <%= render partial: "restaurants/list", locals: { restaurants: @restaurants } %>
+  </turbo-frame>
 </turbo-frame>
+
+<%= render "shared/bottom_nav" %>

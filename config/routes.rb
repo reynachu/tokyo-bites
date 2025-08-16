@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'plans/index'
-  get "map", to: "pages#map"
+  get "map", to: "pages#map", as: :map
   get "profile", to: "users#profile", as: :profile
   devise_for :users
   root to: "pages#home"
