@@ -28,7 +28,13 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    @recommendations = @restaurant.recommendations.includes(:user)
+    @recommendations = @restaurant.recommendations
+                                  .includes(:user)
+                                  .with_attached_photos
+                                  .order(created_at: :desc)
+
+    # Gather attachments into a single array
+    @rec_photos = @recommendations.flat_map { |rec| rec.photos.attachments }
 
     @markers = [{
       lat: @restaurant.latitude,
