@@ -1,17 +1,4 @@
-<%# <h1>Restaurants#show</h1> %>
-<%# <h1><%= @restaurant.name %></h1>
-<%# <p><%= @restaurant.address %></p>
-
-<%# <h2>Recommendations</h2> %>
-<%# if @recommendations.any? %>
-  <%# <ul> %>
-    <%# @recommendations.each do |recommendation| %>
-      <%# <li><%= recommendation.content %></li>
-    <%# end %>
-  <%# </ul> %>
-<%# else %>
-  <%# <p>No recommendations yet.</p> %>
-<%# end %>
+<turbo-frame id="main_content">
 
 <div class="container my-5" style="padding-bottom: 24px;">
   <!-- Restaurant Image -->
@@ -44,13 +31,13 @@
     <div class="col-md-8 offset-md-2">
       <h3 class="mb-3 text-center">🍽 Recommendations</h3>
 
-      <% if @recommendations.any? %>
+      <% if @recommendations.present? %>
         <div class="list-group shadow-sm rounded">
           <% @recommendations.each do |recommendation| %>
             <div class="list-group-item list-group-item-action">
-              <p class="mb-1"><%= recommendation.content %></p>
+              <p class="mb-1"><%= recommendation.description %></p>
               <small class="text-muted">
-                — Recommended by <%= recommendation.user.name if recommendation.user %>
+                — Recommended by <%= recommendation.user.first_name if recommendation.user %>
               </small>
             </div>
           <% end %>
@@ -60,7 +47,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <div style="width: 100%; height: 600px;"
   data-controller="map"
   data-map-markers-value="<%= @markers.to_json %>"
@@ -73,3 +60,4 @@
     </div>
   </div>
 </div>
+</turbo-frame>

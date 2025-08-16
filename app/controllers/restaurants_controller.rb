@@ -28,11 +28,12 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @recommendations = @restaurant.recommendations.includes(:user)
 
     @markers = [{
       lat: @restaurant.latitude,
       lng: @restaurant.longitude,
-      info_window_html: render_to_sring(
+      info_window_html: render_to_string(
         partial: "restaurants/info_window",
         locals: { restaurant: @restaurant }
       )
