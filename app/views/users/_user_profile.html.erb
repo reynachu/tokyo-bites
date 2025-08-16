@@ -28,18 +28,20 @@
     <hr>
     <section>
       <h2 class="h4 mb-3">Recommendations</h2>
-      <% if user.recommendations.any? %>
-        <ul class="list-group">
-          <% user.recommendations.each do |recommendation| %>
-            <li class="list-group-item mb-2">
-              <strong>From User ID:</strong> <%= recommendation.user_id %><br>
-              <strong>Restaurant ID:</strong> <%= recommendation.restaurant_id %><br>
-              <p class="mb-0"><%= recommendation.description %></p>
-            </li>
+      <% if @recommendations.present? %>
+        <div class="list-group shadow-sm rounded overflow-hidden">
+          <% @recommendations.each do |recommendation| %>
+            <div class="list-group-item">
+              <p class="mb-1"><%= recommendation.description %></p>
+              <small class="text-muted">
+                — Recommended by
+                <%= link_to(recommendation.user.username, user_path(recommendation.user)) if recommendation.user %>
+              </small>
+            </div>
           <% end %>
-        </ul>
+        </div>
       <% else %>
-        <p class="text-muted">No recommendations yet.</p>
+        <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
       <% end %>
     </section>
     <div class="mt-4 text-center">
