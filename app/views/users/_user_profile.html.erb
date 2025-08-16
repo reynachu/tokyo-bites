@@ -8,6 +8,7 @@
           <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle me-2", size: "150x150" %>
         <% end %>
       </div>
+
       <div class="col">
         <h1 class="h3 mb-2"><%= user.username %></h1>
 
@@ -15,24 +16,27 @@
         <div class="d-flex flex-wrap gap-4 my-2">
           <span><%= user.followers(User).count %> Followers</span>
           <span><%= user.followees(User).count %> Following</span>
-          <span><%= rand(12..87) %> Places visited</span> <!-- placeholder -->
+          <span><%= rand(12..87) %> Places visited</span>
         </div>
+
+        <!-- Follow/Unfollow -->
+        <% if current_user != user %>
+          <div class="mt-2 text-start">
+            <% if current_user.follows?(user) %>
+              <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success" %>
+            <% else %>
+              <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        <% end %>
 
         <!-- Badges (placeholders) -->
         <hr class="my-3">
         <div class="d-flex flex-wrap gap-2">
-          <span class="badge rounded-pill text-bg-light">
-            <i class="bi bi-award me-1"></i> Newcomer
-          </span>
-          <span class="badge rounded-pill text-bg-light">
-            <i class="bi bi-fire me-1"></i> Streak x3
-          </span>
-          <span class="badge rounded-pill text-bg-light">
-            <i class="bi bi-star-fill me-1"></i> Foodie
-          </span>
-          <span class="badge rounded-pill text-bg-light">
-            <i class="bi bi-geo-fill me-1"></i> Explorer
-          </span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-award me-1"></i> Newcomer</span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-fire me-1"></i> Streak x3</span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-star-fill me-1"></i> Foodie</span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-geo-fill me-1"></i> Explorer</span>
         </div>
       </div>
     </div>
