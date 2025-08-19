@@ -47,13 +47,12 @@
     <div class="row g-4">
       <!-- LEFT COLUMN -->
       <div class="col-lg-7">
-        <!-- Recommended restaurants (names only) -->
+        <!-- Recommended restaurants (top 5 by frequency) -->
         <section class="mb-4">
           <h2 class="h5 mb-2">Recommended restaurants</h2>
-          <% rec_restaurants = @recommendations.map(&:restaurant).compact.uniq { |r| r.id } %>
-          <% if rec_restaurants.any? %>
+          <% if @top5.present? %>
             <ul class="list-unstyled small mb-0">
-              <% rec_restaurants.first(8).each do |r| %>
+              <% @top5.each do |r, _count| %>
                 <li class="mb-1">
                   <i class="bi bi-geo-alt me-1"></i>
                   <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
@@ -64,6 +63,7 @@
             <p class="text-muted small mb-0">No restaurants yet.</p>
           <% end %>
         </section>
+
 
         <!-- Cards (compact) -->
         <section>
@@ -84,36 +84,38 @@
 
       <!-- RIGHT COLUMN -->
       <div class="col-lg-5">
-        <!-- Top categories (placeholders) -->
+        <!-- Top categories (top 3 by frequency from user's recommended restaurants) -->
         <section class="mb-4">
           <h2 class="h5 mb-3">Top categories</h2>
-          <ul class="list-group small">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Japanese <span class="badge bg-secondary rounded-pill">12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Italian <span class="badge bg-secondary rounded-pill">8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Cafe <span class="badge bg-secondary rounded-pill">5</span>
-            </li>
-          </ul>
+          <% if @top_categories.present? %>
+            <ul class="list-group small">
+              <% @top_categories.each do |cat, count| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= cat.presence || "Uncategorized" %>
+                  <span class="badge bg-secondary rounded-pill"><%= count %></span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted small mb-0">No categories yet.</p>
+          <% end %>
         </section>
 
-        <!-- Most revisited (placeholders) -->
+        <!-- Most revisited (top 3 by this user's recommendation count) -->
         <section>
           <h2 class="h5 mb-3">Most revisited</h2>
-          <ul class="list-group small">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Sushi Ginza <span class="badge bg-secondary rounded-pill">3×</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Pasta & Co. <span class="badge bg-secondary rounded-pill">2×</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Blue Bird Cafe <span class="badge bg-secondary rounded-pill">2×</span>
-            </li>
-          </ul>
+          <% if @most_revisited.present? %>
+            <ul class="list-group small">
+              <% @most_revisited.each do |r, visits| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
+                  <span class="badge bg-secondary rounded-pill"><%= visits %>×</span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted small mb-0">No revisits yet.</p>
+          <% end %>
         </section>
       </div>
     </div>
