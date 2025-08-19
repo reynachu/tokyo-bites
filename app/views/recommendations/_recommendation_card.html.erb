@@ -4,9 +4,13 @@
     <!-- Header -->
     <div class="d-flex align-items-center mb-2">
       <% if recommendation.user.profile_picture.attached? %>
-        <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "40x40" %>
+        <%= link_to user_path(recommendation.user) do %>
+          <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "40x40" %>
+        <% end %>
       <% else %>
-        <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+        <%= link_to user_path(recommendation.user) do %>
+          <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+        <% end %>
       <% end %>
       <div>
         <strong><%= link_to recommendation.user.username, user_path(recommendation.user), class: "text-decoration-none text-dark" %></strong><br>
