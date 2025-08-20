@@ -1,100 +1,100 @@
-store_id,name,nearest_station,nearest_distance,category,rating_val,review_cnt,save_cnt,description,opening_hours,holiday,address,prefecture,municipalities_1,municipalities_2,municipalities_3,
-13204308,APA Hotel Iidabashi Ekimae,Iidabashi Station,302,others,3,4,11,,,-,"3-4-6 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,
-13093311,Ittengo,Iidabashi Station,182,Dining Bar,3,2,13,,,"Saturdays, Sundays, and holidays","3-3-7 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,
-13275334,Bento Market,Iidabashi Station,411,bento,3,1,3,,,-,"Sunpark Mansion Chiyoda 1F, 2-9-4 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,
-13277372,Iidabashi DELHI,Kudanshita Station,411,bento,3,5,19,,,-,"Tosendo Building 1F, 1-5-7 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,
-13232418,Bento 168 Iidabashi,Iidabashi Station,412,bento,3,2,14,,,-,"Sunpark Mansion Chiyoda 1F, 2-9-4 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,
-13195372,Chiyoda Millet,Iidabashi Station,463,bento,3,1,21,,,-,"1F Human Resources Development Building, 2-11-5 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,
-13123119,Cote d'Azur Iidabashi Station Store,Iidabashi Station,146,Italian,3,1,35,,,Open daily,"4th Yamasho Building, 4-8-2 Iidabashi, Chiyoda-ku, Tokyo, 4th and 5th floors",Tokyo,Chiyoda Ward,Idabashi,-,
-13241905,"Hoshino Iidabashi, a private room izakaya serving local chicken",Suidobashi Station,517,"Tempura, Izakaya, Seafood",3,2,42,,,Irregular holidays,"3-10-9 Iidabashi, Chiyoda-ku, Tokyo, 3F",Tokyo,Chiyoda Ward,Idabashi,-,
-13245917,Family Mart Kanda Iwamotocho 1-chome Store,Shin-Nihonbashi Station,321,others,3,2,4,,,-,"1-3-1 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,
-13215637,Seven-Eleven Chiyoda Iwamotocho 2-chome Store,Kodenmacho Station,291,others,3,1,5,,,-,"2-18-1 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,
-13276909,Chinese Izakaya Noble,Bakurocho Station,275,"Chinese cuisine, Izakaya, Dandan noodles",3,2,18,,,-,"1-12-11 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,-
-13102166,Doutor Coffee Shop Iwamotocho 2-chome Branch,Kodenmacho Station,284,Cafes and coffee shops,3,6,39,,,Day and celebration,"Igeta Building 1F, 2-8 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,
-13247934,Lawson Iwamotocho 3-chome store,Iwamotocho Station,256,others,3,1,3,,,-,"3-7-16 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,
-13219014,Ministop Iwamotocho 2-chome store,Iwamotocho Station,266,others,3,1,4,,,-,"2-6-10 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,
-13255020,Izakaya Mogumogu Kanda West Exit Branch,Kanda Station,207,"Izakaya, Yakitori, Seafood",3,4,214,,,-,"Ohara 6th Building 2F, 3-9-6 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13248143,Creative Japanese Cuisine x Private Room Izakaya Torimasa Kanda Station Front Store,Kanda Station,83,"Izakaya, Japanese cuisine (other)",3,3,322,,,-,"4F, 108 Tokyo Building, 3-20-6 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13144538,FUMA,Kanda Station,139,Izakaya,Izakaya,2,16,,,Open daily,"Watanabe Jyukken Building 2F, 3-12-5 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13240723,Irish Pub Peter Cole Kanda Branch,Ogawamachi Station,379,"Pubs, bars, izakayas",3,7,199,,,Closed: Saturdays and Sundays. Extracted using secondary cooling in refrigerated barrels.,"1-15-2 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13232606,Bar Set Calm,Kanda Station,334,bar,3,1,89,,,Sunday,"Kanda Shinyo Building B1F, 2-11-8 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13144556,Beef Tongue x Private Room Meat Bar 29GABU Kanda Branch,Kanda Station,144,"Izakaya, seafood restaurant, bar",3,8,385,,,Open all year round,"Watanabe Jyuken Building 2F, 3-12-5 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13228190,Jiyuukukan Kanda North Exit,Kanda Station,51,others,3,3,7,,,Open daily,"Sakurai Building 3F, 3-19-8 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13186170,Sushi Restaurant Hishizen Otemachi Branch,Ogawamachi Station,343,sushi,3,3,24,,,Open daily,"Katsubunsha Building 1F, 1-17-12 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13222218,Family Mart Kanda Station North Exit,Kanda Station,73,others,3,9,13,,,-,"3-20-7 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13280754,Hanataro Kanda Main Store,Kanda Station,191,others,3,1,1,,,-,"Loire Kanda Building 2nd to 7th floors, 3-6-13 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13105386,Folk Bar Showa,Kanda Station,83,Izakaya/Dining Bar (Other),3,7,193,,,Sunday,"Hachiya Building B1F, 3-22-10 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13172436,Tetesmanis,Ogawamachi Station,420,Cafes and coffee shops (other),3,4,134,,,Weekends and holidays,"Kohara Building 1F, 1-10-11 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13280036,Manbo Plus Kanda store,Kanda Station,115,others,3,1,1,,,-,"3-12-8 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13100383,Shumonsen Kanda West Exit Station Store,Kanda Station,162,"Yakitori, chicken dishes",3,2,12,,,-,"Watanabe Jyuken Building 2F, 3-12-5 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13257685,Hand beans and,Ogawamachi Station,558,bento,3,5,47,,,"Saturdays, Sundays, and public holidays","Otemachi Point Building 1F, 1-4-2 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13248678,Bistro Cocone,Kanda Station,350,Set meals/cafeteria,3,1,13,,,-,"Tosei Hotel Cocone Kanda 1F, 3-2-10 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13194453,Family Mart Uchikanda 1-chome store,Ogawamachi Station,377,others,3,1,6,,,Open daily,"Kanda Ocean Building, 1-15-2 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13204804,Big Echo Kanda North Exit Main Store,Kanda Station,128,others,3,2,11,,,Open daily,"Central Hotel, 3-17-9 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,
-13202186,Kyushu Okinawa galore Nankurunaisa Kasumigaseki Iino Dining,Toranomon Station,266,"Okinawan cuisine, Izakaya, Motsunabe",3,25,406,,,-,"Iino Building B1F, 2-1-1 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13245131,Kagoshima Food Stall Fireball Boy Hibiya Branch,Leaving the Station,137,Izakaya,3,3,46,,,-,"Hibiya International Building B2F, 2-2-3 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13241306,Scarecrow,Leaving the Station,137,"Rice balls, bento",3,2,12,,,-,"Hibiya International Building B1F, 2-2-3 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13174172,Cafe News,Leaving the Station,255,Set meals/cafeteria,3,6,48,,,-,"1-1-7 Signature, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13263466,Yatai DELi Fukoku Seimei Building Store,Leaving the Station,85,bento,3,2,8,,,-,"Fukoku Seimei Building B2F, 2-2-2 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13203722,Godiva Imperial Hotel Arcade Store,Hibiya Station,283,chocolate,3,1,22,,,Irregular holidays,"B1F, 1-1-1 Uchiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13245162,Tagirba,Leaving the Station,137,Izakaya,3,3,135,,,-,"Hibiya International Building B2F, 2-2-3 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13271103,Stories of Italy,Leaving the Station,276,Cafe,3,3,18,,,-,"Hibiya OKUROJI, 1-7-1 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13134510,Flower Room,Leaving the station,315,ramen,3,1,103,,,-,"1-7-1 Uchisawaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13033581,Tokyo Mita Club,Hibiya Station,294,Western food,3,2,121,,,Sundays and public holidays,"Imperial Hotel Tokyo Main Building B1F, 1-1-1 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13215612,Delicious fried chicken and izakaya food Miraizaka Hibiya Fukoku Seimei Building Branch,Leaving the station,98,"Izakaya, Yakitori, Motsunabe",3,3,172,,,"Every Saturday, Sunday and public holidays","Fukoku Seimei Building B2F, 2-2-2 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13245583,Mapo Specialist Chou Chen Lou,Leaving the station,255,Chinese cuisine,3,2,51,,,-,"Yu BAR, 2F Ura Corridor Street, 1-6-5 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,
-13267126,Bakery,Otemachi Station,442,"Bread, sandwiches",3,1,15,,,"Saturdays, Sundays, and public holidays","JOB HUB SQUARE 1F, 2-6-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13195478,Natural Lawson Otemachi Financial City North Store,Otemachi Station,358,others,3,3,21,,,-,"Financial City North Tower B1F, 1-9-5 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13194185,Seven-Eleven Otemachi Conference Center Store,Otemachi Station,413,others,3,2,9,,,Sundays and public holidays,"Otemachi Conference Center B1F, 1-3-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13247770,Tully's Coffee Otemachi One,Otemachi Station,363,Cafe,3,4,27,,,Sundays and public holidays,"Otemachi One B1F, 1-2-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13031559,Coffee & Dining Bar Nana,Otemachi Station,169,Dining Bar,3,2,17,,,-,"Otemachi Building B2F, 1-6-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13194995,Natural Lawson Otemachi Metropia Store,Otemachi Station,143,others,3,1,11,,,Open daily,"1-6-1 Otemachi, Chiyoda-ku, Tokyo Chiyoda Line Otemachi Station",Tokyo,Chiyoda Ward,Otemachi,-,
-13274202,Tully's Coffee Marubeni Building,Takebashi Station,114,"Coffee, Sandwiches, Pasta",3,1,14,,,Saturday and Sunday,"Marubeni Head Office Building 1F, 1-4-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13242580,Rough Orange,Otemachi Station,238,bento,3,1,6,,,-,"Tokyo Sankei Building Neo Yatai Village, 1-7-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13228056,Seven-Eleven Otemachi Place,Otemachi Station,354,others,3,1,4,,,-,"Otemachi Place 28F, 2-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13269891,Saladice Otemachi Park Building,Otemachi Station,252,"Vegetable dishes, delicatessen",3,1,62,,,-,"Otemachi Park Building, 1-1-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13243393,Yoshinoya,Otemachi Station,389,Beef bowl,3,2,24,,,-,"1-9-5 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13263036,Lawson Ote Center Building Store,Otemachi Station,189,others,3,1,5,,,Open daily,"1-1-3 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13276742,Family Mart!! Otemon Tower Store,Otemachi Station,279,others,3,1,2,,,Sunday,"Otemon Tower Eneos Building, 1-1-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13263984,MY SYOKUDO HALL&KITCHEN,Mitsukoshimae Station,394,Cafes and coffee shops (other),3,4,49,,,-,"TOKYO TORCH terrace 3F, 2-6-4 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,
-13176696,BAR OMOcafe,Kanda Station,291,"Bar, dining bar, bar and alcohol (other)",3,5,386,,,Sundays and public holidays,"Takeuchi Building 1F, 1-4-3 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,
-13280378,WRAPPED CREPE HEELS JR Kanda store,Kanda Station,37,crepe,3,2,12,,,-,"2-12 Kajicho, Chiyoda-ku, Tokyo JR Kanda Station",Tokyo,Chiyoda Ward,Kajimachi,-,
-13260223,BAR Welcome Back,Kanda Station,256,bar,3,2,30,,,Sundays and public holidays,"1-2-14 Kajicho, Chiyoda-ku, Tokyo 1F",Tokyo,Chiyoda Ward,Kajimachi,-,
-13225381,Private Japanese Bar Hagi Kanda,Kanda Station,94,"Izakaya, Seafood, Poultry",3,7,114,,,No fixed holidays (same as building closing days),"Sakurai Building No. 2, 3F, 2-1-6 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,
-13249630,Family Mart Kanda Station East Exit Store,Kanda Station,51,others,3,6,10,,,-,"2-7-1 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,
-13279055,Yokohama Iekei Ramen Haruki Kanda Branch,Shin-Nihonbashi Station,268,ramen,3,2,15,,,none,"1-5-1 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,
-13214933,Lawson Kanda Station East Exit,Kanda Station,78,others,3,3,6,,,Open daily,"2-2-9 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,
-13276929,Pelican Moon Caffe Kasumigaseki Common Gate Branch,Toranomon Station,260,"Cafe, dining bar, izakaya",3,4,43,,,-,"1F, West Wing, Kasumigaseki Common Gate, 3-2-1 Kasumigaseki, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kasumigaseki,-,
-13126174,"Omusubi Gonbei Ministry of Agriculture, Forestry and Fisheries Store",Kasumigaseki Station,164,Onigiri,3,7,97,,,"Closed on Saturdays, Sundays, national holidays, and government closed days (December 29th to January 3rd)","1-2-1 Kasumigaseki, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kasumigaseki,-,
-13227657,Wrapped Crepe Corot Kasumigaseki Metro Branch,Kasumigaseki Station,5,crepe,3,9,57,,,Irregular holidays,"2-1-2 Kasumigaseki, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kasumigaseki,-,
-13182597,Olympic Awajicho store,Shin-Ochanomizu Station,218,others,3,4,25,,,Open daily,"Waterras Mall B1F, 2-105 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,
-13263111,Family Mart Water Tower Store,Awajicho Station,161,others,3,1,2,,,-,"2-3 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,
-13234221,Seven-Eleven Kanda Awajicho Waterras Store,Shin-Ochanomizu Station,218,others,3,4,7,,,-,"Water's Annex 3F, 2-105 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,
-13144804,The B Ochanomizu,Ogawamachi Station,86,others,3,2,9,,,-,"The B Ochanomizu, 1-7-5 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,
-13249562,Connoisseur Ginji Jimbocho Surugadaishita Branch,Jimbocho Station,302,"Izakaya, Seafood, Creative Cuisine",3,7,71,,,-,"Matsushita Building 1F, 3-3-2 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13175278,Akiyama,Ogawamachi Station,233,coffee shop,3,1,87,,,"Saturdays, Sundays, and public holidays","2-8 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13184239,Italian bar Deranchi.,Shin-Ochanomizu Station,262,Italian,3,9,176,,,"Saturdays, Sundays, and public holidays","Koike Building 1F, 2-6 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13221797,Karaoke Maneki Neko Kanda Ogawamachi Branch,Ogawamachi Station,352,others,3,3,11,,,Open daily,"Jimbocho Building 3F & 4F, 3-3 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13154756,Sunshine,Shin-Ochanomizu Station,255,"Bar, bistro, izakaya",3,4,421,,,Sunday [Reservations accepted],"Shoryukan Building 1F, 3-28-7 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13237831,Ichigoichiwara Jimbocho store,Jimbocho Station,315,Sweets (Other),3,1,24,,,-,"1F, 3-7-15 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13174452,Family Mart Pharmacy Higuchi Awajicho Store,Ogawamachi Station,48,others,3,5,20,,,Open daily,"1-1-16 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,
-13279545,Takarajima 24 Kanda store,Kanda Station,150,others,3,1,2,,,-,"TC 4th Building, 2F-8F, 3-2-3 Kanda Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Kajicho,-,
-13259753,MagMell,Kanda Station,250,others,3,1,10,,,-,"3F, 44 Kanda Konyacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Konyacho,-,
-13274101,"Yakiushi Akihabara, a restaurant serving carefully selected Japanese Black beef and premium yakiniku",Akihabara Station,161,"Yakiniku, Hormone, Izakaya",3,5,337,,,-,"Chiyoda Terrace 8F E2, 1-21-1 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,
-13201622,Private Hot Pot Restaurant Satsuma Biyori Akihabara Branch,Akihabara Station,127,"Izakaya, Motsunabe, Yakitori",3,14,762,,,-,"Ohashi Building 3F, 1-16 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,
-13270284,Meat Grape Shop,Iwamotocho Station,321,"Steak, Wine Bar, Izakaya",3,2,247,,,-,"Taiyo Building 1F, 3-38 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,
-13277736,Yen Akihabara store,Akihabara Station,103,"Izakaya, Shabu-shabu, Yakiniku",3,3,160,,,-,"Kawahaji Building 6F, 1-15 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,
-13099442,Sumihito Public Bar Akihabara Branch,Akihabara Station,157,Bars and other drinks,3,1,32,,,Saturday and Sunday,"Sanshin Building 2F, 1-20 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,
-13224827,First Cabin Akihabara,Iwamotocho Station,311,others,3,1,8,,,-,"3-38 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,
-13148236,YMCA Hotel,Suidobashi Station,489,Inns and auberges (other),3,2,7,,,Open all year round,"2-5-5 Kanda Sarugakucho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sarugakucho,-,
-13238462,Shunsai Washoku Wagaya Jimbocho Branch,Jimbocho Station,165,"Izakaya, Japanese cuisine (other), creative cuisine",3,2,239,,,-,"Kurosawa Building 3F, 1-4 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13259070,Morihachi Tokyo store,Jimbocho Station,40,Japanese sweets,3,17,380,,,Open daily (except New Year's holiday),"1-13-3 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13218362,"Bincho-tei, Kanda Jinbocho",Jimbocho Station,200,"Yakitori, Izakaya, Bars and Alcohol (Other)",3,2,43,,,-,"1-25-2 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13163872,Senshu University Kanda Campus Cafeteria,Kudanshita Station,238,student cafeteria,3,3,72,,,Sunday,"Senshu University Kanda Campus B2F, 3-8 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13080981,pine tree,Kudanshita Station,271,"Japanese cuisine, cafe",3,3,55,,,"Earth, Sun, and Festival","Yasuda Jinbocho Mansion 1F, 3-11-1 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13255190,Rice flour cafe Tida,Jimbocho Station,182,Cafe,3,2,125,,,-,"Kaitakusha Building 2F, 2-5-4 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13278616,Seven-Eleven Kanda Jinbocho 3-chome Store,Kudanshita Station,242,others,3,1,1,,,-,"3-2-6 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13208400,"Japanese-style private room, authentic charcoal grilled chicken, Tori Shigure Jimbocho branch",Jimbocho Station,165,"Izakaya, poultry dishes, seafood dishes",3,4,469,,,Irregular holidays,"2-12-3 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13251614,Sawaguchi Shoten Tokyo Antique Bookstore,Jimbocho Station,101,others,3,2,6,,,-,"Genkogo Building 1st and 2nd floors, 1-7-21 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13244004,Seven-Eleven Kanda Jimbocho 2-chome store,Jimbocho Station,125,others,3,2,6,,,-,"1F Kanda Jimbocho 2-chome Building, Jimbocho, Chiyoda-ku, Tokyo, Japan",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
-13277561,Tommy's Pudding Factory Jimbocho Branch,Jimbocho Station,252,Western confectionery (other),3,4,30,,,-,"1-1-9 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,
+store_id,name,nearest_station,nearest_distance,category,rating_val,review_cnt,save_cnt,description,opening_hours,holiday,address,prefecture,municipalities_1,municipalities_2,municipalities_3,address_jp
+13204308,APA Hotel Iidabashi Ekimae,Iidabashi Station,302,others,3,4,11,,,-,"3-4-6 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋3-4-6
+13093311,Ittengo,Iidabashi Station,182,Dining Bar,3,2,13,,,"Saturdays, Sundays, and holidays","3-3-7 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋3-3-7
+13275334,Bento Market,Iidabashi Station,411,bento,3,1,3,,,-,"Sunpark Mansion Chiyoda 1F, 2-9-4 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋2-9-4 サンパークマンション千代田1F
+13277372,Iidabashi DELHI,Kudanshita Station,411,bento,3,5,19,,,-,"Tosendo Building 1F, 1-5-7 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋1-5-7 東仙堂ビル1F
+13232418,Bento 168 Iidabashi,Iidabashi Station,412,bento,3,2,14,,,-,"Sunpark Mansion Chiyoda 1F, 2-9-4 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋2-9-4 サンパークマンション千代田1F
+13195372,Chiyoda Millet,Iidabashi Station,463,bento,3,1,21,,,-,"1F Human Resources Development Building, 2-11-5 Iidabashi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋2-11-5 人材開発ビル1F
+13123119,Cote d'Azur Iidabashi Station Store,Iidabashi Station,146,Italian,3,1,35,,,Open daily,"4th Yamasho Building, 4-8-2 Iidabashi, Chiyoda-ku, Tokyo, 4th and 5th floors",Tokyo,Chiyoda Ward,Idabashi,-,東京都千代田区飯田橋4-8-2 山昌ビル4・5F
+13245917,Family Mart Kanda Iwamotocho 1-chome Store,Shin-Nihonbashi Station,321,others,3,2,4,,,-,"1-3-1 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,東京都千代田区岩本町1-3-1
+13215637,Seven-Eleven Chiyoda Iwamotocho 2-chome Store,Kodenmacho Station,291,others,3,1,5,,,-,"2-18-1 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,東京都千代田区岩本町2-18-1
+13276909,Chinese Izakaya Noble,Bakurocho Station,275,"Chinese cuisine, Izakaya, Dandan noodles",3,2,18,,,-,"1-12-11 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,東京都千代田区岩本町1-12-11
+13102166,Doutor Coffee Shop Iwamotocho 2-chome Branch,Kodenmacho Station,284,Cafes and coffee shops,3,6,39,,,Day and celebration,"Igeta Building 1F, 2-8 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,東京都千代田区岩本町2-8 イゲタビル1F
+13247934,Lawson Iwamotocho 3-chome store,Iwamotocho Station,256,others,3,1,3,,,-,"3-7-16 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,東京都千代田区岩本町3-7-16
+13219014,Ministop Iwamotocho 2-chome store,Iwamotocho Station,266,others,3,1,4,,,-,"2-6-10 Iwamotocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Iwamotocho,-,東京都千代田区岩本町2-6-10
+13255020,Izakaya Mogumogu Kanda West Exit Branch,Kanda Station,207,"Izakaya, Yakitori, Seafood",3,4,214,,,-,"Ohara 6th Building 2F, 3-9-6 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-9-6 大原第6ビル2F
+13248143,Creative Japanese Cuisine x Private Room Izakaya Torimasa Kanda Station Front Store,Kanda Station,83,"Izakaya, Japanese cuisine (other)",3,3,322,,,-,"4F, 108 Tokyo Building, 3-20-6 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-20-6 108東京ビル4F
+13144538,FUMA,Kanda Station,139,Izakaya,Izakaya,2,16,,,Open daily,"Watanabe Jykken Building 2F, 3-12-5 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-12-5 渡辺十軒ビル2F
+13240723,Irish Pub Peter Cole Kanda Branch,Ogawamachi Station,379,"Pubs, bars, izakayas",3,7,199,,,Closed: Saturdays and Sundays,"1-15-2 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田1-15-2
+13232606,Bar Set Calm,Kanda Station,334,bar,3,1,89,,,Sunday,"Kanda Shinyo Building B1F, 2-11-8 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田2-11-8 神田信陽ビルB1F
+13144556,Beef Tongue x Private Room Meat Bar 29GABU Kanda Branch,Kanda Station,144,"Izakaya, seafood restaurant, bar",3,8,385,,,Open all year round,"Watanabe Jyuken Building 2F, 3-12-5 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-12-5 渡辺十軒ビル2F
+13228190,Jiyuukukan Kanda North Exit,Kanda Station,51,others,3,3,7,,,Open daily,"Sakurai Building 3F, 3-19-8 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-19-8 桜井ビル3F
+13186170,Sushi Restaurant Hishizen Otemachi Branch,Ogawamachi Station,343,sushi,3,3,24,,,Open daily,"Katsubunsha Building 1F, 1-17-12 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田1-17-12 勝文社ビル1F
+13222218,Family Mart Kanda Station North Exit,Kanda Station,73,others,3,9,13,,,-,"3-20-7 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-20-7
+13280754,Hanataro Kanda Main Store,Kanda Station,191,others,3,1,1,,,-,"Loire Kanda Building 2nd to 7th floors, 3-6-13 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-6-13 ロワール神田ビル2～7F
+13105386,Folk Bar Showa,Kanda Station,83,Izakaya/Dining Bar (Other),3,7,193,,,Sunday,"Hachiya Building B1F, 3-22-10 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-22-10 ハチヤビルB1F
+13172436,Tetesmanis,Ogawamachi Station,420,Cafes and coffee shops (other),3,4,134,,,Weekends and holidays,"Kohara Building 1F, 1-10-11 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田1-10-11 小原ビル1F
+13280036,Manbo Plus Kanda store,Kanda Station,115,others,3,1,1,,,-,"3-12-8 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-12-8
+13100383,Shumonsen Kanda West Exit Station Store,Kanda Station,162,"Yakitori, chicken dishes",3,2,12,,,-,"Watanabe Jyuken Building 2F, 3-12-5 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-12-5 渡辺十軒ビル2F
+13257685,Hand beans and,Ogawamachi Station,558,bento,3,5,47,,,"Saturdays, Sundays, and public holidays","Otemachi Point Building 1F, 1-4-2 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田1-4-2
+13248678,Bistro Cocone,Kanda Station,350,Set meals/cafeteria,3,1,13,,,-,"Tosei Hotel Cocone Kanda 1F, 3-2-10 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-2-10
+13194453,Family Mart Uchikanda 1-chome store,Ogawamachi Station,377,others,3,1,6,,,Open daily,"Kanda Ocean Building, 1-15-2 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田1-15-2
+13204804,Big Echo Kanda North Exit Main Store,Kanda Station,128,others,3,2,11,,,Open daily,"Central Hotel, 3-17-9 Uchikanda, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Throwing,-,東京都千代田区内神田3-17-9
+13202186,Kyushu Okinawa galore Nankurunaisa Kasumigaseki Iino Dining,Toranomon Station,266,"Okinawan cuisine, Izakaya, Motsunabe",3,25,406,,,-,"Iino Building B1F, 2-1-1 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町2-1-1
+13245131,Kagoshima Food Stall Fireball Boy Hibiya Branch,Leaving the Station,137,Izakaya,3,3,46,,,-,"Hibiya International Building B2F, 2-2-3 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町2-2-3
+13241306,Scarecrow,Leaving the Station,137,"Rice balls, bento",3,2,12,,,-,"Hibiya International Building B1F, 2-2-3 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町2-2-3
+13174172,Cafe News,Leaving the Station,255,Set meals/cafeteria,3,6,48,,,-,"1-1-7 Signature, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区千代田1-1-7
+13263466,Yatai DELi Fukoku Seimei Building Store,Leaving the Station,85,bento,3,2,8,,,-,"Fukoku Seimei Building B2F, 2-2-2 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町2-2-2
+13203722,Godiva Imperial Hotel Arcade Store,Hibiya Station,283,chocolate,3,1,22,,,Irregular holidays,"B1F, 1-1-1 Uchiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町1-1-1
+13245162,Tagirba,Leaving the Station,137,Izakaya,3,3,135,,,-,"Hibiya International Building B2F, 2-2-3 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町2-2-3
+13271103,Stories of Italy,Leaving the Station,276,Cafe,3,3,18,,,-,"Hibiya OKUROJI, 1-7-1 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町1-7-1
+13134510,Flower Room,Leaving the station,315,ramen,3,1,103,,,-,"1-7-1 Uchisawaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町1-7-1
+13033581,Tokyo Mita Club,Hibiya Station,294,Western food,3,2,121,,,Sundays and public holidays,"Imperial Hotel Tokyo Main Building B1F, 1-1-1 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町1-1-1
+13215612,Delicious fried chicken and izakaya food Miraizaka Hibiya Fukoku Seimei Building Branch,Leaving the station,98,"Izakaya, Yakitori, Motsunabe",3,3,172,,,"Every Saturday, Sunday and public holidays","Fukoku Seimei Building B2F, 2-2-2 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町2-2-2
+13245583,Mapo Specialist Chou Chen Lou,Leaving the station,255,Chinese cuisine,3,2,51,,,-,"Yu BAR, 2F Ura Corridor Street, 1-6-5 Uchisaiwaicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Don't miss it,-,東京都千代田区内幸町1-6-5
+13267126,Bakery,Otemachi Station,442,"Bread, sandwiches",3,1,15,,,"Saturdays, Sundays, and public holidays","JOB HUB SQUARE 1F, 2-6-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町2-6-2
+13195478,Natural Lawson Otemachi Financial City North Store,Otemachi Station,358,others,3,3,21,,,-,"Financial City North Tower B1F, 1-9-5 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-9-5
+13194185,Seven-Eleven Otemachi Conference Center Store,Otemachi Station,413,others,3,2,9,,,Sundays and public holidays,"Otemachi Conference Center B1F, 1-3-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-3-2
+13247770,Tully's Coffee Otemachi One,Otemachi Station,363,Cafe,3,4,27,,,Sundays and public holidays,"Otemachi One B1F, 1-2-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-2-1
+13031559,Coffee & Dining Bar Nana,Otemachi Station,169,Dining Bar,3,2,17,,,-,"Otemachi Building B2F, 1-6-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-6-1
+13194995,Natural Lawson Otemachi Metropia Store,Otemachi Station,143,others,3,1,11,,,Open daily,"1-6-1 Otemachi, Chiyoda-ku, Tokyo Chiyoda Line Otemachi Station",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-6-1
+13274202,Tully's Coffee Marubeni Building,Takebashi Station,114,"Coffee, Sandwiches, Pasta",3,1,14,,,Saturday and Sunday,"Marubeni Head Office Building 1F, 1-4-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-4-2
+13242580,Rough Orange,Otemachi Station,238,bento,3,1,6,,,-,"Tokyo Sankei Building Neo Yatai Village, 1-7-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-7-2
+13228056,Seven-Eleven Otemachi Place,Otemachi Station,354,others,3,1,4,,,-,"Otemachi Place 28F, 2-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町2-1
+13269891,Saladice Otemachi Park Building,Otemachi Station,252,"Vegetable dishes, delicatessen",3,1,62,,,-,"Otemachi Park Building, 1-1-1 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-1-1
+13243393,Yoshinoya,Otemachi Station,389,Beef bowl,3,2,24,,,-,"1-9-5 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-9-5
+13263036,Lawson Ote Center Building Store,Otemachi Station,189,others,3,1,5,,,Open daily,"1-1-3 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-1-3
+13276742,Family Mart!! Otemon Tower Store,Otemachi Station,279,others,3,1,2,,,Sunday,"Otemon Tower Eneos Building, 1-1-2 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町1-1-2
+13263984,MY SYOKUDO HALL&KITCHEN,Mitsukoshimae Station,394,Cafes and coffee shops (other),3,4,49,,,-,"TOKYO TORCH terrace 3F, 2-6-4 Otemachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Otemachi,-,東京都千代田区大手町2-6-4
+13176696,BAR OMOcafe,Kanda Station,291,"Bar, dining bar, bar and alcohol (other)",3,5,386,,,Sundays and public holidays,"Takeuchi Building 1F, 1-4-3 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町1-4-3
+13280378,WRAPPED CREPE HEELS JR Kanda store,Kanda Station,37,crepe,3,2,12,,,-,"2-12 Kajicho, Chiyoda-ku, Tokyo JR Kanda Station",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町2-12
+13260223,BAR Welcome Back,Kanda Station,256,bar,3,2,30,,,Sundays and public holidays,"1-2-14 Kajicho, Chiyoda-ku, Tokyo 1F",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町1-2-14
+13225381,Private Japanese Bar Hagi Kanda,Kanda Station,94,"Izakaya, Seafood, Poultry",3,7,114,,,No fixed holidays (same as building closing days),"Sakurai Building No. 2, 3F, 2-1-6 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町2-1-6
+13249630,Family Mart Kanda Station East Exit Store,Kanda Station,51,others,3,6,10,,,-,"2-7-1 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町2-7-1
+13279055,Yokohama Iekei Ramen Haruki Kanda Branch,Shin-Nihonbashi Station,268,ramen,3,2,15,,,none,"1-5-1 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町1-5-1
+13214933,Lawson Kanda Station East Exit,Kanda Station,78,others,3,3,6,,,Open daily,"2-2-9 Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kajimachi,-,東京都千代田区鍛冶町2-2-9
+13276929,Pelican Moon Caffe Kasumigaseki Common Gate Branch,Toranomon Station,260,"Cafe, dining bar, izakaya",3,4,43,,,-,"1F, West Wing, Kasumigaseki Common Gate, 3-2-1 Kasumigaseki, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kasumigaseki,-,東京都千代田区霞が関3-2-1
+13126174,"Omusubi Gonbei Ministry of Agriculture, Forestry and Fisheries Store",Kasumigaseki Station,164,Onigiri,3,7,97,,,"Closed on Saturdays, Sundays, national holidays, and government closed days (December 29th to January 3rd)","1-2-1 Kasumigaseki, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kasumigaseki,-,東京都千代田区霞が関1-2-1
+13227657,Wrapped Crepe Corot Kasumigaseki Metro Branch,Kasumigaseki Station,5,crepe,3,9,57,,,Irregular holidays,"2-1-2 Kasumigaseki, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kasumigaseki,-,東京都千代田区霞が関2-1-2
+13182597,Olympic Awajicho store,Shin-Ochanomizu Station,218,others,3,4,25,,,Open daily,"Waterras Mall B1F, 2-105 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,東京都千代田区神田淡路町2-105
+13263111,Family Mart Water Tower Store,Awajicho Station,161,others,3,1,2,,,-,"2-3 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,東京都千代田区神田淡路町2-3
+13234221,Seven-Eleven Kanda Awajicho Waterras Store,Shin-Ochanomizu Station,218,others,3,4,7,,,-,"Water's Annex 3F, 2-105 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,東京都千代田区神田淡路町2-105
+13144804,The B Ochanomizu,Ogawamachi Station,86,others,3,2,9,,,-,"The B Ochanomizu, 1-7-5 Kanda Awajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Awaji Town,-,東京都千代田区神田淡路町1-7-5
+13249562,Connoisseur Ginji Jimbocho Surugadaishita Branch,Jimbocho Station,302,"Izakaya, Seafood, Creative Cuisine",3,7,71,,,-,"Matsushita Building 1F, 3-3-2 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町3-3-2
+13175278,Akiyama,Ogawamachi Station,233,coffee shop,3,1,87,,,"Saturdays, Sundays, and public holidays","2-8 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町2-8
+13184239,Italian bar Deranchi.,Shin-Ochanomizu Station,262,Italian,3,9,176,,,"Saturdays, Sundays, and public holidays","Koike Building 1F, 2-6 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町2-6
+13221797,Karaoke Maneki Neko Kanda Ogawamachi Branch,Ogawamachi Station,352,others,3,3,11,,,Open daily,"Jimbocho Building 3F & 4F, 3-3 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町3-3
+13154756,Sunshine,Shin-Ochanomizu Station,255,"Bar, bistro, izakaya",3,4,421,,,Sunday [Reservations accepted],"Shoryukan Building 1F, 3-28-7 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町3-28-7
+13237831,Ichigoichiwara Jimbocho store,Jimbocho Station,315,Sweets (Other),3,1,24,,,-,"1F, 3-7-15 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町3-7-15
+13174452,Family Mart Pharmacy Higuchi Awajicho Store,Ogawamachi Station,48,others,3,5,20,,,Open daily,"1-1-16 Kanda Ogawamachi, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Ogawamachi,-,東京都千代田区神田小川町1-1-16
+13279545,Takarajima 24 Kanda store,Kanda Station,150,others,3,1,2,,,-,"TC 4th Building, 2F-8F, 3-2-3 Kanda Kajicho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Kajicho,-,東京都千代田区神田鍛冶町3-2-3
+13259753,MagMell,Kanda Station,250,others,3,1,10,,,-,"3F, 44 Kanda Konyacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Konyacho,-,東京都千代田区神田紺屋町44-3F
+13274101,"Yakiushi Akihabara, a restaurant serving carefully selected Japanese Black beef and premium yakiniku",Akihabara Station,161,"Yakiniku, Hormone, Izakaya",3,5,337,,,-,"Chiyoda Terrace 8F E2, 1-21-1 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,東京都千代田区神田佐久間町1-21-1
+13201622,Private Hot Pot Restaurant Satsuma Biyori Akihabara Branch,Akihabara Station,127,"Izakaya, Motsunabe, Yakitori",3,14,762,,,-,"Ohashi Building 3F, 1-16 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,東京都千代田区神田佐久間町1-16
+13270284,Meat Grape Shop,Iwamotocho Station,321,"Steak, Wine Bar, Izakaya",3,2,247,,,-,"Taiyo Building 1F, 3-38 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,東京都千代田区神田佐久間町3-38
+13277736,Yen Akihabara store,Akihabara Station,103,"Izakaya, Shabu-shabu, Yakiniku",3,3,160,,,-,"Kawahaji Building 6F, 1-15 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,東京都千代田区神田佐久間町1-15
+13099442,Sumihito Public Bar Akihabara Branch,Akihabara Station,157,Bars and other drinks,3,1,32,,,Saturday and Sunday,"Sanshin Building 2F, 1-20 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,東京都千代田区神田佐久間町1-20
+13224827,First Cabin Akihabara,Iwamotocho Station,311,others,3,1,8,,,-,"3-38 Kanda Sakumacho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sakumacho,-,東京都千代田区神田佐久間町3-38
+13148236,YMCA Hotel,Suidobashi Station,489,Inns and auberges (other),3,2,7,,,Open all year round,"2-5-5 Kanda Sarugakucho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Sarugakucho,-,東京都千代田区神田猿楽町2-5-5
+13238462,Shunsai Washoku Wagaya Jimbocho Branch,Jimbocho Station,165,"Izakaya, Japanese cuisine (other), creative cuisine",3,2,239,,,-,"Kurosawa Building 3F, 1-4 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町1-4
+13259070,Morihachi Tokyo store,Jimbocho Station,40,Japanese sweets,3,17,380,,,Open daily (except New Year's holiday),"1-13-3 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町1-13-3
+13218362,"Bincho-tei, Kanda Jinbocho",Jimbocho Station,200,"Yakitori, Izakaya, Bars and Alcohol (Other)",3,2,43,,,-,"1-25-2 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町1-25-2
+13163872,Senshu University Kanda Campus Cafeteria,Kudanshita Station,238,student cafeteria,3,3,72,,,Sunday,"Senshu University Kanda Campus B2F, 3-8 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町3-8
+13080981,pine tree,Kudanshita Station,271,"Japanese cuisine, cafe",3,3,55,,,"Earth, Sun, and Festival","Yasuda Jinbocho Mansion 1F, 3-11-1 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町3-11-1
+13255190,Rice flour cafe Tida,Jimbocho Station,182,Cafe,3,2,125,,,-,"Kaitakusha Building 2F, 2-5-4 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町2-5-4
+13278616,Seven-Eleven Kanda Jinbocho 3-chome Store,Kudanshita Station,242,others,3,1,1,,,-,"3-2-6 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町3-2-6
+13208400,"Japanese-style private room, authentic charcoal grilled chicken, Tori Shigure Jimbocho branch",Jimbocho Station,165,"Izakaya, poultry dishes, seafood dishes",3,4,469,,,Irregular holidays,"2-12-3 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町2-12-3
+13251614,Sawaguchi Shoten Tokyo Antique Bookstore,Jimbocho Station,101,others,3,2,6,,,-,"Genkogo Building 1st and 2nd floors, 1-7-21 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町1-7-21
+13244004,Seven-Eleven Kanda Jimbocho 2-chome store,Jimbocho Station,125,others,3,2,6,,,-,"1F Kanda Jimbocho 2-chome Building, Jimbocho, Chiyoda-ku, Tokyo, Japan",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町2-2
+13244004,Yakiniku King Gakugeidaigaku-mae,Gakugeidaigaku Station,125,others,3,2,6,,,-,"1F Kanda Jimbocho 2-chome Building, 3-15-25 Takaban, Meguro, Tokyo, Japan",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都目黒区鷹番3-15-25
+13291562,Seven-Eleven Kanda Jinbocho 1-chome Store,Jimbocho Station,110,others,3,1,5,,,-,"1-1 Kanda Jinbocho, Chiyoda-ku, Tokyo",Tokyo,Chiyoda Ward,Kanda Jinbocho,-,東京都千代田区神田神保町1-1
