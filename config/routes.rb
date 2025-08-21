@@ -21,10 +21,7 @@ Rails.application.routes.draw do
   end
 
   # unnested recommendation resource
-  resources :recommendations, only: [:index, :new, :create]
-
-  # Global recommendations index (all restaurants)
-  resources :recommendations, only: [:index]
+  resources :recommendations, only: [:index, :new, :create, :destroy]
 
   # plans
   resources :plans, only: [:index]
