@@ -36,7 +36,11 @@ end
     if params[:q].present?
       @restaurants = Restaurant.where("name ILIKE ?", "%#{params[:q]}%")
     else
-      @restaurants = Restaurant.all
+      followees = current_user.followees(User)
+      # Get restaurants that have at least one recommendation from a followee
+      @restaurants = Restaurant.joins(:recommendations)
+                              .where(recommendations: { user_id: followees.pluck(:id) })
+                              .distinct
     end
 
     @markers = @restaurants.map do |restaurant|
