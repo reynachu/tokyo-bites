@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit::Authorization
-
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   after_action :verify_authorized, unless: :skip_pundit?, if: -> { action_name != "index" }
   after_action :verify_policy_scoped, unless: :skip_pundit?, if: -> { action_name == "index" }
 
@@ -18,5 +18,9 @@ class ApplicationController < ActionController::Base
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
+
+  def user_not_authorized
+    redirect_back fallback_location: root_path, alert: "Not authorized."
   end
 end

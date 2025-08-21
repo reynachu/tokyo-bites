@@ -5,6 +5,8 @@ class RecommendationsController < ApplicationController
   skip_after_action :verify_authorized, only: [:new, :create]
   skip_after_action :verify_policy_scoped, only: [:index]
 
+  before_action :set_recommendation, only: :destroy
+
   def new
     if @restaurant
       # Nested route -> no dropdown (your existing branch)
@@ -31,11 +33,25 @@ class RecommendationsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @recommendation  # Pundit: must be owner per policy
+    @recommendation.destroy
+
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, notice: "Recommendation deleted." }
+      format.turbo_stream # see step 4 for auto-remove
+    end
+  end
+
   private
 
   # Use path params to detect nested route; avoids triggering on query string
   def set_restaurant_from_path
     @restaurant = Restaurant.find(request.path_parameters[:restaurant_id])
+  end
+
+  def set_recommendation
+    @recommendation = Recommendation.find(params[:id])
   end
 
   def recommendation_params
