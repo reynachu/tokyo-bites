@@ -5,7 +5,7 @@ class RecommendationsController < ApplicationController
   skip_after_action :verify_authorized, only: [:new, :create]
   skip_after_action :verify_policy_scoped, only: [:index]
 
-  before_action :set_recommendation, only: :destroy
+  before_action :set_recommendation, only: [:destroy, :like, :unlike]
 
   def new
     if @restaurant
@@ -43,6 +43,18 @@ class RecommendationsController < ApplicationController
     end
   end
 
+  def like
+    authorize @recommendation, :like?
+    current_user.like!(@recommendation) unless current_user.likes?(@recommendation)
+    render_like_frame
+  end
+
+  def unlike
+    authorize @recommendation, :unlike?
+    current_user.unlike!(@recommendation) if current_user.likes?(@recommendation)
+    render_like_frame
+  end
+
   private
 
   # Use path params to detect nested route; avoids triggering on query string
@@ -57,4 +69,11 @@ class RecommendationsController < ApplicationController
   def recommendation_params
     params.require(:recommendation).permit(:description, :restaurant_tags, :restaurant_id, photos: [])
   end
+
+  def render_like_frame
+    @recommendation.reload
+    render partial: "recommendations/like_frame",
+           locals: { recommendation: @recommendation }
+  end
+
 end

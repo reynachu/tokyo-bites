@@ -1,6 +1,8 @@
 <% compact = local_assigns.fetch(:compact, false) %>
 
-<div id="<%= dom_id(recommendation) %>" class="card mb-3 shadow-sm position-relative">
+<div id="<%= dom_id(recommendation) %>" class="card mb-3 shadow-sm position-relative"
+     data-controller="like"
+     data-like-recommendation-id-value="<%= recommendation.id %>">
   <div class="card-body">
     <!-- Header -->
     <div class="d-flex align-items-center mb-2">
@@ -74,6 +76,11 @@
 
     <!-- Body -->
     <p class="card-text"><%= recommendation.description %></p>
+
+    <!-- Like frame (bottom-left) -->
+    <%= turbo_frame_tag dom_id(recommendation, :likes) do %>
+      <%= render "recommendations/like_button", recommendation: recommendation %>
+    <% end %>
 
     <% if recommendation.restaurant_tags.present? %>
       <div class="mt-1">
