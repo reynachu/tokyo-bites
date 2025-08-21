@@ -1,0 +1,19 @@
+<% liked = current_user && current_user.likes?(recommendation) %>
+<% count = recommendation.likers(User).count %>
+
+<div class="d-flex align-items-center gap-2">
+  <% if liked %>
+    <%= link_to "♥",
+          unlike_recommendation_path(recommendation),
+          data: { turbo_method: :delete, turbo_frame: dom_id(recommendation, :likes) },
+          class: "fs-3 text-danger text-decoration-none like-heart",
+          title: "Unlike" %>
+  <% else %>
+    <%= link_to "♡",
+          like_recommendation_path(recommendation),
+          data: { turbo_method: :post, turbo_frame: dom_id(recommendation, :likes) },
+          class: "fs-3 text-secondary text-decoration-none like-heart",
+          title: "Like" %>
+  <% end %>
+  <span class="text-muted"><%= count %></span>
+</div>

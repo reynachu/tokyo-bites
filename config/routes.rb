@@ -21,7 +21,12 @@ Rails.application.routes.draw do
   end
 
   # unnested recommendation resource
-  resources :recommendations, only: [:index, :new, :create, :destroy]
+  resources :recommendations, only: [:index, :new, :create, :destroy] do
+    member do
+      post   :like
+      delete :unlike
+    end
+  end
 
   # plans
   resources :plans, only: [:index]
