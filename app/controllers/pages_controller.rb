@@ -13,21 +13,24 @@ class PagesController < ApplicationController
   #   end
   # end
 
-  def home
-    # For now, just show all recommendations until friends feature is ready
-    @recommendations = Recommendation
-      .includes(:user, :restaurant) # avoids N+1 queries
-      .order(created_at: :desc)
-      .limit(20)
+def home
+  base = Recommendation.includes(:user, :restaurant, photos_attachments: :blob)
 
-    if turbo_frame_request?
-      render partial: "pages/recommendations_feed",
-            locals: { recommendations: @recommendations },
-            layout: false
-    else
-      render :home
+  @recommendations =
+    if current_user # when logged in
+      base.followed_first(current_user).limit(50)
+    else # when logged out
+      base.order(created_at: :desc).limit(20)
     end
+
+  if turbo_frame_request?
+    render partial: "pages/recommendations_feed",
+           locals: { recommendations: @recommendations },
+           layout: false
+  else
+    render :home
   end
+end
 
   def map
     if params[:q].present?
