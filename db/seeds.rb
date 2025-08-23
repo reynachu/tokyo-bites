@@ -47,7 +47,8 @@ else
         name: row['name']&.strip || "Unnamed Restaurant",
         address: row['address']&.strip || "No Address",
         opening_hours: row['holiday']&.strip,
-        category: row['category']&.strip
+        category: row['category']&.strip,
+        address_jp: row['address_jp']&.strip
       )
       puts "Created restaurant: #{restaurant.name}"
     rescue => e
@@ -61,14 +62,21 @@ end
 # Geocode restaurants
 puts "Geocoding restaurants..."
 Restaurant.find_each do |restaurant|
-  # if restaurant.latitude.blank? || restaurant.longitude.blank?
-  if restaurant.address.present?
-    restaurant.geocode
-    restaurant.save(validate: false)
+  next unless restaurant.address_jp.present?
+
+  results = Geocoder.search(restaurant.address_jp, params: { country: "JP", limit: 1 })
+  if results.any?
+    restaurant.update(
+      latitude: results.first.coordinates[0], # Mapbox returns [lng, lat]
+      longitude: results.first.coordinates[1]
+    )
     puts "Geocoded #{restaurant.name} - lat: #{restaurant.latitude}, lng: #{restaurant.longitude}"
+  else
+    puts "⚠️ No geocoding results for #{restaurant.name} (#{restaurant.address_jp})"
   end
 end
 puts "Done geocoding!"
+
 
 # local source images upload to the current Active Storage service
 images_dir = Rails.root.join("app/assets/images")

@@ -31,13 +31,23 @@ Rails.application.routes.draw do
 
 
   # unnested recommendation resource
+
   resources :recommendations, only: [:index, :new, :create]
 
   # Global recommendations index (all restaurants)
   # resources :recommendations, only: [:index]
 
+  resources :recommendations, only: [:index, :new, :create, :destroy] do
+    member do
+      post   :like
+      delete :unlike
+    end
+  end
+
+
   # plans
   resources :plans, only: [:index]
+
 
   # users
   resources :users, only: [:show, :index] do
@@ -47,5 +57,12 @@ Rails.application.routes.draw do
     member do
       get :wishlist
     end
+
+  #users
+  resources :users, only: [:show, :edit, :update] do
+    post 'follow', to: 'socializations#follow', as: :follow
+    delete 'unfollow', to: 'socializations#unfollow', as: :unfollow
+    member { delete :remove_profile_picture }
+
   end
 end

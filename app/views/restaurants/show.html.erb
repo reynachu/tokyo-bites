@@ -17,7 +17,10 @@
       </div>
 
       <div class="col-md-8">
-        <h1 class="fw-bold mb-2"><%= @restaurant.name %></h1>
+        <div class="d-flex justify-content-between align-items-start">
+          <h1 class="fw-bold mb-2"><%= @restaurant.name %></h1>
+        </div>
+
         <dl class="row text-muted mb-0">
           <dt class="col-sm-3"><i class="bi bi-tag-fill me-1"></i> category:</dt>
           <dd class="col-sm-9"><%= @restaurant.category.presence || "—" %></dd>
@@ -28,8 +31,18 @@
           <dt class="col-sm-3"><i class="bi bi-clock-fill me-1"></i> opening hours:</dt>
           <dd class="col-sm-9"><%= @restaurant.opening_hours.presence || "—" %></dd>
         </dl>
+         <!-- Recommend CTA (moved outside the DL so it doesn't stretch) -->
+        <div class="mt-3">
+          <%= link_to new_recommendation_path(restaurant_id: @restaurant.id),
+                      class: "btn btn-recommend rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2",
+                      data: { turbo_frame: "main_content" } do %>
+            <i class="bi bi-stars"></i>
+            <span>Recommend</span>
+          <% end %>
+        </div>
       </div>
     </div>
+
 
 
   <%# --- Bookmark Button (icon-only) --- %>
@@ -48,51 +61,46 @@
   <% end %>
 
 
+    <style>
+      :root{
+        --brand-bg: #faf1e8;
+        --brand-accent: #c72b17;
+      }
+      .btn-recommend{
+        background-color: var(--brand-accent);
+        color:#fff; border:0;
+        padding:.45rem .9rem;
+        box-shadow: 0 6px 14px rgba(199,43,23,.18);
+      }
+      .btn-recommend:hover{ background-color:#a62213; color:#fff; }
+      .btn-recommend:focus-visible{ outline:0; box-shadow:0 0 0 .2rem rgba(199,43,23,.35); }
+      .btn-recommend:active{ background-color:#8d1c10; }
+    </style>
+
+
 
     <hr class="my-4">
 
-    <!-- Body: recommendations left, map right -->
+    <!-- Body: timeline left, map right -->
     <div class="row g-4">
-    <div class="col-lg-7">
-      <h3 class="mb-3">🍽 Recommendations</h3>
+      <!-- LEFT: scrollable mini timeline (same height, smaller cards) -->
+      <div class="col-lg-7">
+        <h3 class="mb-3">🍽 Recommendations</h3>
 
-      <% if @recommendations.present? %>
-        <div class="list-group shadow-sm rounded overflow-hidden">
-          <% @recommendations.each do |recommendation| %>
-            <div class="list-group-item">
-              <p class="mb-1"><%= recommendation.description %></p>
-              <small class="text-muted">
-                — Recommended by
-                <%= link_to(recommendation.user.username, user_path(recommendation.user)) if recommendation.user %>
-              </small>
+        <% if @recommendations.present? %>
+          <div class="rounded border bg-body overflow-auto mini-timeline" style="max-height: 65vh;">
+            <div class="p-2 d-flex flex-column gap-2">
+              <%= render partial: "recommendations/recommendation_card",
+                        collection: @recommendations,
+                        as: :recommendation,
+                        locals: { compact: true } %>
             </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
-      <% end %>
+          </div>
+        <% else %>
+          <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
+        <% end %>
+      </div>
 
-      <hr class="my-4">
-
-      <h3 class="mb-3">📸 Photos</h3>
-      <% if @rec_photos.any? %>
-        <div class="row g-2">
-          <% @rec_photos.first(12).each do |photo| %>
-            <div class="col-4 col-md-3">
-              <div class="ratio ratio-4x3 rounded overflow-hidden">
-                <%= image_tag photo,
-                              class: "w-100 h-100",
-                              style: "object-fit: cover;",
-                              loading: "lazy",
-                              decoding: "async" %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p class="text-muted fst-italic mb-0">No photos yet.</p>
-      <% end %>
-    </div>
 
   <div style="width: 100%; height: 600px;"
     data-controller="map"
@@ -100,15 +108,40 @@
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 
+      <style>
+        /* shrink card chrome without editing the partial */
+        .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
+        .mini-timeline .card-body     { padding: .5rem .6rem !important; }
+        .mini-timeline .rounded-circle{ width: 28px !important; height: 28px !important; }
 
+        /* shorter media area (works for any .ratio inside the card, including carousel slides) */
+        .mini-timeline .ratio         { --bs-aspect-ratio: 42%; } /* tweak: 38–48% */
+        .mini-timeline .carousel .ratio { --bs-aspect-ratio: 42%; }
+
+        /* typography tightening */
+        .mini-timeline .card p,
+        .mini-timeline .card .small,
+        .mini-timeline .card .text-muted,
+        .mini-timeline .card .badge   { font-size: .85rem !important; }
+
+
+        /* optional: clamp long descriptions to 3 lines */
+        .mini-timeline .card p {
+          margin-bottom: .35rem;
+          display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      </style>
+
+      <!-- RIGHT: Map -->
       <div class="col-lg-5">
         <h3 class="mb-3">🗺 Map</h3>
-          <div
-            data-controller="map"
-            data-map-markers-value='<%= @markers.to_json %>'
-            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-            class="rounded shadow-sm" style="height: 350px;">
-          </div>
+        <div
+          data-controller="map"
+          data-map-markers-value='<%= @markers.to_json %>'
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+          class="rounded shadow-sm" style="height: 350px;">
+        </div>
       </div>
     </div>
 
