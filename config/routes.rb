@@ -32,8 +32,9 @@ Rails.application.routes.draw do
   resources :plans, only: [:index]
 
   #users
-  resources :users, only: [:show] do
+  resources :users, only: [:show, :edit, :update] do
     post 'follow', to: 'socializations#follow', as: :follow
     delete 'unfollow', to: 'socializations#unfollow', as: :unfollow
+    member { delete :remove_profile_picture }
   end
 end

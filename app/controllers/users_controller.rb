@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  skip_after_action :verify_authorized, only: [:profile, :show]
+  skip_after_action :verify_authorized, only: [:profile, :show, :edit, :update, :remove_profile_picture]
+  before_action :set_user, only: [:show, :edit, :update, :remove_profile_picture]
+  before_action :ensure_owner!, only: [:edit, :update, :remove_profile_picture]
 
   def profile
     @user = current_user
@@ -13,6 +15,9 @@ class UsersController < ApplicationController
                             .includes(:restaurant, :user)
                             .with_attached_photos
                             .order(created_at: :desc)
+
+    # total number of restaurants visited
+    @places_visited_count = @user.recommendations.where.not(restaurant_id: nil).distinct.count(:restaurant_id)
 
     # Top 5 restaurants by rec count
     resto_counts    = @user.recommendations
@@ -49,12 +54,63 @@ class UsersController < ApplicationController
                                             .reject { |r, _| r.nil? }
 
     if turbo_frame_request?
-      render partial: "user_profile", locals: { user: @user }, layout: false
+      render partial: "users/user_profile", formats: [:html], locals: { user: @user }, layout: false
     else
       render :show
     end
   end
 
+  def edit
+    # Optional: render a dedicated edit screen, or keep inline form on show
+    # render :edit
+  end
 
+  def update
+    if @user.update(user_params)
+      # rebuild any collections your partial expects (or call a helper if you made one)
+      show_for_frame_or_redirect
+    else
+      show_for_frame_or_redirect(status: :unprocessable_entity)
+    end
+  end
 
+  def remove_profile_picture
+    @user.profile_picture.purge_later if @user.profile_picture.attached?
+    show_for_frame_or_redirect
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def show_for_frame_or_redirect(status: :ok)
+  # rebuild collections here just like in `show` (or refactor to a shared method)
+  @recommendations = @user.recommendations
+                          .includes(:restaurant, :user)
+                          .with_attached_photos
+                          .order(created_at: :desc)
+  # ... compute @top5, @top_categories, @most_revisited exactly as in `show` ...
+
+  if turbo_frame_request?
+    render partial: "users/user_profile", formats: [:html], locals: { user: @user }, layout: false, status: status
+  else
+    if status == :ok
+      redirect_to @user, notice: "Profile updated."
+    else
+      render :show, status: status
+    end
+  end
+end
+
+  # Simple owner guard. If you use Pundit, replace with `authorize @user`.
+  def ensure_owner!
+    redirect_to @user, alert: "Not allowed." unless current_user == @user
+  end
+
+  # Permit names, username, and profile picture
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :username, :profile_picture)
+  end
 end
