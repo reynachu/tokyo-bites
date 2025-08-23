@@ -1,5 +1,5 @@
 class RestaurantPolicy < ApplicationPolicy
   def show?
-    true # or add your real permission logic here
+    true
   end
 end
