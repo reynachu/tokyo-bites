@@ -1,5 +1,12 @@
 class RestaurantPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      # Allow all restaurants for now
+      scope.all
+    end
+  end
+
   def show?
-    true # or add your real permission logic here
+    true
   end
 end

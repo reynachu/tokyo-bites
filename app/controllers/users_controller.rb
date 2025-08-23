@@ -1,12 +1,30 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :wishlist]
+  skip_after_action :verify_authorized, only: [:profile, :show]
   skip_after_action :verify_authorized, only: [:profile, :show, :edit, :update, :remove_profile_picture]
   before_action :set_user, only: [:show, :edit, :update, :remove_profile_picture]
   before_action :ensure_owner!, only: [:edit, :update, :remove_profile_picture]
 
+
   def profile
     @user = current_user
   end
+
+  # GET /users
+  def index
+    @users = policy_scope(User)
+
+    if params[:q].present?
+      @users = @users.where("username ILIKE ?", "%#{params[:q]}%")
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: "users/friend_search_results", locals: { users: @users } }
+    end
+  end
+
 
   def show
     @user = User.find(params[:id])
@@ -60,6 +78,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def wishlist
+   @user = User.find(params[:id])
+   @restaurants = policy_scope(@user.wishlist_restaurants)
+
   def edit
     # Optional: render a dedicated edit screen, or keep inline form on show
     # render :edit
@@ -77,6 +99,7 @@ class UsersController < ApplicationController
   def remove_profile_picture
     @user.profile_picture.purge_later if @user.profile_picture.attached?
     show_for_frame_or_redirect
+
   end
 
   private
@@ -84,6 +107,8 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+
+
 
   def show_for_frame_or_redirect(status: :ok)
   # rebuild collections here just like in `show` (or refactor to a shared method)

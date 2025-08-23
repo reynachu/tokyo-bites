@@ -1,0 +1,12 @@
+<% if @users.present? %>
+  <ul class="list-group list-group-flush mt-2">
+    <% @users.each do |user| %>
+      <li class="list-group-item p-1">
+        <%= link_to user.username, user_path(user), data: { turbo_frame: "main_content" }, class: "text-decoration-none" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No users found.</p>
+<% end %>
+

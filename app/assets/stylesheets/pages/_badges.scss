@@ -1,0 +1,53 @@
+// ================================
+// Badge Styles
+// ================================
+
+// Base pill badge
+.badge-pill {
+  @extend .badge;
+  border-radius: 50rem; // pill shape
+  background-color: #f8f9fa; // light neutral bg
+  color: #212529; // dark readable text
+  border: 1px solid #dee2e6; // subtle border
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  // hover state (subtle chip feel)
+  &:hover {
+    background-color: #e9ecef;
+    cursor: default;
+  }
+
+  // spacing if inline without flex
+  & + .badge-pill {
+    margin-left: 0.4rem;
+  }
+}
+
+// Category badge (floats centered above card)
+.category-badge {
+  @extend .badge-pill;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background-color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
+// Tag badges wrapper (flex wrap)
+.tag-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  .badge-pill {
+    background-color: #f1f3f5;
+    font-size: 0.8rem;
+  }
+}
