@@ -31,6 +31,24 @@
       </div>
     </div>
 
+
+  <%# --- Bookmark Button (icon-only) --- %>
+    <%= render "restaurants/bookmark_button", restaurant: @restaurant %>
+
+
+  <%# --- Wishlist --- %>
+  <h1><%= @restaurant.name %></h1>
+  <p><%= @restaurant.category %></p>
+  <p><%= @restaurant.description %></p>
+
+  <% if current_user.wishlist_restaurants.include?(@restaurant) %>
+    <%= button_to "Remove from Wishlist", restaurant_wishlist_path(@restaurant), method: :delete %>
+  <% else %>
+    <%= button_to "Add to Wishlist", restaurant_wishlist_path(@restaurant), method: :post %>
+  <% end %>
+
+
+
     <hr class="my-4">
 
     <!-- Body: recommendations left, map right -->
@@ -75,7 +93,6 @@
         <p class="text-muted fst-italic mb-0">No photos yet.</p>
       <% end %>
     </div>
-
 
   <div style="width: 100%; height: 600px;"
     data-controller="map"
