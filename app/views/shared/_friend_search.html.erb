@@ -1,0 +1,13 @@
+<div data-controller="friend-search" class="position-relative">
+  <div class="input-group">
+    <%= form_with url: users_path, method: :get, data: { turbo_frame: "friend_search_results", controller: "friend-search", action: "input->friend-search#submit" }, local: false, class: "d-flex" do |f| %>
+      <%= f.text_field :q, placeholder: "Search friends...", class: "form-control form-control-sm", data: { friend_search_target: "input" }, autofocus: true %>
+    <% end %>
+  </div>
+
+  <div data-friend-search-target="popover" class="position-absolute mt-1 bg-white border rounded shadow-sm p-2 d-none" style="width: 250px; z-index: 1050;">
+    <turbo-frame id="friend_search_results">
+      <!-- search results will be injected here -->
+    </turbo-frame>
+  </div>
+</div>

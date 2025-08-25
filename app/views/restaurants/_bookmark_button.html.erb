@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+    <% saved = Bookmark.find_by(user: current_user, restaurant: restaurant).present? %>
+      <i class="fa-bookmark <%= saved ? "fa-solid" : "fa-regular" %> fa-lg" data-controller="bookmark" data-bookmark-restaurantid-value="<%= restaurant.id %>" data-action="click->bookmark#<%= saved ? "deleteBookmark" : "addBookmark" %>"></i>
+<% else %>
+  <p><%= link_to "Sign in to bookmark this restaurant", new_user_session_path %></p>
+<% end %>
