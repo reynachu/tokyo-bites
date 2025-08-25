@@ -21,6 +21,7 @@ export default class extends Controller {
   }
 
   #addMarkersToMap() {
+    console.log("Adding markers:", this.markersValue)
     this.markersValue.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.info_window_html)
       new mapboxgl.Marker()
@@ -36,4 +37,3 @@ export default class extends Controller {
     this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 })
   }
 }
-
