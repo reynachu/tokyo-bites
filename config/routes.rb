@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
 
   # Bookmark routes (POST + DELETE only)
-    resource :bookmarks, only: [:show, :create, :destroy]
+    resource :bookmarks, only: [:create, :destroy, :show]
   end
 
 

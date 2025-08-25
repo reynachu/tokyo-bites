@@ -1,25 +1,38 @@
 <turbo-frame id="main_content">
-<h1>My Wishlist</h1>
+  <h1>My Wishlist</h1>
 
-<% if @restaurants.any? %>
-  <ul class="list-group">
-    <% @restaurants.each do |restaurant| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>
-          <%= link_to restaurant.name, restaurant_path(restaurant), class: "fw-bold text-decoration-none" %>
-          <small class="text-muted">(<%= restaurant.category %>)</small>
-        </span>
-          <%= button_to "Remove",
-        restaurant_bookmarks_path(restaurant),
-        method: :delete,
-        class: "btn btn-sm btn-outline-danger",
-        data: { turbo_confirm: "Remove from wishlist?" } %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <div class="alert alert-info mt-3">
-    You haven’t added any restaurants yet.
-  </div>
-<% end %>
- </turbo-frame>
+  <% if @restaurants.any? %>
+    <ul class="list-group">
+      <% # Preload restaurants for the user's first wishlist to avoid N+1 queries %>
+      <% first_wishlist_restaurants = current_user.first_wishlist.restaurants.includes(:bookmarks) %>
+
+      <% first_wishlist_restaurants.each do |restaurant| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>
+            <%= link_to restaurant.name, restaurant_path(restaurant), class: "fw-bold text-decoration-none" %>
+            <small class="text-muted">(<%= restaurant.category %>)</small>
+          </span>
+
+          <%# Check if the restaurant is already in the first wishlist %>
+          <% if current_user.first_wishlist.restaurants.include?(restaurant) %>
+            <%= button_to "Remove",
+                  restaurant_bookmarks_path(restaurant),
+                  method: :delete,
+                  class: "btn btn-sm btn-outline-danger",
+                  data: { turbo_confirm: "Remove from wishlist?" } %>
+          <% else %>
+            <%= button_to "Add",
+                  restaurant_bookmarks_path(restaurant),
+                  method: :post,
+                  class: "btn btn-sm btn-outline-primary" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="alert alert-info mt-3">
+      You haven’t added any restaurants yet.
+    </div>
+  <% end %>
+</turbo-frame>
+

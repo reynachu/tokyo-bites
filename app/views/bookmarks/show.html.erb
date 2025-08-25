@@ -1,12 +1,9 @@
 <h1>Bookmark</h1>
+
 <% if @bookmark.present? %>
   <p>You bookmarked <%= @restaurant.name %>.</p>
-  <%= button_to "Remove Bookmark",
-        restaurant_bookmarks_path(@restaurant),
-        method: :delete %>
+  <%= button_to "Remove Bookmark", restaurant_bookmark_path(@restaurant), method: :delete %>
 <% else %>
-  <p>You haven't bookmarked <%= @restaurant.name %> yet.</p>
-  <%= button_to "Bookmark",
-        restaurant_bookmarks_path(@restaurant),
-        method: :post %>
+  <p>You haven’t bookmarked <%= @restaurant.name %> yet.</p>
+  <%= button_to "Bookmark", restaurant_bookmark_path(@restaurant), method: :post %>
 <% end %>

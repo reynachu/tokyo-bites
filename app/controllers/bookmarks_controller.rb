@@ -1,4 +1,6 @@
 class BookmarksController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+  skip_after_action :verify_authorized, only: :show
   before_action :authenticate_user!
   before_action :set_restaurant
   after_action  :verify_authorized
@@ -6,7 +8,7 @@ class BookmarksController < ApplicationController
   def show
     @bookmark = current_user.first_wishlist.bookmarks.find_by(restaurant: @restaurant)
     candidate  = @bookmark || current_user.first_wishlist.bookmarks.build(restaurant: @restaurant)
-    authorize candidate
+    #authorize candidate
     respond_to do |format|
       format.html # renders show.html.erb
       format.json { render json: { bookmarked: @bookmark.present? } }
@@ -14,7 +16,9 @@ class BookmarksController < ApplicationController
   end
 
   def create
+    wishlist = current_user.first_wishlist
     @bookmark = current_user.first_wishlist.bookmarks.find_or_initialize_by(restaurant: @restaurant)
+    @bookmark.user = current_user
     authorize @bookmark
     if @bookmark.persisted? || @bookmark.save
       head :no_content
@@ -24,12 +28,18 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @bookmark = current_user.first_wishlist.bookmarks.find_by!(restaurant: @restaurant)
-    authorize @bookmark
-    @bookmark.destroy!
-    head :no_content
-  rescue ActiveRecord::RecordNotFound
+    wishlist = current_user.first_wishlist
+    @bookmark = current_user.first_wishlist.bookmarks.find_by(restaurant: @restaurant)
+    if @bookmark
+      authorize @bookmark
+      @bookmark.destroy!
+      head :no_content
+  # rescue ActiveRecord::RecordNotFound
+  #   head :not_found
+    else
+    skip_authorization  # tell Pundit we intentionally skipped
     head :not_found
+    end
   end
 
   private
