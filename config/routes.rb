@@ -18,12 +18,11 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:index, :show] do
     resources :recommendations, only: [:index, :new, :create]
+
+    resource :bookmarks, only: [:create, :destroy, :show]
     collection do
       get :map
     end
-
-  # Bookmark routes (POST + DELETE only)
-    resource :bookmarks, only: [:create, :destroy, :show]
   end
 
 
@@ -59,24 +58,3 @@ Rails.application.routes.draw do
     end
   end
 end
-
-
-
-#   # users
-#   resources :users, only: [:show, :index] do
-#     post 'follow', to: 'socializations#follow', as: :follow
-#     delete 'unfollow', to: 'socializations#unfollow', as: :unfollow
-
-#     member do
-#       get :wishlist
-#     end
-#   end
-
-#   #users
-#   resources :users, only: [:show, :edit, :update] do
-#     post 'follow', to: 'socializations#follow', as: :follow
-#     delete 'unfollow', to: 'socializations#unfollow', as: :unfollow
-#     member { delete :remove_profile_picture }
-
-#   end
-# end
