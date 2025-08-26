@@ -98,14 +98,7 @@
         <% end %>
       </div>
 
-
-  <div style="width: 100%; height: 600px;"
-    data-controller="map"
-    data-map-markers-value="<%= @markers.to_json %>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-  </div>
-
-      <style>
+     <style>
         /* shrink card chrome without editing the partial */
         .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
         .mini-timeline .card-body     { padding: .5rem .6rem !important; }
