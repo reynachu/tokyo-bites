@@ -24,20 +24,22 @@
             <div class="mb-3" data-controller="preview">
               <label class="form-label fw-bold">Upload Photos</label>
               <div class="d-flex justify-content-center gap-3">
-                <% 7.times do |i| %>
-                  <div class="photo-box" data-preview-target="box">
+                <% 4.times do |i| %>
+                  <div class="photo-box position-relative" data-preview-target="box">
                     <%= form.file_field :photos,
                       accept: "image/*",
                       class: "d-none",
                       multiple: false,
+                      name: "recommendation[photos][]",
                       data: {
                         preview_target: "input",
                         action: "change->preview#showPreview",
                         index: i
                       } %>
-                    <div class="photo-placeholder">
+                    <div class="photo-placeholder plus">
                       <span>+</span>
                     </div>
+                    <div class="remove-btn" data-action="click->preview#removePhoto">x</div>
                     <img data-preview-target="image" class="preview-img d-none" />
                   </div>
                 <% end %>
