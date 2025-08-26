@@ -16,6 +16,17 @@ class UsersController < ApplicationController
                             .with_attached_photos
                             .order(created_at: :desc)
 
+    @markers = @recommendations.map do |rec|
+      restaurant = rec.restaurant
+      next unless restaurant.latitude && restaurant.longitude
+
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
+        info_window_html: render_to_string(partial: "restaurants/info_window", locals: { recommendation: rec })
+      }
+    end.compact
+
     # total number of restaurants visited
     @places_visited_count = @user.recommendations.where.not(restaurant_id: nil).distinct.count(:restaurant_id)
 
