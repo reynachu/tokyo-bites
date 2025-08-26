@@ -89,5 +89,15 @@
         <% end %>
       </div>
     <% end %>
+
+<!-- Wishlist / Bookmark filled icon-only button inside recommendation card -->
+  <% if user_signed_in? %>
+      <% saved = Bookmark.find_by(user: current_user, restaurant: recommendation.restaurant).present? %>
+        <i class="fa-bookmark <%= saved ? "fa-solid" : "fa-regular" %> fa-lg" data-controller="bookmark" data-bookmark-restaurantid-value="<%= recommendation.restaurant.id %>" data-action="click->bookmark#<%= saved ? "deleteBookmark" : "addBookmark" %>"></i>
+  <% else %>
+    <p><%= link_to "Sign in to bookmark this restaurant", new_user_session_path %></p>
+  <% end %>
+
+
   </div>
 </div>

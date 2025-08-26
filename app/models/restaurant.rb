@@ -8,9 +8,11 @@ class Restaurant < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   #has_many :plans, dependent: :destroy
-  #has_many :bookmarks, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :saved_by_users, through: :bookmarks, source: :user
 
-  has_many :wishlists, through: :bookmarks
+  has_many :wishlists, dependent: :destroy
+  has_many :saved_by_users, through: :wishlists, source: :user
 
   # === Validations ===
   validates :name, :address, :category, presence: true
