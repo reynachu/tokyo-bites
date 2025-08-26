@@ -43,6 +43,24 @@
       </div>
     </div>
 
+
+
+  <%# --- Bookmark Button (icon-only) --- %>
+    <%= render "restaurants/bookmark_button", restaurant: @restaurant %>
+
+
+  <%# --- Wishlist --- %>
+  <h1><%= @restaurant.name %></h1>
+  <p><%= @restaurant.category %></p>
+  <p><%= @restaurant.description %></p>
+
+  <% if current_user.wishlist_restaurants.include?(@restaurant) %>
+    <%= button_to "Remove from Wishlist", restaurant_wishlist_path(@restaurant), method: :delete %>
+  <% else %>
+    <%= button_to "Add to Wishlist", restaurant_wishlist_path(@restaurant), method: :post %>
+  <% end %>
+
+
     <style>
       :root{
         --brand-bg: #faf1e8;
@@ -58,6 +76,7 @@
       .btn-recommend:focus-visible{ outline:0; box-shadow:0 0 0 .2rem rgba(199,43,23,.35); }
       .btn-recommend:active{ background-color:#8d1c10; }
     </style>
+
 
 
     <hr class="my-4">
@@ -82,6 +101,13 @@
         <% end %>
       </div>
 
+
+  <div style="width: 100%; height: 600px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+
       <style>
         /* shrink card chrome without editing the partial */
         .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
@@ -97,6 +123,7 @@
         .mini-timeline .card .small,
         .mini-timeline .card .text-muted,
         .mini-timeline .card .badge   { font-size: .85rem !important; }
+
 
         /* optional: clamp long descriptions to 3 lines */
         .mini-timeline .card p {
