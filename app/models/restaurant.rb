@@ -11,8 +11,7 @@ class Restaurant < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :saved_by_users, through: :bookmarks, source: :user
 
-  has_many :wishlists, dependent: :destroy
-  has_many :saved_by_users, through: :wishlists, source: :user
+  has_many :wishlists, through: :bookmarks
 
   # === Validations ===
   validates :name, :address, :category, presence: true
