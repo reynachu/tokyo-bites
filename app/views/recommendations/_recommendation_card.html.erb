@@ -4,25 +4,48 @@
      data-controller="like"
      data-like-recommendation-id-value="<%= recommendation.id %>">
   <div class="card-body">
-    <!-- Header -->
-    <div class="d-flex align-items-center mb-2">
-      <% if recommendation.user.profile_picture.attached? %>
-        <%= link_to user_path(recommendation.user) do %>
-          <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "40x40" %>
-        <% end %>
-      <% else %>
-        <%= link_to user_path(recommendation.user) do %>
-          <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "40x40" %>
+  <!-- Header (responsive sentence style) -->
+  <div class="mb-2">
+    <!-- Row 1: avatar + username + recommends + time -->
+    <div class="d-flex align-items-center">
+      <!-- Avatar -->
+      <%= link_to user_path(recommendation.user), class: "me-2 d-inline-block flex-shrink-0" do %>
+        <% if recommendation.user.profile_picture.attached? %>
+          <%= image_tag recommendation.user.profile_picture,
+                        class: "rounded-circle d-block",
+                        size: "40x40",
+                        alt: "#{recommendation.user.username}'s avatar" %>
+        <% else %>
+          <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}",
+                        class: "rounded-circle d-block",
+                        size: "40x40",
+                        alt: "#{recommendation.user.username}'s avatar" %>
         <% end %>
       <% end %>
-      <div>
-        <strong><%= link_to recommendation.user.username, user_path(recommendation.user), class: "text-decoration-none text-dark" %></strong><br>
-        <small class="text-muted"><%= time_ago_in_words(recommendation.created_at) %> ago</small>
-        <h5 class="card-title mb-1">
-          <%= link_to recommendation.restaurant.name, restaurant_path(recommendation.restaurant), class: "text-decoration-none text-dark" %>
-        </h5>
+
+      <!-- Meta -->
+      <div class="flex-grow-1 d-flex align-items-baseline">
+        <strong class="me-1">
+          <%= link_to recommendation.user.username,
+                      user_path(recommendation.user),
+                      class: "link-dark link-underline-opacity-0 link-underline-opacity-100-hover" %>
+        </strong>
+        <span class="text-muted">recommends</span>
       </div>
+
+      <!-- Time -->
+      <small class="text-muted ms-2">
+        · <%= time_ago_in_words(recommendation.created_at) %> ago
+      </small>
     </div>
+
+    <!-- Row 2: Restaurant name -->
+    <h5 class="card-title mt-1 mb-0">
+      <%= link_to recommendation.restaurant.name,
+                  restaurant_path(recommendation.restaurant),
+                  class: "fw-semibold fs-5 link-dark link-underline-opacity-0 link-underline-opacity-100-hover" %>
+    </h5>
+  </div>
 
     <%# --- DELETE X (owner only) --- %>
     <% if current_user == recommendation.user %>
@@ -77,27 +100,30 @@
     <!-- Body -->
     <p class="card-text"><%= recommendation.description %></p>
 
-    <!-- Like frame (bottom-left) -->
-    <%= turbo_frame_tag dom_id(recommendation, :likes) do %>
-      <%= render "recommendations/like_button", recommendation: recommendation %>
-    <% end %>
+    <!-- Actions row -->
+    <div class="d-flex align-items-center justify-content-between mt-2">
+      <!-- Left: Like button frame -->
+      <%= turbo_frame_tag dom_id(recommendation, :likes) do %>
+        <%= render "recommendations/like_button", recommendation: recommendation %>
+      <% end %>
 
-    <% if recommendation.restaurant_tags.present? %>
-      <div class="mt-1">
-        <% recommendation.restaurant_tags.split(',').each do |tag| %>
-          <span class="badge bg-secondary"><%= tag.strip %></span>
-        <% end %>
-      </div>
-    <% end %>
-
-<!-- Wishlist / Bookmark filled icon-only button inside recommendation card -->
-  <% if user_signed_in? %>
-      <% saved = Bookmark.find_by(user: current_user, restaurant: recommendation.restaurant).present? %>
-        <i class="fa-bookmark <%= saved ? "fa-solid" : "fa-regular" %> fa-lg" data-controller="bookmark" data-bookmark-restaurantid-value="<%= recommendation.restaurant.id %>" data-action="click->bookmark#<%= saved ? "deleteBookmark" : "addBookmark" %>"></i>
-  <% else %>
-    <p><%= link_to "Sign in to bookmark this restaurant", new_user_session_path %></p>
-  <% end %>
-
+      <!-- Right: Bookmark toggle (icon-only) -->
+      <% if user_signed_in? %>
+        <% saved = Bookmark.exists?(user: current_user, restaurant: recommendation.restaurant) %>
+        <button
+          type="button"
+          class="btn btn-link p-0 border-0 text-decoration-none"
+          aria-label="<%= saved ? 'Remove bookmark' : 'Add bookmark' %>"
+          aria-pressed="<%= saved %>"
+          data-controller="bookmark"
+          data-bookmark-restaurantid-value="<%= recommendation.restaurant.id %>"
+          data-action="click->bookmark#<%= saved ? 'deleteBookmark' : 'addBookmark' %>">
+          <i class="fa-bookmark <%= saved ? 'fa-solid' : 'fa-regular' %> fa-lg"></i>
+        </button>
+      <% else %>
+        <%= link_to "Sign in to bookmark", new_user_session_path, class: "small" %>
+      <% end %>
+    </div>
 
   </div>
 </div>
