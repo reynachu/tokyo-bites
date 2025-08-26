@@ -1,1 +1,9 @@
 <%= render partial: "user_profile", locals: { user: @user } %>
+
+<h2>My Wishlist</h2>
+<ul>
+  <% current_user.wishlist_restaurants.each do |restaurant| %>
+    <li><%= link_to restaurant.name, restaurant_path(restaurant) %></li>
+  <% end %>
+</ul>
+

@@ -5,15 +5,101 @@
         <% if user.profile_picture.attached? %>
           <%= image_tag user.profile_picture, class: "rounded-circle me-2", size: "150x150" %>
         <% else %>
-          <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}", class: "rounded-circle me-2", size: "150x150" %>
+          <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle me-2", size: "150x150" %>
         <% end %>
       </div>
+
       <div class="col">
-        <h1 class="h3 mb-2"><%= user.username %></h1>
-        <div class="d-flex gap-4 my-2">
+        <h1 class="h3 mb-1"><%= user.username %></h1>
+        <% if [user.first_name, user.last_name].any?(&:present?) %>
+          <p class="text-muted mb-2"><%= [user.first_name, user.last_name].compact_blank.join(" ") %></p>
+        <% end %>
+        <!-- edit user profile -->
+        <% if current_user == user %>
+          <details class="mt-2">
+            <summary class="btn btn-outline-secondary btn-sm">Edit profile</summary>
+
+            <div class="mt-3" data-controller="avatar-preview">
+              <%= form_with model: user,
+                    url: user_path(user),
+                    method: :patch,
+                    data: { turbo_frame: "main_content" },
+                    html: { multipart: true } do |f| %>
+
+                <!-- Avatar preview + picker -->
+                <div class="d-flex align-items-center gap-3">
+                  <%= image_tag(
+                        user.profile_picture.attached? ? url_for(user.profile_picture) : "https://i.pravatar.cc/100?u=#{user.id}",
+                        size: "80x80",
+                        class: "rounded-circle border",
+                        data: { avatar_preview_target: "img" }
+                      ) %>
+
+                  <div class="flex-grow-1">
+                    <label class="form-label mb-1">Upload new image</label>
+                    <%= f.file_field :profile_picture,
+                          accept: "image/*",
+                          direct_upload: true,
+                          class: "form-control form-control-sm",
+                          data: { avatar_preview_target: "input",
+                                  action: "change->avatar-preview#showPreview" } %>
+                    <div class="form-text">
+                      <span data-avatar-preview-target="filename"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Names + username -->
+                <div class="row mt-3 g-2">
+                  <div class="col-sm-6">
+                    <%= f.label :first_name, class: "form-label" %>
+                    <%= f.text_field :first_name, class: "form-control", maxlength: 50 %>
+                  </div>
+                  <div class="col-sm-6">
+                    <%= f.label :last_name, class: "form-label" %>
+                    <%= f.text_field :last_name, class: "form-control", maxlength: 50 %>
+                  </div>
+                  <div class="col-12">
+                    <%= f.label :username, class: "form-label" %>
+                    <%= f.text_field :username, class: "form-control", minlength: 3, maxlength: 30, pattern: "[A-Za-z0-9_]+" %>
+                    <div class="form-text">3–30 chars, letters/numbers/underscore.</div>
+                  </div>
+                </div>
+
+                <!-- Errors -->
+                <% if user.errors.any? %>
+                  <div class="alert alert-danger mt-3 small">
+                    <strong>Couldn’t save:</strong>
+                    <ul class="mb-0">
+                      <% user.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="mt-3 d-flex gap-2">
+                  <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
+                  <% if user.profile_picture.attached? %>
+                    <%# <%= button_to "Remove photo",
+                          remove_profile_picture_user_path(user),
+                          method: :delete,
+                          form: { data: { turbo_confirm: "Remove your profile picture?" } },
+                          class: "btn btn-outline-danger btn-sm" %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </details>
+        <% end %>
+
+
+        <!-- Counters (with placeholder "Places visited") -->
+        <div class="d-flex flex-wrap gap-4 my-2">
           <span><%= user.followers(User).count %> Followers</span>
           <span><%= user.followees(User).count %> Following</span>
+          <span><%= @places_visited_count %> Places visited</span>
         </div>
+
+        <!-- Follow/Unfollow -->
         <% if current_user != user %>
           <div class="mt-2 text-start">
             <% if current_user.follows?(user) %>
@@ -23,25 +109,97 @@
             <% end %>
           </div>
         <% end %>
+
+        <!-- Badges (placeholders) -->
+        <hr class="my-3">
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-award me-1"></i> Newcomer</span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-fire me-1"></i> Streak x3</span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-star-fill me-1"></i> Foodie</span>
+          <span class="badge rounded-pill text-bg-light"><i class="bi bi-geo-fill me-1"></i> Explorer</span>
+        </div>
       </div>
     </div>
-    <hr>
-    <section>
-      <h2 class="h4 mb-3">Recommendations</h2>
-      <% if user.recommendations.any? %>
-        <ul class="list-group">
-          <% user.recommendations.each do |recommendation| %>
-            <li class="list-group-item mb-2">
-              <strong>From User ID:</strong> <%= recommendation.user_id %><br>
-              <strong>Restaurant ID:</strong> <%= recommendation.restaurant_id %><br>
-              <p class="mb-0"><%= recommendation.description %></p>
-            </li>
+
+    <hr class="my-4">
+
+    <!-- Bottom layout -->
+    <div class="row g-4">
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
+        <!-- Recommended restaurants (top 5 by frequency) -->
+        <section class="mb-4">
+          <h2 class="h5 mb-2">Recommended restaurants</h2>
+          <% if @top5.present? %>
+            <ul class="list-unstyled small mb-0">
+              <% @top5.each do |r, _count| %>
+                <li class="mb-1">
+                  <i class="bi bi-geo-alt me-1"></i>
+                  <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted small mb-0">No restaurants yet.</p>
           <% end %>
-        </ul>
-      <% else %>
-        <p class="text-muted">No recommendations yet.</p>
-      <% end %>
-    </section>
+        </section>
+
+
+        <!-- Cards (compact) -->
+        <section>
+          <h2 class="h5 mb-3">Posts</h2>
+          <% if @recommendations.present? %>
+            <div class="row row-cols-1 row-cols-sm-2 g-3">
+              <% @recommendations.each do |rec| %>
+                <div class="col">
+                  <%= render "recommendations/recommendation_card", recommendation: rec, compact: true %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
+          <% end %>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-5">
+        <!-- Top categories (top 3 by frequency from user's recommended restaurants) -->
+        <section class="mb-4">
+          <h2 class="h5 mb-3">Top categories</h2>
+          <% if @top_categories.present? %>
+            <ul class="list-group small">
+              <% @top_categories.each do |cat, count| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= cat.presence || "Uncategorized" %>
+                  <span class="badge bg-secondary rounded-pill"><%= count %></span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted small mb-0">No categories yet.</p>
+          <% end %>
+        </section>
+
+        <!-- Most revisited (top 3 by this user's recommendation count) -->
+        <section>
+          <h2 class="h5 mb-3">Most revisited</h2>
+          <% if @most_revisited.present? %>
+            <ul class="list-group small">
+              <% @most_revisited.each do |r, visits| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
+                  <span class="badge bg-secondary rounded-pill"><%= visits %>×</span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted small mb-0">No revisits yet.</p>
+          <% end %>
+        </section>
+      </div>
+    </div>
+
     <div class="mt-4 text-center">
       <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary" %>
     </div>

@@ -15,6 +15,8 @@ module TokyoBites
       generate.test_framework :test_unit, fixture: false
     end
 
+    config.serve_static_assests = true
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 

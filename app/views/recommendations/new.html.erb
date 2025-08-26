@@ -1,47 +1,84 @@
 <turbo-frame id="main_content">
-  <% if @restaurant.present? %>
-    <h1>New Recommendation for <%= @restaurant.name %></h1>
-    <%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
-      <div>
-        <%= form.label :description %>
-        <%= form.text_area :description %>
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card shadow-lg p-2 mx-auto" style="max-width: 1000px; width: 100%;">
+      <div class="card-body text-center">
+        <% if @restaurant.present? %>
+          <h1>New Recommendation for <%= @restaurant.name %></h1>
+          <%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
+            <div>
+              <%= form.label :description %>
+              <%= form.text_area :description %>
+            </div>
+            <div>
+              <%= form.label :restaurant_tags %>
+              <%= form.text_field :restaurant_tags %>
+            </div>
+            <div>
+              <%= form.submit "Create Recommendation" %>
+            </div>
+          <% end %>
+        <% else %>
+          <h1 class="mb-4">Share a Restaurant With Your Friends!</h1>
+          <%= form_with model: @recommendation, local: true do |form| %>
+            <!-- Photo Upload Boxes -->
+            <div class="mb-3" data-controller="preview">
+              <label class="form-label fw-bold">Upload Photos</label>
+              <div class="d-flex justify-content-center gap-3">
+                <% 7.times do |i| %>
+                  <div class="photo-box" data-preview-target="box">
+                    <%= form.file_field :photos,
+                      accept: "image/*",
+                      class: "d-none",
+                      multiple: false,
+                      data: {
+                        preview_target: "input",
+                        action: "change->preview#showPreview",
+                        index: i
+                      } %>
+                    <div class="photo-placeholder">
+                      <span>+</span>
+                    </div>
+                    <img data-preview-target="image" class="preview-img d-none" />
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <!-- Restaurant Autocomplete Search -->
+            <div class="mb-3 position-relative"
+                 data-controller="autocomplete"
+                 data-autocomplete-url-value="/restaurants.json">
+              <%= form.label :restaurant_name, "Select a Restaurant", class: "form-label fw-bold" %>
+              <%= form.text_field :restaurant_name,
+                    data: { autocomplete_target: "input" },
+                    class: "form-control",
+                    placeholder: "Type to search for restaurants...",
+                    autocomplete: "off" %>
+              <%= form.hidden_field :restaurant_id, data: { autocomplete_target: "hidden" } %>
+              <div data-autocomplete-target="results"
+                   class="list-group position-absolute w-100"
+                   style="z-index: 100;"></div>
+            </div>
+            <!-- Description/Review -->
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label fw-bold" %>
+              <%= form.text_area :description, rows: 4,
+                    class: "form-control",
+                    placeholder: "Write your recommendation here..." %>
+            </div>
+            <!-- Tags -->
+            <div class="mb-3">
+              <%= form.label :restaurant_tags,"Tags", class: "form-label fw-bold" %>
+              <%= form.text_field :restaurant_tags,
+                    class: "form-control",
+                    placeholder: "e.g., sushi, casual, izakaya" %>
+            </div>
+            <!-- Submit -->
+            <div>
+              <%= form.submit "Share!", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
-
-      <div>
-        <%= form.label :restaurant_tags %>
-        <%= form.text_field :restaurant_tags %>
-      </div>
-
-      <div>
-        <%= form.submit "Create Recommendation" %>
-      </div>
-    <% end %>
-  <% else %>
-    <h1>New Recommendation</h1>
-    <%= form_with model: @recommendation, local: true do |form| %>
-      <div>
-        <%= form.label :restaurant_id, "Select a restaurant" %>
-        <%= form.collection_select :restaurant_id, Restaurant.all, :id, :name, prompt: "Choose a restaurant" %>
-      </div>
-
-      <div>
-        <%= form.label :description %>
-        <%= form.text_area :description %>
-      </div>
-
-      <div>
-        <%= form.label :restaurant_tags %>
-        <%= form.text_field :restaurant_tags %>
-      </div>
-
-      <div class="mb-3">
-        <%= form.label :photos, "Add photos" %>
-        <%= form.file_field :photos, multiple: true, direct_upload: true, class: "form-control" %>
-      </div>
-
-      <div>
-        <%= form.submit "Create Recommendation" %>
-      </div>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 </turbo-frame>

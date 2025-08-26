@@ -1,6 +1,8 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: :show
   skip_after_action :verify_authorized, only: [:show]
+  skip_after_action :verify_policy_scoped, only: [:index], if: -> { request.format.json? }
+
 
   def index
     @restaurants = if params[:q].present?
@@ -9,26 +11,37 @@ class RestaurantsController < ApplicationController
       Restaurant.all
     end
 
-    @markers = @restaurants.map do |restaurant|
-      {
-        lat: restaurant.latitude,
-        lng: restaurant.longitude,
-        info_window_html: render_to_string(
-          partial: "info_window",
-          locals: { restaurant: restaurant}
-        )
-      }
-    end
-
     respond_to do |format|
-      format.html
+      format.html do
+        @markers = @restaurants.map do |restaurant|
+          {
+            lat: restaurant.latitude,
+            lng: restaurant.longitude,
+            info_window_html: render_to_string(
+              partial: "info_window",
+              locals: { restaurant: restaurant}
+            )
+          }
+        end
+      end
+
       format.turbo_stream
+
+      format.json do
+        render json: @restaurants.limit(10).select(:id, :name)
+      end
     end
   end
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    @recommendations = @restaurant.recommendations.includes(:user)
+    @recommendations = @restaurant.recommendations
+                                  .includes(:user)
+                                  .with_attached_photos
+                                  .order(created_at: :desc)
+
+    # Gather attachments into a single array
+    @rec_photos = @recommendations.flat_map { |rec| rec.photos.attachments }
 
     @markers = [{
       lat: @restaurant.latitude,
