@@ -2,7 +2,8 @@
 
 <h2>My Wishlist</h2>
 <ul>
-  <% current_user.wishlist.bookmarks.each do |bookmark| %>
-    <li><%= link_to bookmark.restaurant.name, restaurant_path(bookmark.restaurant) %></li>
+  <% current_user.wishlist_restaurants.each do |restaurant| %>
+    <li><%= link_to restaurant.name, restaurant_path(restaurant) %></li>
   <% end %>
 </ul>
+

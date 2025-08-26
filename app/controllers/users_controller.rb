@@ -14,15 +14,22 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = policy_scope(User)
-
-    if params[:q].present?
-      @users = @users.where("username ILIKE ?", "%#{params[:q]}%")
-    end
+    @users = @users.where("username ILIKE ?", "%#{params[:q]}%") if params[:q].present?
 
     respond_to do |format|
       format.html
       format.turbo_stream { render partial: "users/friend_search_results", locals: { users: @users } }
     end
+    # @users = policy_scope(User)
+
+    # if params[:q].present?
+    #   @users = @users.where("username ILIKE ?", "%#{params[:q]}%")
+    # end
+
+    # respond_to do |format|
+    #   format.html
+    #   format.turbo_stream { render partial: "users/friend_search_results", locals: { users: @users } }
+    # end
   end
 
 
@@ -79,8 +86,9 @@ class UsersController < ApplicationController
   end
 
   def wishlist
-   @user = User.find(params[:id])
-   @restaurants = policy_scope(@user.wishlist_restaurants)
+    @user = User.find(params[:id])
+    @restaurants = policy_scope(@user.wishlist_restaurants)
+  end
 
   def edit
     # Optional: render a dedicated edit screen, or keep inline form on show
