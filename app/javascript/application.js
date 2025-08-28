@@ -3,6 +3,8 @@ import "controllers"
 import "@popperjs/core"
 import "bootstrap"
 import { Carousel } from "bootstrap"
+import defaultRestaurant from "images/default-restaurant.png"
+
 
 document.addEventListener("turbo:load", () => {
   // Ensure each .carousel has an instance (manual only)
