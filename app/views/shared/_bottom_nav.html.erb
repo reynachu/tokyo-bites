@@ -1,31 +1,111 @@
 <nav class="navbar navbar-light bg-light fixed-bottom border-top">
-  <div class="container-fluid justify-content-around">
-    <%= link_to root_path, class: "text-dark fs-4" do %>🏠<% end %>
-<!-- Friend search icon -->
-      <%# <div data-controller="friend-search" class="position-relative">
-    <%# <button type="button" class="btn btn-link text-dark fs-4 p-0" data-friend-search-target="btn">🔍</button>
+  <div class="container-fluid justify-content-around align-items-center nav-icons">
 
-    <%# <div data-friend-search-target="popover" class="position-absolute bottom-100 start-50 translate-middle-x bg-white border rounded shadow-sm p-2 d-none" style="width: 250px; z-index: 1050;">
-      <%# <%= form_with url: users_path, method: :get, data: { turbo_frame: "friend_search_results" }, local: false, class: "d-flex" do |f| %>
-        <%# <%= f.text_field :q, placeholder: "Search friends...", class: "form-control form-control-sm me-2", autofocus: true %>
-        <%# <%= f.submit "Go", class: "btn btn-primary btn-sm" %>
-      <%# <% end %>
+    <% home_active     = current_page?(root_path) %>
+    <% map_active      = current_page?(map_path) %>
+    <% post_active     = controller_name == "recommendations" && action_name == "new" %>
+    <% wishlist_active = request.path.starts_with?(wishlists_path) %>
+    <% profile_active  = current_user && current_page?(user_path(current_user)) %>
+    <% signin_active   = !current_user && current_page?(new_user_session_path) %>
 
-      <%# <turbo-frame id="friend_search_results"></turbo-frame>
-    </div>
-  </div> %>
-
-
-    <%= link_to map_path, data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>🗺<% end %>
-    <%= link_to new_recommendation_path, data: { turbo_frame: "main_content" }, class: "btn btn-primary rounded-circle fs-4 px-3" do %>➕<% end %>
-    <%= link_to wishlists_path, data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>
-    ❤️
-  <% end %>
-    <% if current_user %>
-      <%= link_to user_path(current_user), data: { turbo_frame: "main_content" }, class: "text-dark fs-4" do %>👤<% end %>
-    <% else %>
-      <%= link_to new_user_session_path, class: "text-dark fs-4" do %>👤<% end %>
+    <!-- Home -->
+    <%= link_to root_path,
+                class: "nav-link #{home_active ? 'is-active is-home' : ''}",
+                aria: { label: "Home", current: (home_active ? 'page' : nil) },
+                title: "Home" do %>
+      ⌂
     <% end %>
+
+    <!-- Explore / Map -->
+    <%= link_to map_path,
+                data: { turbo_frame: "main_content" },
+                class: "nav-link #{map_active ? 'is-active' : ''}",
+                aria: { label: "Explore", current: (map_active ? 'page' : nil) },
+                title: "Explore" do %>
+      <%= map_active ? "✦" : "⌖" %>
+    <% end %>
+
+    <!-- New Post -->
+    <%= link_to new_recommendation_path,
+                data: { turbo_frame: "main_content" },
+                class: "nav-plus #{post_active ? 'nav-plus--active' : ''}",
+                aria: { label: "New post", current: (post_active ? 'page' : nil) },
+                title: "New post" do %>
+      <span class="nav-plus__glyph">＋</span>
+    <% end %>
+    <!-- Wishlist -->
+    <%= link_to wishlists_path,
+                data: { turbo_frame: "main_content" },
+                class: "nav-link #{wishlist_active ? 'is-active' : ''}",
+                aria: { label: "Wishlist", current: (wishlist_active ? 'page' : nil) },
+                title: "Wishlist" do %>
+      <%= wishlist_active ? "♥" : "♡" %>
+    <% end %>
+
+    <!-- Profile -->
+    <% if current_user %>
+      <%= link_to user_path(current_user),
+                  data: { turbo_frame: "main_content" },
+                  class: "nav-link p-0 #{profile_active ? 'is-active' : ''}",
+                  aria: { label: "Profile", current: (profile_active ? 'page' : nil) },
+                  title: "Profile" do %>
+        <% if current_user.profile_picture.attached? %>
+          <%= image_tag current_user.profile_picture,
+                        class: "rounded-circle nav-avatar #{profile_active ? 'avatar-active' : ''}",
+                        size: "28x28",
+                        alt: current_user.username %>
+        <% else %>
+          <%= image_tag "https://i.pravatar.cc/100?u=#{current_user.id}",
+                        class: "rounded-circle nav-avatar #{profile_active ? 'avatar-active' : ''}",
+                        size: "28x28",
+                        alt: current_user.username %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= link_to new_user_session_path,
+                  class: "nav-link #{signin_active ? 'is-active' : ''}",
+                  aria: { label: "Sign in", current: (signin_active ? 'page' : nil) },
+                  title: "Sign in" do %>
+        👤
+      <% end %>
+    <% end %>
+
   </div>
+
+  <style>
+    /* Base size for text icons */
+    .nav-icons { font-size: 1.35rem; }
+
+    /* Links */
+    .nav-link  { color:#6c757d; text-decoration:none; opacity:.88; transition: color .15s ease, opacity .15s ease, text-underline-offset .15s; }
+    .nav-link:hover, .nav-link:focus { opacity:1; text-decoration: underline; text-underline-offset: .2em; }
+    .nav-link.is-active { color:#212529; font-weight:600; opacity:1; text-decoration:none; }
+
+    /* Home active: subtle “pill” underline to anchor it */
+    .nav-link.is-home.is-active { position:relative; }
+    .nav-link.is-home.is-active::after{
+      content:""; position:absolute; left:50%; transform:translateX(-50%);
+      bottom:-6px; width:18px; height:3px; border-radius:3px; background:#212529;
+    }
+
+    /* Plus button */
+    .nav-plus{
+      width:36px; height:36px; border:1.5px solid #212529; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      color:#212529; text-decoration:none; transition: all .15s ease;
+      background:#fff;
+    }
+    .nav-plus:hover{ box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+    /* Active: filled dot with white plus */
+    .nav-plus--active{ background:#212529; color:#fff; border-color:#212529; }
+    .nav-plus__glyph{ line-height:1; font-size:1.05em; }
+
+    /* Avatar */
+    .nav-avatar{ display:block; width:28px; height:28px; object-fit:cover; border:1px solid rgba(0,0,0,.08); }
+    .avatar-active{ box-shadow: 0 0 0 2px #212529 inset; }
+
+    /* Improve tap targets slightly on all items */
+    .nav-link, .nav-plus { padding: .2rem .35rem; border-radius: .4rem; }
+  </style>
 </nav>
 
