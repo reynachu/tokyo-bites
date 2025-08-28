@@ -18,7 +18,7 @@
 
     <!-- Explore / Map -->
     <%= link_to map_path,
-                data: { turbo_frame: "main_content" },
+                data: { turbo_frame: "main_content", turbo_action: 'advance' },
                 class: "nav-link #{map_active ? 'is-active' : ''}",
                 aria: { label: "Explore", current: (map_active ? 'page' : nil) },
                 title: "Explore" do %>
@@ -27,7 +27,7 @@
 
     <!-- New Post -->
     <%= link_to new_recommendation_path,
-                data: { turbo_frame: "main_content" },
+                data: { turbo_frame: "main_content", turbo_action: 'advance' },
                 class: "nav-plus #{post_active ? 'nav-plus--active' : ''}",
                 aria: { label: "New post", current: (post_active ? 'page' : nil) },
                 title: "New post" do %>
@@ -36,7 +36,7 @@
 
     <!-- Wishlist -->
     <%= link_to wishlists_path,
-                data: { turbo_frame: "main_content" },
+                data: { turbo_frame: "main_content", turbo_action: 'advance' },
                 class: "nav-link #{wishlist_active ? 'is-active' : ''}",
                 aria: { label: "Wishlist", current: (wishlist_active ? 'page' : nil) },
                 title: "Wishlist" do %>
@@ -46,7 +46,7 @@
     <!-- Profile -->
     <% if current_user %>
       <%= link_to user_path(current_user),
-                  data: { turbo_frame: "main_content" },
+                  data: { turbo_frame: "main_content", turbo_action: 'advance' },
                   class: "nav-link p-0 #{profile_active ? 'is-active' : ''}",
                   aria: { label: "Profile", current: (profile_active ? 'page' : nil) },
                   title: "Profile" do %>
