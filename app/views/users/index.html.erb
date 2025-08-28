@@ -1,0 +1,18 @@
+<% if @users.present? %>
+  <ul class="list-unstyled mt-3">
+    <% @users.each do |user| %>
+      <li class="mb-3">
+        <%= link_to user_path(user), data: { turbo_frame: "main_content" }, class: "d-flex align-items-center text-decoration-none text-dark" do %>
+          <%= image_tag user.profile_picture,
+              class: "rounded-circle me-3 border shadow-sm",
+              style: "width: 50px; height: 50px; object-fit: cover;" %>
+          <div>
+            <strong><%= user.username %></strong>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="text-muted text-center mt-3">No users found.</p>
+<% end %>

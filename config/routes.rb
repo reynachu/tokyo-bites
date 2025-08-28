@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   get 'plans/index'
   get "map", to: "pages#map", as: :map
   get "profile", to: "users#profile", as: :profile
+  get "search", to: "search#index", as: :search
+
   devise_for :users
   root to: "pages#home"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,12 +18,24 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:index, :show] do
     resources :recommendations, only: [:index, :new, :create]
-     collection do
+
+    resource :bookmarks, only: [:create, :destroy, :show]
+    collection do
       get :map
     end
   end
 
+
+  resources :wishlists, only: [:index, :create, :destroy]   # 👈 THIS gives you wishlists_path
+
+
   # unnested recommendation resource
+
+  resources :recommendations, only: [:index, :new, :create]
+
+  # Global recommendations index (all restaurants)
+  # resources :recommendations, only: [:index]
+
   resources :recommendations, only: [:index, :new, :create, :destroy] do
     member do
       post   :like
@@ -28,13 +43,18 @@ Rails.application.routes.draw do
     end
   end
 
+
   # plans
   resources :plans, only: [:index]
 
-  #users
-  resources :users, only: [:show, :edit, :update] do
+
+  resources :users, only: [:show, :index, :edit, :update] do
     post 'follow', to: 'socializations#follow', as: :follow
     delete 'unfollow', to: 'socializations#unfollow', as: :unfollow
-    member { delete :remove_profile_picture }
+
+    member do
+      get :wishlist
+      delete :remove_profile_picture
+    end
   end
 end

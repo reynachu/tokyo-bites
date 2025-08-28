@@ -32,16 +32,31 @@
           <dd class="col-sm-9"><%= @restaurant.opening_hours.presence || "—" %></dd>
         </dl>
          <!-- Recommend CTA (moved outside the DL so it doesn't stretch) -->
-        <div class="mt-3">
+        <div class="mt-3 d-flex gap-2">
           <%= link_to new_recommendation_path(restaurant_id: @restaurant.id),
                       class: "btn btn-recommend rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2",
                       data: { turbo_frame: "main_content" } do %>
             <i class="bi bi-stars"></i>
             <span>Recommend</span>
           <% end %>
+
+          <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
+            <%= button_to "Remove from Wishlist",
+                          restaurant_bookmarks_path(@restaurant),
+                          method: :delete,
+                          class: "btn btn-outline-secondary rounded-pill px-3 py-2",
+                          form: { class: "d-inline" } %>
+          <% else %>
+            <%= button_to "Add to Wishlist",
+                          restaurant_bookmarks_path(@restaurant),
+                          method: :post,
+                          class: "btn btn-outline-secondary rounded-pill px-3 py-2",
+                          form: { class: "d-inline" } %>
+          <% end %>
         </div>
       </div>
     </div>
+
 
     <style>
       :root{
@@ -58,6 +73,7 @@
       .btn-recommend:focus-visible{ outline:0; box-shadow:0 0 0 .2rem rgba(199,43,23,.35); }
       .btn-recommend:active{ background-color:#8d1c10; }
     </style>
+
 
 
     <hr class="my-4">
@@ -82,7 +98,7 @@
         <% end %>
       </div>
 
-      <style>
+     <style>
         /* shrink card chrome without editing the partial */
         .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
         .mini-timeline .card-body     { padding: .5rem .6rem !important; }
@@ -97,6 +113,7 @@
         .mini-timeline .card .small,
         .mini-timeline .card .text-muted,
         .mini-timeline .card .badge   { font-size: .85rem !important; }
+
 
         /* optional: clamp long descriptions to 3 lines */
         .mini-timeline .card p {
