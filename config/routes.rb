@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'search/index'
   get 'plans/index'
   get "map", to: "pages#map", as: :map
   get "profile", to: "users#profile", as: :profile
@@ -26,9 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :wishlists, only: [:index, :create, :destroy]  # 👈 THIS gives you wishlists_path
 
-  resources :search, only: [:index]
+  resources :wishlists, only: [:index, :create, :destroy]   # 👈 THIS gives you wishlists_path
 
 
   # unnested recommendation resource
