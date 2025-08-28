@@ -4,7 +4,7 @@
       <div class="card-body text-center">
         <% if @restaurant.present? %>
           <h1>New Recommendation for <%= @restaurant.name %></h1>
-          <%= form_with model: [@restaurant, @recommendation], local: true do |form| %>
+          <%= form_with model: [@restaurant, @recommendation], data: { turbo: false }, local: true do |form| %>
             <div>
               <%= form.label :description %>
               <%= form.text_area :description %>
@@ -19,7 +19,7 @@
           <% end %>
         <% else %>
           <h1 class="mb-4">Share a Restaurant With Your Friends!</h1>
-          <%= form_with model: @recommendation, local: true do |form| %>
+          <%= form_with model: @recommendation, data: { turbo: false }, local: true do |form| %>
             <!-- Photo Upload Boxes -->
             <div class="mb-3" data-controller="preview">
               <label class="form-label fw-bold">Upload Photos</label>

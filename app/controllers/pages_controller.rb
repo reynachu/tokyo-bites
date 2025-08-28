@@ -34,24 +34,34 @@ end
 
   def map
     if params[:q].present?
+      # Show markets for restaurants even if no recommendations if a user does a search
       @restaurants = Restaurant.where("name ILIKE ?", "%#{params[:q]}%")
+      @markers = @restaurants.map do |restaurant|
+        {
+          lat: restaurant.latitude,
+          lng: restaurant.longitude,
+          info_window_html: render_to_string(
+            partial: "restaurants/info_window",
+            locals: { restaurant: restaurant }
+          )
+        }
+      end
     else
       followees = current_user.followees(User)
       # Get restaurants that have at least one recommendation from a followee
-      @restaurants = Restaurant.joins(:recommendations)
-                              .where(recommendations: { user_id: followees.pluck(:id) })
-                              .distinct
-    end
+      @recommendations = Recommendation.includes(:restaurant, :user, photos_attachments: :blob)
+                                       .where(user_id: followees.pluck(:id))
 
-    @markers = @restaurants.map do |restaurant|
-      {
-        lat: restaurant.latitude,
-        lng: restaurant.longitude,
-          info_window_html: render_to_string(
-          partial: "restaurants/info_window",
-          locals: { restaurant: restaurant }
-          )
-      }
+      @markers = @recommendations.map do |recommendation|
+        {
+          lat: recommendation.restaurant.latitude,
+          lng: recommendation.restaurant.longitude,
+            info_window_html: render_to_string(
+              partial: "restaurants/info_window",
+              locals: { recommendation: recommendation }
+            )
+        }
+      end
     end
 
     respond_to do |format|
