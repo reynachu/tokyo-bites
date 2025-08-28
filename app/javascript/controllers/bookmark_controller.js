@@ -3,91 +3,44 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static values = { restaurantid: Number }
 
-  connect() {
-    this.icon = this.element.querySelector("i") // target the <i> inside button
-  }
-
   addBookmark(event) {
     event.preventDefault()
-    fetch(`/restaurants/${this.restaurantidValue}/bookmarks`, {
+    const url = `/restaurants/${this.restaurantidValue}/bookmarks` // <-- CORRECTED (singular)
+
+    fetch(url, {
       method: 'POST',
       headers: {
+        // You MUST include these headers for Rails to handle the request correctly
         'Accept': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
       }
     }).then(response => {
       if (response.ok) {
-        this.icon.classList.remove("fa-regular", "text-muted")
-        this.icon.classList.add("fa-solid", "text-warning")
-        this.element.dataset.action = "click->bookmark#deleteBookmark"
-        this.element.setAttribute("aria-pressed", "true")
+        this.element.className = "fa-bookmark fa-solid fa-lg"
+        this.element.dataset.action = 'click->bookmark#deleteBookmark'
       }
     })
   }
 
   deleteBookmark(event) {
     event.preventDefault()
-    fetch(`/restaurants/${this.restaurantidValue}/bookmarks`, {
+    const url = `/restaurants/${this.restaurantidValue}/bookmarks` // <-- CORRECTED (singular)
+
+    fetch(url, {
       method: 'DELETE',
       headers: {
+        // You MUST include these headers for Rails to handle the request correctly
         'Accept': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
       }
     }).then(response => {
       if (response.ok) {
-        this.icon.classList.remove("fa-solid", "text-warning")
-        this.icon.classList.add("fa-regular", "text-muted")
-        this.element.dataset.action = "click->bookmark#addBookmark"
-        this.element.setAttribute("aria-pressed", "false")
+        this.element.className = "fa-bookmark fa-regular fa-lg"
+        this.element.dataset.action = 'click->bookmark#addBookmark'
       }
     })
   }
 }
-
-
-// import { Controller } from "@hotwired/stimulus"
-
-// export default class extends Controller {
-//   static values = { restaurantid: Number }
-
-//   addBookmark(event) {
-//     event.preventDefault()
-//     const url = `/restaurants/${this.restaurantidValue}/bookmarks` // <-- CORRECTED (singular)
-
-//     fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         // You MUST include these headers for Rails to handle the request correctly
-//         'Accept': 'application/json',
-//         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-//       }
-//     }).then(response => {
-//       if (response.ok) {
-//         this.element.className = "fa-bookmark fa-solid fa-lg"
-//         this.element.dataset.action = 'click->bookmark#deleteBookmark'
-//       }
-//     })
-//   }
-
-//   deleteBookmark(event) {
-//     event.preventDefault()
-//     const url = `/restaurants/${this.restaurantidValue}/bookmarks` // <-- CORRECTED (singular)
-
-//     fetch(url, {
-//       method: 'DELETE',
-//       headers: {
-//         // You MUST include these headers for Rails to handle the request correctly
-//         'Accept': 'application/json',
-//         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-//       }
-//     }).then(response => {
-//       if (response.ok) {
-//         this.element.className = "fa-bookmark fa-regular fa-lg"
-//         this.element.dataset.action = 'click->bookmark#addBookmark'
-//       }
-//     })
-//   }
-// }
 
 // import { Controller } from "@hotwired/stimulus"
 
