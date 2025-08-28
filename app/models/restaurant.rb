@@ -1,6 +1,7 @@
 class Restaurant < ApplicationRecord
   # === Active Storage ===
   has_many_attached :photos
+  has_one_attached :photo
 
   # === Associations ===
   has_many :recommendations, dependent: :destroy
