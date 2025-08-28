@@ -27,7 +27,12 @@ class RecommendationsController < ApplicationController
     end
 
     if @recommendation.save
-      redirect_to restaurant_path(@recommendation.restaurant), notice: "Recommendation created successfully"
+      if turbo_frame_request?
+        # full-page redirect for Turbo
+        redirect_to root_path, notice: "Recommendation created successfully", status: :see_other
+      else
+        redirect_to root_path, notice: "Recommendation created successfully"
+      end
     else
       render :new, status: :unprocessable_entity
     end
