@@ -1,2 +1,5 @@
+<%# Determine the restaurant object safely %>
+<% restaurant = local_assigns[:restaurant] || local_assigns[:recommendation]&.restaurant %>
+
 <h5><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 <p><%= restaurant.address %></p>
