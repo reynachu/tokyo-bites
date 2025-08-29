@@ -1,14 +1,15 @@
 <turbo-frame id="main_content">
-  <!-- Search form -->
-      <%= form_with url: map_path, method: :get, data: { turbo_frame: "restaurants_map" }, html: { class: "d-flex" }, local: false do %>
-        <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
-              class: "form-control me-2",
-              data: { controller: "search", action: "input->search#submit" } %>
-      <% end %>
+   <!-- Search form -->
+    <%= form_with url: map_path, method: :get, data: { turbo_frame: "restaurants_map" }, html: { class: "d-flex" }, local: false do %>
+      <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
+            class: "form-control me-2",
+            data: { controller: "search", action: "input->search#submit" } %>
+    <% end %>
 
   <div style="width: 100%; height: 600px;"
     data-controller="map"
     data-map-markers-value="<%= @markers.to_json %>"
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
+
 </turbo-frame>
