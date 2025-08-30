@@ -2,7 +2,7 @@
       <h6 class="text-muted mt-2 mb-2">Friends</h6>
       <ul class="list-unstyled">
         <% @users.each do |user| %>
-          <li class="mb-3">
+          <li class="mb-3" data-action="click->search#closeDropdown">
             <%= link_to user_path(user), data: { turbo_frame: "main_content", turbo_action: "advance" }, class: "d-flex align-items-center text-decoration-none text-dark" do %>
               <%= image_tag user.profile_picture,
                   class: "rounded-circle me-3 border shadow-sm",

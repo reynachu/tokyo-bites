@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["input", "results"]
 
   connect() {
-    document.addEventListener("click", this.closeDropdown.bind(this))
+    document.addEventListener("click", this.handleBlur.bind(this))
   }
 
   submit(event) {
@@ -25,9 +25,13 @@ export default class extends Controller {
       })
   }
 
-  closeDropdown(event) {
+  handleBlur(event) {
     if (!this.element.contains(event.target)) {
       this.resultsTarget.classList.add("d-none")
     }
   }
-}
+
+  closeDropdown(click) {
+      this.resultsTarget.classList.add("d-none")
+    }
+  }
