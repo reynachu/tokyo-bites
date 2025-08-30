@@ -1,0 +1,34 @@
+  <% if @users.present? %>
+      <h6 class="text-muted mt-2 mb-2">Friends</h6>
+      <ul class="list-unstyled">
+        <% @users.each do |user| %>
+          <li class="mb-3" data-action="click->search#closeDropdown">
+            <%= link_to user_path(user), data: { turbo_frame: "main_content", turbo_action: "advance" }, class: "d-flex align-items-center text-decoration-none text-dark" do %>
+              <%= image_tag user.profile_picture,
+                  class: "rounded-circle me-3 border shadow-sm",
+                  style: "width: 50px; height: 50px; object-fit: cover;" %>
+              <div>
+                <strong><%= user.username %></strong>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @restaurants.present? %>
+      <h6 class="text-muted mt-2 mb-2">Restaurants</h6>
+      <ul class="list-unstyled">
+        <% @restaurants.each do |restaurant| %>
+          <li class="mb-3">
+            <%= link_to restaurant_path(restaurant), data: { turbo_frame: "main_content", turbo_action: "advance" }, class: "text-decoration-none text-dark" do %>
+              <strong><%= restaurant.name %></strong>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @users.blank? && @restaurants.blank? %>
+      <p class="text-muted text-center mt-3">No results found.</p>
+    <% end %>

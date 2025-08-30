@@ -25,8 +25,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :wishlists, only: [:index, :create, :destroy]  # 👈 THIS gives you wishlists_path
 
-  resources :wishlists, only: [:index, :create, :destroy]   # 👈 THIS gives you wishlists_path
+  resources :search, only: [:index]
 
 
   # unnested recommendation resource

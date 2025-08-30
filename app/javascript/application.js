@@ -4,6 +4,7 @@ import "@popperjs/core"
 import "bootstrap"
 import { Carousel } from "bootstrap"
 
+
 document.addEventListener("turbo:load", () => {
   // Ensure each .carousel has an instance (manual only)
   document.querySelectorAll(".carousel").forEach((el) => {

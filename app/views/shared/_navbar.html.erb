@@ -18,18 +18,20 @@
             <%# <%= link_to "Messages", "#", class: "nav-link" %>
           </li>
 
-    <!-- Friend search form in navbar (auto-submit, no button) -->
-    <%= form_with url: users_path, method: :get, data: { turbo_frame: "friend_search_results" }, local: false, class: "d-flex", autocomplete: "off" do |f| %>
-    <%= f.text_field :q, placeholder: "Search friends...", class: "form-control form-control-sm me-2", data: { action: "input->friend-search#submit" } %>
-  <% end %>
+      <div class="position-relative" data-controller="search">
+        <%= form_with url: search_path, method: :get, local: false, html: { autocomplete: "off" } do |f| %>
+          <%= f.text_field :q,
+                placeholder: "Search users or restaurants...",
+                class: "form-control",
+                data: { action: "input->search#submit", search_target: "input" } %>
+        <% end %>
 
+        <!-- Dropdown -->
+        <ul class="search-dropdown list-unstyled border rounded shadow-sm mt-1 bg-white d-none" data-search-target="results">
+          <%# Results will be injected by Stimulus %>
+        </ul>
+      </div>
 
-<!-- Search form -->
-      <%# <%= form_with url: map_path, method: :get, data: { turbo_frame: "restaurants_map" }, html: { class: "d-flex" }, local: false do %>
-        <%# <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
-              class: "form-control me-2",
-              data: { controller: "search", action: "input->search#submit" } %>
-      <%# <% end %>
 
 
           <li class="nav-item dropdown">
@@ -51,3 +53,4 @@
     </div>
   </div>
 </div>
+<%= turbo_frame_tag "search_results" %>
