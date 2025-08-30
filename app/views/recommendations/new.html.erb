@@ -73,8 +73,28 @@
             <!-- Tags -->
             <div class="form-group mb-3">
               <%= form.label :tag_ids, "Tags", class: "font-bold" %>
-              <%= form.select :tag_ids, options_from_collection_for_select(Tag.all, :id, :name),
-                    {}, { multiple: true, class: "tag-select w-full", data: { controller: "tags" } }%>
+              <select multiple class="tag-select w-full" data-controller="tags" name="recommendation[tag_ids][]">
+                <optgroup label="Cuisine">
+                  <option value="Japanese">Japanese</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Mexican">Mexican</option>
+                  <option value="Thai">Thai</option>
+                  <option value="French">French</option>
+                </optgroup>
+                <optgroup label="Mood">
+                  <option value="Cozy">Cozy</option>
+                  <option value="Romantic">Romantic</option>
+                  <option value="Casual">Casual</option>
+                  <option value="Trendy">Trendy</option>
+                  <option value="Family-friendly">Family-friendly</option>
+                </optgroup>
+                <optgroup label="Price">
+                  <option value="$">$</option>
+                  <option value="$$">$$</option>
+                  <option value="$$$">$$$</option>
+                  <option value="$$$$">$$$$</option>
+                </optgroup>
+              </select>
             </div>
             <!-- Submit -->
             <div>
