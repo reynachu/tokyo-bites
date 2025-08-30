@@ -5,6 +5,8 @@ class Recommendation < ApplicationRecord
 
   belongs_to :user
   belongs_to :restaurant
+  has_many :recommendation_tags, dependent: :destroy
+  has_many :tags, through: :recommendation_tags
 
  # Show posts from the viewer and people they follow first (newest first),
   # then everyone else (newest first).

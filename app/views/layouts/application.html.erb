@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
     <%= javascript_importmap_tags %>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
   </head>
-
   <body>
     <%= render "shared/navbar" %>
     <%= yield %>
     <%= render "shared/bottom_nav" %>
-
     <!-- Flash messages (fixed above bottom navbar) -->
     <%= render "shared/flashes" %>
   </body>

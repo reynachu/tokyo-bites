@@ -23,3 +23,4 @@ pin "@algolia/autocomplete-shared/dist/esm/preset-algolia/algoliasearch", to: "h
 pin "@algolia/autocomplete-shared/dist/esm/preset-algolia/createRequester", to: "https://ga.jspm.io/npm:@algolia/autocomplete-shared@1.19.2/dist/esm/preset-algolia/createRequester.js"
 pin "htm", to: "https://ga.jspm.io/npm:htm@3.1.1/dist/htm.module.js"
 pin "preact", to: "https://ga.jspm.io/npm:preact@10.27.1/dist/preact.module.js"
+pin "tom-select", to: "https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"

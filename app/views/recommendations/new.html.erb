@@ -63,7 +63,6 @@
                   class="list-group position-absolute w-100"
                   style="z-index: 100;"></div>
             </div>
-
             <!-- Description/Review -->
             <div class="mb-3">
               <%= form.label :description, class: "form-label fw-bold" %>
@@ -72,11 +71,10 @@
                     placeholder: "Write your recommendation here..." %>
             </div>
             <!-- Tags -->
-            <div class="mb-3">
-              <%= form.label :restaurant_tags,"Tags", class: "form-label fw-bold" %>
-              <%= form.text_field :restaurant_tags,
-                    class: "form-control",
-                    placeholder: "e.g., sushi, casual, izakaya" %>
+            <div class="form-group mb-3">
+              <%= form.label :tag_ids, "Tags", class: "font-bold" %>
+              <%= form.select :tag_ids, options_from_collection_for_select(Tag.all, :id, :name),
+                    {}, { multiple: true, class: "tag-select w-full", data: { controller: "tags" } }%>
             </div>
             <!-- Submit -->
             <div>

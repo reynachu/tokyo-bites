@@ -13,6 +13,9 @@
 
 @import url("https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css");
 
+@import url("https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.css");
+
+
 // profile modal styling below - miz
 #modal {
   position: fixed;
@@ -144,4 +147,29 @@ turbo-frame {
   display: block;
   min-height: 100%;
   overflow: visible;
+}
+.ts-control .item {
+  border-radius: 50px;
+  padding: 0.25rem 0.75rem;
+  background-color: #0d6efd;
+  color: white;
+  margin-right: 0.25rem;
+}
+.ts-control .item .remove {
+  color: white;
+  font-weight: bold;
+  margin-left: 0.3rem;
+}
+
+.tag-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  color: #dc3545;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #dc3545;
 }
