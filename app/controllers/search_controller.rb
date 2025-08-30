@@ -19,7 +19,7 @@ class SearchController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream
+      format.text
       format.html
     end
   end

@@ -23,7 +23,7 @@
       <ul class="list-group">
         <% @restaurants.each do |restaurant| %>
           <li class="list-group-item d-flex align-items-center">
-            <%= image_tag restaurant.photo.variant(resize_to_limit: [40, 40]), class: "rounded me-2" if restaurant.photo.attached? %>
+            <%= image_tag restaurant.photos.first.variant(resize_to_limit: [40, 40]), class: "rounded me-2" if restaurant.photos.attached? %>
             <%= link_to restaurant.name, restaurant_path(restaurant), class: "fw-bold" %>
           </li>
         <% end %>

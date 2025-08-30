@@ -16,7 +16,7 @@ export default class extends Controller {
     }
 
     fetch(`/search?q=${encodeURIComponent(query)}`, {
-      headers: { Accept: "text/vnd.turbo-stream.html" }
+      headers: { "content-type": "plain/text" }
     })
       .then(response => response.text())
       .then(html => {

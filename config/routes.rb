@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'search/index'
   get 'plans/index'
   get "map", to: "pages#map", as: :map
   get "profile", to: "users#profile", as: :profile
