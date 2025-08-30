@@ -14,7 +14,7 @@ class PagesController < ApplicationController
   # end
 
 def home
-  base = Recommendation.includes(:user, :restaurant, photos_attachments: :blob)
+  base = Recommendation.includes(:user, restaurant: :saved_by_users, photos_attachments: [blob: [variant_records: {image_attachment: :blob}]])
 
   @recommendations =
     if current_user # when logged in
