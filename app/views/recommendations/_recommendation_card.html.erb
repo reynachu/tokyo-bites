@@ -110,7 +110,7 @@
 
       <!-- Right: Bookmark toggle (icon-only) -->
     <% if user_signed_in? %>
-      <% saved = Bookmark.exists?(user: current_user, restaurant: recommendation.restaurant) %>
+      <% saved = recommendation.restaurant.saved_by_users.include?(current_user) %>
       <button
         type="button"
         class="bookmark-btn d-flex align-items-center justify-content-center p-2 border-0 bg-transparent"
