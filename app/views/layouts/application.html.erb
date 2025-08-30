@@ -12,10 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
   </head>
   <body>
+    <%= render "shared/flashes" %>
     <%= render "shared/navbar" %>
     <%= yield %>
     <%= render "shared/bottom_nav" %>
-    <!-- Flash messages (fixed above bottom navbar) -->
-    <%= render "shared/flashes" %>
   </body>
 </html>

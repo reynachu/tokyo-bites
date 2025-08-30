@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
+    <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "tokyo_bites.png" %>
     <% end %>
 
@@ -11,25 +11,27 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
+          <%# <li class="nav-item active"> %>
+            <%# <%= link_to "Home", "#", class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+          <%# <li class="nav-item"> %>
+            <%# <%= link_to "Messages", "#", class: "nav-link" %>
           </li>
 
-    <!-- Friend search form in navbar (auto-submit, no button) -->
-    <%= form_with url: users_path, method: :get, data: { turbo_frame: "friend_search_results" }, local: false, class: "d-flex", autocomplete: "off" do |f| %>
-    <%= f.text_field :q, placeholder: "Search friends...", class: "form-control form-control-sm me-2", data: { action: "input->friend-search#submit" } %>
-  <% end %>
+      <div class="position-relative" data-controller="search">
+        <%= form_with url: search_path, method: :get, local: false, html: { autocomplete: "off" } do |f| %>
+          <%= f.text_field :q,
+                placeholder: "Search users or restaurants...",
+                class: "form-control",
+                data: { action: "input->search#submit", search_target: "input" } %>
+        <% end %>
 
+        <!-- Dropdown -->
+        <ul class="search-dropdown list-unstyled border rounded shadow-sm mt-1 bg-white d-none" data-search-target="results">
+          <%# Results will be injected by Stimulus %>
+        </ul>
+      </div>
 
-<!-- Search form -->
-      <%# <%= form_with url: map_path, method: :get, data: { turbo_frame: "restaurants_map" }, html: { class: "d-flex" }, local: false do %>
-        <%# <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
-              class: "form-control me-2",
-              data: { controller: "search", action: "input->search#submit" } %>
-      <%# <% end %>
 
 
           <li class="nav-item dropdown">
@@ -37,8 +39,8 @@
             <%= image_tag "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F005%2F129%2F844%2Fnon_2x%2Fprofile-user-icon-isolated-on-white-background-eps10-free-vector.jpg&f=1&nofb=1&ipt=3e128654ad941b4612602c01d72f76d70b5f7ef757bae99c7dcbc2a0e6fac0ea", class: "avatar", alt: "dropdown menu" %>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
+              <%# <%= link_to "Action", "#", class: "dropdown-item" %>
+              <%# <%= link_to "Another action", "#", class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
             </div>
           </li>
@@ -51,3 +53,4 @@
     </div>
   </div>
 </div>
+<%= turbo_frame_tag "search_results" %>

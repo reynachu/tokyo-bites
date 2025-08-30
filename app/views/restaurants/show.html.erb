@@ -1,65 +1,150 @@
 <turbo-frame id="main_content">
   <div class="container my-5">
 
-    <!-- Header: image left, info right -->
-    <div class="row g-4 align-items-start mb-4">
-      <div class="col-md-4">
-        <% primary_photo = @restaurant.photos.attached? ? @restaurant.photos.first : nil %>
-        <% if primary_photo %>
-          <%= image_tag primary_photo,
-                class: "img-fluid rounded shadow-sm w-100",
-                style: "height: 220px; object-fit: cover;" %>
-        <% else %>
-          <%= image_tag "default_avatar.png",
-                class: "img-fluid rounded shadow-sm w-100",
-                style: "height: 220px; object-fit: cover;" %>
-        <% end %>
+    <!-- Header: compact on mobile -->
+    <div class="mb-3 mb-md-4">
+
+      <% primary_photo = @restaurant.photos.attached? ? @restaurant.photos.first : nil %>
+
+      <!-- MOBILE: compact media card (shown < md) -->
+      <div class="d-md-none">
+        <div class="card shadow-sm border-0 compact-header">
+          <div class="card-body py-3">
+            <div class="d-flex gap-3 align-items-start">
+              <div class="flex-shrink-0">
+                <% if primary_photo %>
+                  <%= image_tag primary_photo, class: "rounded object-cover", style: "width:84px; height:84px;" %>
+                <% else %>
+                  <%= image_tag "default_avatar.png", class: "rounded object-cover", style: "width:84px; height:84px;" %>
+                <% end %>
+              </div>
+
+              <div class="flex-grow-1 min-w-0">
+                <h2 class="h5 fw-bold mb-1 text-truncate"><%= @restaurant.name %></h2>
+
+                <!-- actions -->
+               <div class="d-flex gap-2 mt-2 flex-wrap">
+                  <%= link_to new_recommendation_path(
+                                restaurant_id: @restaurant.id,
+                                restaurant_name: @restaurant.name
+                              ),
+                              class: "btn btn-recommend btn-sm rounded-pill px-3 py-1
+                                d-inline-flex align-items-center justify-content-center" ,
+                              data: { turbo_frame: "main_content", turbo_action: 'advance'} do %>
+                    Recommend
+                  <% end %>
+
+                  <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
+                    <%= button_to "Remove from Wishlist",
+                                  restaurant_bookmarks_path(@restaurant),
+                                  method: :delete,
+                                  form: { class: "d-inline mb-0" },
+                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-3 py-1" %>
+                  <% else %>
+                    <%= button_to "Add to Wishlist",
+                                  restaurant_bookmarks_path(@restaurant),
+                                  method: :post,
+                                  form: { class: "d-inline mb-0" },
+                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-3 py-1" %>
+                  <% end %>
+                </div>
+
+
+                <!-- collapsible details to avoid vertical sprawl -->
+                <div class="mt-2">
+                  <a class="small text-decoration-none d-inline-flex align-items-center gap-1 collapsed collapse-toggle"
+                    data-bs-toggle="collapse"
+                    href="#hdrDetails"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="hdrDetails">
+                    <i class="bi bi-chevron-down chev"></i>
+                    <span>Details</span>
+                  </a>
+
+                  <div class="collapse mt-2" id="hdrDetails">
+                    <div class="text-muted small">
+                      <div class="mb-1">
+                        <i class="bi bi-tag-fill me-1"></i>
+                        <%= @restaurant.category.presence || "—" %>
+                      </div>
+                      <div class="text-truncate mb-1">
+                        <i class="bi bi-geo-alt-fill me-1"></i>
+                        <%= @restaurant.address.presence || "—" %>
+                      </div>
+                      <div>
+                        <i class="bi bi-clock-fill me-1"></i>
+                        <span><%= @restaurant.opening_hours.presence || "—" %></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div><!-- /grow -->
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-8">
-        <div class="d-flex justify-content-between align-items-start">
-          <h1 class="fw-bold mb-2"><%= @restaurant.name %></h1>
+      <!-- DESKTOP/TABLET: -->
+      <div class="row g-4 align-items-start mb-0 d-none d-md-flex">
+        <div class="col-md-4">
+          <% if primary_photo %>
+            <%= image_tag primary_photo,
+                  class: "img-fluid rounded shadow-sm w-100 object-cover-md",
+                  style: "height: 220px; object-fit: cover;" %>
+          <% else %>
+            <%= image_tag "default_avatar.png",
+                  class: "img-fluid rounded shadow-sm w-100 object-cover-md",
+                  style: "height: 220px; object-fit: cover;" %>
+          <% end %>
         </div>
 
-        <dl class="row text-muted mb-0">
-          <dt class="col-sm-3"><i class="bi bi-tag-fill me-1"></i> category:</dt>
-          <dd class="col-sm-9"><%= @restaurant.category.presence || "—" %></dd>
+        <div class="col-md-8">
+          <div class="d-flex justify-content-between align-items-start">
+            <h1 class="fw-bold mb-2 h3"><%= @restaurant.name %></h1>
+          </div>
 
-          <dt class="col-sm-3"><i class="bi bi-geo-alt-fill me-1"></i> address:</dt>
-          <dd class="col-sm-9"><%= @restaurant.address.presence || "—" %></dd>
+          <dl class="row text-muted mb-0">
+            <dt class="col-sm-3"><i class="bi bi-tag-fill me-1"></i> category:</dt>
+            <dd class="col-sm-9"><%= @restaurant.category.presence || "—" %></dd>
 
-          <dt class="col-sm-3"><i class="bi bi-clock-fill me-1"></i> opening hours:</dt>
-          <dd class="col-sm-9"><%= @restaurant.opening_hours.presence || "—" %></dd>
-        </dl>
-         <!-- Recommend CTA (moved outside the DL so it doesn't stretch) -->
-        <div class="mt-3 d-flex gap-2">
-          <%= link_to new_recommendation_path(
-                        restaurant_id: @restaurant.id,
-                        restaurant_name: @restaurant.name
-                      ),
-                      class: "btn btn-recommend rounded-pill px-3 py-2 d-flex justify-content-center align-items-center gap-2",
-                      data: { turbo_frame: "main_content" } do %>
-            <i class="bi bi-stars"></i>
-            <span>Recommend</span>
-          <% end %>
+            <dt class="col-sm-3"><i class="bi bi-geo-alt-fill me-1"></i> address:</dt>
+            <dd class="col-sm-9"><%= @restaurant.address.presence || "—" %></dd>
 
+            <dt class="col-sm-3"><i class="bi bi-clock-fill me-1"></i> opening hours:</dt>
+            <dd class="col-sm-9"><%= @restaurant.opening_hours.presence || "—" %></dd>
+          </dl>
 
-          <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
-            <%= button_to "Remove from Wishlist",
-                          restaurant_bookmarks_path(@restaurant),
-                          method: :delete,
-                          class: "btn btn-outline-secondary rounded-pill px-3 py-2",
-                          form: { class: "d-inline" } %>
-          <% else %>
-            <%= button_to "Add to Wishlist",
-                          restaurant_bookmarks_path(@restaurant),
-                          method: :post,
-                          class: "btn btn-outline-secondary rounded-pill px-3 py-2",
-                          form: { class: "d-inline" } %>
-          <% end %>
+          <div class="mt-3 d-flex gap-2">
+            <%= link_to new_recommendation_path(
+                          restaurant_id: @restaurant.id,
+                          restaurant_name: @restaurant.name
+                        ),
+                        class: "btn btn-recommend rounded-pill px-3 py-2 d-flex justify-content-center align-items-center gap-1",
+                        data: { turbo_frame: "main_content", turbo_action: 'advance' } do %>
+              <i class="bi bi-stars"></i><span>Recommend</span>
+            <% end %>
+
+            <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
+              <%= button_to "Remove from Wishlist",
+                            restaurant_bookmarks_path(@restaurant),
+                            method: :delete,
+                            class: "btn btn-outline-secondary rounded-pill px-3 py-2",
+                            form: { class: "d-inline" } %>
+            <% else %>
+              <%= button_to "Add to Wishlist",
+                            restaurant_bookmarks_path(@restaurant),
+                            method: :post,
+                            class: "btn btn-outline-secondary rounded-pill px-3 py-2",
+                            form: { class: "d-inline" } %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
+
 
 
     <style>
@@ -76,9 +161,65 @@
       .btn-recommend:hover{ background-color:#a62213; color:#fff; }
       .btn-recommend:focus-visible{ outline:0; box-shadow:0 0 0 .2rem rgba(199,43,23,.35); }
       .btn-recommend:active{ background-color:#8d1c10; }
+
+      /* Mobile-first tightening */
+      .container.my-5 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+      @media (min-width: 768px){
+        .container.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+      }
+
+      .compact-header .object-cover { object-fit: cover; }
+      .compact-header .text-truncate { max-width: 100%; }
+
+      /* >>> Updated button rules (full text, no icon sizing) */
+      .compact-header .btn {
+        font-size: 0.875rem;
+        padding: 0.4rem 0.9rem;
+        line-height: 1.2;
+        min-height: 36px;          /* comfy touch target */
+        white-space: nowrap;        /* keep label on one line */
+      }
+      .compact-header form {        /* button_to wraps a form; keep it inline so flex works */
+        display: inline-flex;
+        margin-bottom: 0;
+      }
+
+      /* optional: allow wrap when it truly doesn't fit */
+      .compact-header .d-flex.flex-wrap .btn {
+        flex: 0 1 auto;
+        min-width: 110px;
+      }
+
+      /* Make the HR slimmer to save some fold space on mobile */
+      @media (max-width: 767.98px){
+        hr.my-4 { margin: .75rem 0 !important; }
+      }
+
+      /* Center labels/icons inside buttons perfectly */
+      .compact-header .btn,
+      .btn-recommend {
+        display: inline-flex;           /* switch from inline-block */
+        align-items: center;            /* vertical center */
+        justify-content: center;        /* horizontal center */
+        line-height: 1;                 /* remove baseline weirdness */
+      }
+
+      /* Keep your comfy touch target on mobile buttons */
+      .compact-header .btn {
+        min-height: 36px;
+        font-size: 0.875rem;
+        padding: 0.4rem 0.9rem;
+        white-space: nowrap;
+      }
+
+      /* Desktop Recommend button: reduce icon spacing slightly for visual balance */
+      @media (min-width: 768px){
+        .btn-recommend.gap-2 { gap: .25rem !important; } /* turns gap-2 ≈ 0.5rem into ~0.25rem */
+      }
+
+      .collapse-toggle .chev { transition: transform .18s ease; }
+      .collapse-toggle:not(.collapsed) .chev { transform: rotate(180deg); }
     </style>
-
-
 
     <hr class="my-4">
 
