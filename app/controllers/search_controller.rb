@@ -13,7 +13,8 @@ class SearchController < ApplicationController
 
     # Search restaurants
     @restaurants = if query.present?
-      Restaurant.where("name ILIKE :query OR address ILIKE :query", query: "%#{query}%")
+      Restaurant.where("name ILIKE :query OR address ILIKE :query OR category ILIKE :query",
+        query: "%#{query}%")
     else
       Restaurant.none
     end

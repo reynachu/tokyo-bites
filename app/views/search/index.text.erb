@@ -16,18 +16,22 @@
       </ul>
     <% end %>
 
-    <% if @restaurants.present? %>
-      <h6 class="text-muted mt-2 mb-2">Restaurants</h6>
-      <ul class="list-unstyled">
-        <% @restaurants.each do |restaurant| %>
-          <li class="mb-3">
-            <%= link_to restaurant_path(restaurant), data: { turbo_frame: "main_content", turbo_action: "advance" }, class: "text-decoration-none text-dark" do %>
-              <strong><%= restaurant.name %></strong>
-            <% end %>
-          </li>
+ <% if @restaurants.present? %>
+  <h6 class="text-muted mt-2 mb-2">Restaurants</h6>
+  <ul class="list-unstyled">
+    <% @restaurants.each do |restaurant| %>
+      <li class="mb-3">
+        <%= link_to restaurant_path(restaurant), data: { turbo_frame: "main_content", turbo_action: "advance" }, class: "text-decoration-none text-dark" do %>
+          <strong><%= restaurant.name %></strong>
+          <% if restaurant.category.present? %>
+            <span class="text-muted"> - <%= restaurant.category %></span>
+          <% end %>
         <% end %>
-      </ul>
+      </li>
     <% end %>
+  </ul>
+<% end %>
+
 
     <% if @users.blank? && @restaurants.blank? %>
       <p class="text-muted text-center mt-3">No results found.</p>
