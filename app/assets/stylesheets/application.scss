@@ -255,3 +255,33 @@ turbo-frame {
   color: #6c757d; /* gray for unsaved */
 }
 
+/* Default fallback before JS runs */
+:root { --bottom-nav-h: 56px; }
+
+/* Give every page room under the fixed bar */
+html, body {
+  /* iOS safe area + the actual nav height */
+  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+
+/* If your content scrolls inside a frame or wrapper, pad that too */
+turbo-frame#main_content,
+.main-content,
+.container-fluid.main {
+  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+
+/* Let the nav itself sit above the notch */
+.navbar.fixed-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Older iOS fallback */
+@supports (padding-bottom: constant(safe-area-inset-bottom)) {
+  html, body {
+    padding-bottom: calc(var(--bottom-nav-h) + constant(safe-area-inset-bottom));
+  }
+  .navbar.fixed-bottom {
+    padding-bottom: constant(safe-area-inset-bottom);
+  }
+}
