@@ -35,30 +35,29 @@
                 </div>
 
                 <!-- actions -->
-                <div class="d-flex gap-2 mt-2 flex-wrap">
+               <div class="d-flex gap-2 mt-2 flex-wrap">
                   <%= link_to new_recommendation_path(
                                 restaurant_id: @restaurant.id,
                                 restaurant_name: @restaurant.name
                               ),
-                              class: "btn btn-recommend btn-sm rounded-pill px-2 py-1 d-inline-flex align-items-center gap-1",
-                              data: { turbo_frame: "main_content" } do %>
-                    <i class="bi bi-stars"></i><span class="d-none d-sm-inline">Recommend</span>
+                              class: "btn btn-recommend btn-sm rounded-pill px-3 py-1
+                                d-inline-flex align-items-center justify-content-center" ,
+                              data: { turbo_frame: "main_content", turbo_action: 'advance'} do %>
+                    Recommend
                   <% end %>
 
                   <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
-                    <%= button_to restaurant_bookmarks_path(@restaurant),
+                    <%= button_to "Remove from Wishlist",
+                                  restaurant_bookmarks_path(@restaurant),
                                   method: :delete,
-                                  form: { class: "d-inline-flex mb-0" },
-                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-2 py-1 d-inline-flex align-items-center gap-1" do %>
-                      <i class="bi bi-heartbreak"></i><span class="d-none d-sm-inline">Remove</span>
-                    <% end %>
+                                  form: { class: "d-inline mb-0" },
+                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-3 py-1" %>
                   <% else %>
-                    <%= button_to restaurant_bookmarks_path(@restaurant),
+                    <%= button_to "Add to Wishlist",
+                                  restaurant_bookmarks_path(@restaurant),
                                   method: :post,
-                                  form: { class: "d-inline-flex mb-0" },
-                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-2 py-1 d-inline-flex align-items-center gap-1" do %>
-                      <i class="bi bi-heart"></i><span class="d-none d-sm-inline">Wishlist</span>
-                    <% end %>
+                                  form: { class: "d-inline mb-0" },
+                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-3 py-1" %>
                   <% end %>
                 </div>
 
@@ -117,8 +116,8 @@
                           restaurant_id: @restaurant.id,
                           restaurant_name: @restaurant.name
                         ),
-                        class: "btn btn-recommend rounded-pill px-3 py-2 d-flex justify-content-center align-items-center gap-2",
-                        data: { turbo_frame: "main_content" } do %>
+                        class: "btn btn-recommend rounded-pill px-3 py-2 d-flex justify-content-center align-items-center gap-1",
+                        data: { turbo_frame: "main_content", turbo_action: 'advance' } do %>
               <i class="bi bi-stars"></i><span>Recommend</span>
             <% end %>
 
@@ -142,42 +141,76 @@
 
 
 
-  <style>
-    :root{
-      --brand-bg: #faf1e8;
-      --brand-accent: #c72b17;
-    }
-    .btn-recommend{
-      background-color: var(--brand-accent);
-      color:#fff; border:0;
-      padding:.45rem .9rem;
-      box-shadow: 0 6px 14px rgba(199,43,23,.18);
-    }
-    .btn-recommend:hover{ background-color:#a62213; color:#fff; }
-    .btn-recommend:focus-visible{ outline:0; box-shadow:0 0 0 .2rem rgba(199,43,23,.35); }
-    .btn-recommend:active{ background-color:#8d1c10; }
+    <style>
+      :root{
+        --brand-bg: #faf1e8;
+        --brand-accent: #c72b17;
+      }
+      .btn-recommend{
+        background-color: var(--brand-accent);
+        color:#fff; border:0;
+        padding:.45rem .9rem;
+        box-shadow: 0 6px 14px rgba(199,43,23,.18);
+      }
+      .btn-recommend:hover{ background-color:#a62213; color:#fff; }
+      .btn-recommend:focus-visible{ outline:0; box-shadow:0 0 0 .2rem rgba(199,43,23,.35); }
+      .btn-recommend:active{ background-color:#8d1c10; }
 
-    /* Mobile-first tightening */
-    .container.my-5 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
-    @media (min-width: 768px){
-      .container.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
-    }
+      /* Mobile-first tightening */
+      .container.my-5 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+      @media (min-width: 768px){
+        .container.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+      }
 
-    .compact-header .object-cover { object-fit: cover; }
-    .compact-header .text-truncate { max-width: 100%; }
-    .compact-header .btn { line-height: 1.1; }
-    .compact-header .btn i { font-size: 1rem; }
-    .compact-header .btn { min-height: 32px; } /* keeps touch target sane */
+      .compact-header .object-cover { object-fit: cover; }
+      .compact-header .text-truncate { max-width: 100%; }
 
+      /* >>> Updated button rules (full text, no icon sizing) */
+      .compact-header .btn {
+        font-size: 0.875rem;
+        padding: 0.4rem 0.9rem;
+        line-height: 1.2;
+        min-height: 36px;          /* comfy touch target */
+        white-space: nowrap;        /* keep label on one line */
+      }
+      .compact-header form {        /* button_to wraps a form; keep it inline so flex works */
+        display: inline-flex;
+        margin-bottom: 0;
+      }
 
-    /* Make the HR slimmer to save some fold space on mobile */
-    @media (max-width: 767.98px){
-      hr.my-4 { margin: .75rem 0 !important; }
-    }
-  </style>
+      /* optional: allow wrap when it truly doesn't fit */
+      .compact-header .d-flex.flex-wrap .btn {
+        flex: 0 1 auto;
+        min-width: 110px;
+      }
 
+      /* Make the HR slimmer to save some fold space on mobile */
+      @media (max-width: 767.98px){
+        hr.my-4 { margin: .75rem 0 !important; }
+      }
 
+      /* Center labels/icons inside buttons perfectly */
+      .compact-header .btn,
+      .btn-recommend {
+        display: inline-flex;           /* switch from inline-block */
+        align-items: center;            /* vertical center */
+        justify-content: center;        /* horizontal center */
+        line-height: 1;                 /* remove baseline weirdness */
+      }
 
+      /* Keep your comfy touch target on mobile buttons */
+      .compact-header .btn {
+        min-height: 36px;
+        font-size: 0.875rem;
+        padding: 0.4rem 0.9rem;
+        white-space: nowrap;
+      }
+
+      /* Desktop Recommend button: reduce icon spacing slightly for visual balance */
+      @media (min-width: 768px){
+        .btn-recommend.gap-2 { gap: .25rem !important; } /* turns gap-2 ≈ 0.5rem into ~0.25rem */
+      }
+    </style>
 
     <hr class="my-4">
 
