@@ -13,6 +13,8 @@ class Restaurant < ApplicationRecord
 
   has_many :wishlists, through: :bookmarks
 
+  has_and_belongs_to_many :tags
+
   # === Validations ===
   validates :name, :address, :category, presence: true
 end

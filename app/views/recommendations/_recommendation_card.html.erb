@@ -16,38 +16,34 @@
                         class: "rounded-circle d-block",
                         size: "40x40",
                         alt: "#{recommendation.user.username}'s avatar" %>
-        <% else %>
-          <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}",
+          <% else %>
+            <%= image_tag "https://i.pravatar.cc/100?u=#{recommendation.user.id}",
                         class: "rounded-circle d-block",
                         size: "40x40",
                         alt: "#{recommendation.user.username}'s avatar" %>
+          <% end %>
         <% end %>
-      <% end %>
-
-      <!-- Meta -->
-      <div class="flex-grow-1 d-flex align-items-baseline">
-        <strong class="me-1">
-          <%= link_to recommendation.user.username,
+        <!-- Meta -->
+        <div class="flex-grow-1 d-flex align-items-baseline">
+          <strong class="me-1">
+            <%= link_to recommendation.user.username,
                       user_path(recommendation.user),
                       class: "link-dark link-underline-opacity-0 link-underline-opacity-100-hover" %>
-        </strong>
-        <span class="text-muted">recommends</span>
+          </strong>
+          <span class="text-muted">recommends</span>
+        </div>
+        <!-- Time -->
+        <small class="text-muted ms-2">
+          · <%= time_ago_in_words(recommendation.created_at) %> ago
+        </small>
       </div>
-
-      <!-- Time -->
-      <small class="text-muted ms-2">
-        · <%= time_ago_in_words(recommendation.created_at) %> ago
-      </small>
-    </div>
-
-    <!-- Row 2: Restaurant name -->
-    <h5 class="card-title mt-1 mb-0">
-      <%= link_to recommendation.restaurant.name,
+      <!-- Row 2: Restaurant name -->
+      <h5 class="card-title mt-1 mb-0">
+        <%= link_to recommendation.restaurant.name,
                   restaurant_path(recommendation.restaurant),
                   class: "fw-semibold fs-5 link-dark link-underline-opacity-0 link-underline-opacity-100-hover" %>
-    </h5>
-  </div>
-
+      </h5>
+    </div>
     <%# --- DELETE X (owner only) --- %>
     <% if current_user == recommendation.user %>
       <%= link_to "",
@@ -56,7 +52,6 @@
             class: "btn-close position-absolute top-0 end-0 m-2",
             aria: { label: "Delete post" } %>
     <% end %>
-
     <% if recommendation.photos.attached? %>
       <% carousel_id = "rec-#{recommendation.id}-carousel" %>
       <div id="<%= carousel_id %>" class="carousel slide"
@@ -74,7 +69,6 @@
             <% end %>
           </div>
         <% end %>
-
         <div class="carousel-inner">
           <% recommendation.photos.each_with_index do |photo, idx| %>
             <div class="carousel-item <%= 'active' if idx.zero? %>">
@@ -84,7 +78,6 @@
             </div>
           <% end %>
         </div>
-
         <% if recommendation.photos.size > 1 %>
           <button class="carousel-control-prev" type="button">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -97,17 +90,21 @@
         <% end %>
       </div>
     <% end %>
-
     <!-- Body -->
     <p class="card-text"><%= recommendation.description %></p>
-
+    <% if recommendation.tags.any? %>
+      <div class="tags mt-2">
+        <% recommendation.tags.each do |tag| %>
+          <span class="tag-badge"><%= tag.name %></span>
+        <% end %>
+      </div>
+    <% end %>
     <!-- Actions row -->
     <div class="d-flex align-items-center justify-content-between mt-2">
       <!-- Left: Like button frame -->
       <%= turbo_frame_tag dom_id(recommendation, :likes) do %>
         <%= render "recommendations/like_button", recommendation: recommendation %>
       <% end %>
-
       <!-- Right: Bookmark toggle (icon-only) -->
     <% if user_signed_in? %>
       <% saved = recommendation.restaurant.saved_by_users.include?(current_user) %>

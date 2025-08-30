@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_27_071755) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_30_011243) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +85,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_27_071755) do
     t.index ["mentioner_id", "mentioner_type"], name: "fk_mentions"
   end
 
+  create_table "recommendation_tags", force: :cascade do |t|
+    t.bigint "recommendation_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recommendation_id", "tag_id"], name: "index_recommendation_tags_on_recommendation_id_and_tag_id", unique: true
+    t.index ["recommendation_id"], name: "index_recommendation_tags_on_recommendation_id"
+    t.index ["tag_id"], name: "index_recommendation_tags_on_tag_id"
+  end
+
   create_table "recommendations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "restaurant_id", null: false
@@ -107,6 +118,20 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_27_071755) do
     t.float "longitude"
     t.string "address_jp"
     t.string "image_url"
+  end
+
+  create_table "restaurants_tags", id: false, force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["restaurant_id"], name: "index_restaurants_tags_on_restaurant_id"
+    t.index ["tag_id"], name: "index_restaurants_tags_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "category"
   end
 
   create_table "users", force: :cascade do |t|
@@ -136,6 +161,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_27_071755) do
   add_foreign_key "bookmarks", "restaurants"
   add_foreign_key "bookmarks", "users"
   add_foreign_key "bookmarks", "wishlists"
+  add_foreign_key "recommendation_tags", "recommendations"
+  add_foreign_key "recommendation_tags", "tags"
   add_foreign_key "recommendations", "restaurants"
   add_foreign_key "recommendations", "users"
   add_foreign_key "wishlists", "users"

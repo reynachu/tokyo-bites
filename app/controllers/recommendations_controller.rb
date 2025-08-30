@@ -27,12 +27,14 @@ class RecommendationsController < ApplicationController
     end
 
     if @recommendation.save
-      if turbo_frame_request?
-        # full-page redirect for Turbo
-        redirect_to root_path, notice: "Recommendation created successfully", status: :see_other
-      else
-        redirect_to root_path, notice: "Recommendation created successfully"
+      if params[:recommendation][:tag_ids].present?
+        tag_ids = params[:recommendation][:tag_ids].reject(&:blank?).map do |t|
+          t.to_i > 0 ? t.to_i : Tag.find_or_create_by(name: t.strip).id
+        end
+        @recommendation.tag_ids = tag_ids
       end
+
+      redirect_to restaurant_path(@recommendation.restaurant), notice: "Recommendation created successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -67,7 +69,7 @@ class RecommendationsController < ApplicationController
   end
 
   def recommendation_params
-    params.require(:recommendation).permit(:description, :restaurant_tags, :restaurant_id, photos: [])
+    params.require(:recommendation).permit(:description, :restaurant_id, photos: [])
   end
 
   def render_like_frame
