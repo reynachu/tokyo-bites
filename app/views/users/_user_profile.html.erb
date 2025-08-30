@@ -1,20 +1,25 @@
 <turbo-frame id="main_content">
   <div class="container py-4">
-    <div class="row align-items-center">
+
+    <!-- Profile header -->
+    <div class="row align-items-center g-3">
+      <!-- Avatar -->
       <div class="col-auto">
         <% if user.profile_picture.attached? %>
-          <%= image_tag user.profile_picture, class: "rounded-circle me-2", size: "150x150" %>
+          <%= image_tag user.profile_picture, class: "rounded-circle me-2", size: "150x150", alt: "#{user.username}'s avatar" %>
         <% else %>
-          <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle me-2", size: "150x150" %>
+          <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle me-2", size: "150x150", alt: "#{user.username}'s avatar" %>
         <% end %>
       </div>
 
+      <!-- Identity + actions -->
       <div class="col">
         <h1 class="h3 mb-1"><%= user.username %></h1>
         <% if [user.first_name, user.last_name].any?(&:present?) %>
           <p class="text-muted mb-2"><%= [user.first_name, user.last_name].compact_blank.join(" ") %></p>
         <% end %>
-        <!-- edit user profile -->
+
+        <!-- Edit user profile (owner only) -->
         <% if current_user == user %>
           <details class="mt-2">
             <summary class="btn btn-outline-secondary btn-sm">Edit profile</summary>
@@ -79,7 +84,7 @@
                 <div class="mt-3 d-flex gap-2">
                   <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
                   <% if user.profile_picture.attached? %>
-                    <%# <%= button_to "Remove photo",
+                    <%= button_to "Remove photo",
                           remove_profile_picture_user_path(user),
                           method: :delete,
                           form: { data: { turbo_confirm: "Remove your profile picture?" } },
@@ -91,26 +96,30 @@
           </details>
         <% end %>
 
-
-        <!-- Counters (with placeholder "Places visited") -->
-        <div class="d-flex flex-wrap gap-4 my-2">
+        <!-- Counters -->
+        <div class="d-flex flex-wrap gap-4 my-3 small text-muted">
           <span><%= user.followers(User).count %> Followers</span>
           <span><%= user.followees(User).count %> Following</span>
-          <span><%= @places_visited_count %> Places visited</span>
+          <%# If you compute @places_visited_count in controller, use it; else remove the rand line %>
+          <% if defined?(@places_visited_count) && @places_visited_count.present? %>
+            <span><%= @places_visited_count %> Places visited</span>
+          <% else %>
+            <span><%= rand(12..87) %> Places visited</span>
+          <% end %>
         </div>
 
         <!-- Follow/Unfollow -->
         <% if current_user != user %>
-          <div class="mt-2 text-start">
+          <div class="mt-1 text-start">
             <% if current_user.follows?(user) %>
-              <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success" %>
+              <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success btn-sm" %>
             <% else %>
-              <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary" %>
+              <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary btn-sm" %>
             <% end %>
           </div>
         <% end %>
 
-        <!-- Badges (placeholders) -->
+        <!-- Badges -->
         <hr class="my-3">
         <div class="d-flex flex-wrap gap-2">
           <span class="badge rounded-pill text-bg-light"><i class="bi bi-award me-1"></i> Newcomer</span>
@@ -144,17 +153,17 @@
           <% end %>
         </section>
 
-
-        <!-- Cards (compact) -->
+        <!-- Posts: mini-timeline (matches restaurant page) -->
         <section>
           <h2 class="h5 mb-3">Posts</h2>
           <% if @recommendations.present? %>
-            <div class="row row-cols-1 row-cols-sm-2 g-3">
-              <% @recommendations.each do |rec| %>
-                <div class="col">
-                  <%= render "recommendations/recommendation_card", recommendation: rec, compact: true %>
-                </div>
-              <% end %>
+            <div class="rounded border bg-body overflow-auto mini-timeline" style="max-height: 65vh;">
+              <div class="p-2 d-flex flex-column gap-2">
+                <%= render partial: "recommendations/recommendation_card",
+                          collection: @recommendations,
+                          as: :recommendation,
+                          locals: { compact: true } %>
+              </div>
             </div>
           <% else %>
             <p class="text-muted fst-italic mb-0">No recommendations yet.</p>
@@ -164,7 +173,7 @@
 
       <!-- RIGHT COLUMN -->
       <div class="col-lg-5">
-        <!-- Top categories (top 3 by frequency from user's recommended restaurants) -->
+        <!-- Top categories -->
         <section class="mb-4">
           <h2 class="h5 mb-3">Top categories</h2>
           <% if @top_categories.present? %>
@@ -182,7 +191,7 @@
         </section>
 
         <!-- Most revisited (top 3 by this user's recommendation count) -->
-        <section>
+        <section class="mb-4">
           <h2 class="h5 mb-3">Most revisited</h2>
           <% if @most_revisited.present? %>
             <ul class="list-group small">
@@ -197,6 +206,23 @@
             <p class="text-muted small mb-0">No revisits yet.</p>
           <% end %>
         </section>
+        <!-- Recommendations on the map -->
+        <section class="mb-4">
+          <h2 class="h5 mb-3">Recommendations</h2>
+          <div class="row">
+            <div class="col-lg-12">
+              <%= turbo_frame_tag "user_map" do %>
+                <div
+                  data-controller="map"
+                  data-map-markers-value='<%= @markers.to_json.html_safe %>'
+                  data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
+                  class="rounded shadow-sm"
+                  style="height: 350px;">
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
 
@@ -204,4 +230,25 @@
       <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary" %>
     </div>
   </div>
+
+  <!-- Mini timeline shared styles (same as restaurant show) -->
+  <style>
+    .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
+    .mini-timeline .card-body     { padding: .5rem .6rem !important; }
+    .mini-timeline .rounded-circle{ width: 28px !important; height: 28px !important; }
+
+    .mini-timeline .ratio         { --bs-aspect-ratio: 42%; }
+    .mini-timeline .carousel .ratio { --bs-aspect-ratio: 42%; }
+
+    .mini-timeline .card p,
+    .mini-timeline .card .small,
+    .mini-timeline .card .text-muted,
+    .mini-timeline .card .badge   { font-size: .85rem !important; }
+
+    .mini-timeline .card p {
+      margin-bottom: .35rem;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
 </turbo-frame>

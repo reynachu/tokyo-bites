@@ -18,6 +18,7 @@
             <%= button_to "Remove",
                   restaurant_bookmarks_path(restaurant),
                   method: :delete,
+                  params: { redirect: true },
                   class: "btn btn-sm btn-outline-danger",
                   data: { turbo_confirm: "Remove from wishlist?" } %>
           <% else %>
@@ -35,4 +36,3 @@
     </div>
   <% end %>
 </turbo-frame>
-

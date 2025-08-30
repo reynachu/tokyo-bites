@@ -12,19 +12,11 @@
   </head>
 
   <body>
-    <%= render "shared/flashes" %>
     <%= render "shared/navbar" %>
-    
-    <!-- Flash messages (Turbo Frame for live updates) -->
-    <%= turbo_frame_tag "flash" do %>
-      <% flash.each do |type, message| %>
-        <div class="alert <%= "alert-success" if type == "notice" %> <%= "alert-danger" if type == "alert" %>">
-          <%= message %>
-        </div>
-      <% end %>
-    <% end %>
-
     <%= yield %>
     <%= render "shared/bottom_nav" %>
+
+    <!-- Flash messages (fixed above bottom navbar) -->
+    <%= render "shared/flashes" %>
   </body>
 </html>

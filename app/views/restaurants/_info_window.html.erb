@@ -1,2 +1,25 @@
+<%# Determine the restaurant object safely %>
+<% restaurant = local_assigns[:restaurant] || local_assigns[:recommendation]&.restaurant %>
+<% recommendation = local_assigns[:recommendation] %>
+
 <h5><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 <p><%= restaurant.address %></p>
+
+<% if recommendation %>
+  <div class="d-flex align-items-center mb-2">
+    <% if recommendation.user.profile_picture.attached? %>
+      <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "30x30" %>
+    <% else %>
+      <%= image_tag "default-avatar.png", class: "rounded-circle me-2", size: "30x30" %>
+    <% end %>
+    <small><strong><%= recommendation.user_id %></strong></small>
+  </div>
+
+  <% if recommendation.photos.attached? %>
+    <div class="d-flex flex-wrap">
+      <% recommendation.photos.limit(3).each do |photo| %>
+        <%= image_tag photo, class: "img-fluid me-1 mb-1 rounded", size: "80x80" %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

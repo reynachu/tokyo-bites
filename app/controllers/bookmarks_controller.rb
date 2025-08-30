@@ -28,12 +28,16 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    wishlist = current_user.first_wishlist
+    #wishlist = current_user.first_wishlist
     @bookmark = current_user.first_wishlist.bookmarks.find_by(restaurant: @restaurant)
     if @bookmark
       authorize @bookmark
       @bookmark.destroy!
-      head :no_content
+      if params[:redirect]
+        redirect_to wishlists_path
+      else
+        head :no_content
+      end
   # rescue ActiveRecord::RecordNotFound
   #   head :not_found
     else
