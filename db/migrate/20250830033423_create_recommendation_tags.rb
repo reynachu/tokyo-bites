@@ -4,8 +4,7 @@ class CreateRecommendationTags < ActiveRecord::Migration[7.1]
       t.references :recommendation, null: false, foreign_key: true
       t.references :tag, null: false, foreign_key: true
       t.timestamps
-      add_index :recommendation_tags, [:recommendation_id, :tag_id], unique: true
-
     end
+      add_index :recommendation_tags, [:recommendation_id, :tag_id], unique: true
   end
 end
