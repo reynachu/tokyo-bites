@@ -10,7 +10,7 @@
     <% if recommendation.user.profile_picture.attached? %>
       <%= image_tag recommendation.user.profile_picture, class: "rounded-circle me-2", size: "30x30" %>
     <% else %>
-      <%= image_tag "default-avatar.png", class: "rounded-circle me-2", size: "30x30" %>
+      <%= image_tag "default_avatar.png", class: "rounded-circle me-2", size: "30x30" %>
     <% end %>
     <small><strong><%= recommendation.user_id %></strong></small>
   </div>
