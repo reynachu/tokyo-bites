@@ -2,7 +2,7 @@
    <!-- Search form -->
     <%= form_with url: map_path, method: :get, data: { turbo_frame: "restaurants_map" }, html: { class: "d-flex" }, local: false do %>
       <%= text_field_tag :q, params[:q], placeholder: "Search restaurants...",
-            class: "form-control me-2",
+            class: "form-control w-100",
             data: { controller: "search", action: "input->search#submit" } %>
     <% end %>
 
