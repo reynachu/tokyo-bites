@@ -22,18 +22,6 @@
               <div class="flex-grow-1 min-w-0">
                 <h2 class="h5 fw-bold mb-1 text-truncate"><%= @restaurant.name %></h2>
 
-                <!-- quick info line -->
-                <div class="text-muted small lh-sm">
-                  <span class="me-2">
-                    <i class="bi bi-tag-fill me-1"></i>
-                    <%= @restaurant.category.presence || "—" %>
-                  </span>
-                  <span class="d-block text-truncate">
-                    <i class="bi bi-geo-alt-fill me-1"></i>
-                    <%= @restaurant.address.presence || "—" %>
-                  </span>
-                </div>
-
                 <!-- actions -->
                <div class="d-flex gap-2 mt-2 flex-wrap">
                   <%= link_to new_recommendation_path(
@@ -64,16 +52,34 @@
 
                 <!-- collapsible details to avoid vertical sprawl -->
                 <div class="mt-2">
-                  <a class="small text-decoration-none" data-bs-toggle="collapse" href="#hdrDetails" role="button" aria-expanded="false" aria-controls="hdrDetails">
-                    <i class="bi bi-chevron-down"></i> Details
+                  <a class="small text-decoration-none d-inline-flex align-items-center gap-1 collapsed collapse-toggle"
+                    data-bs-toggle="collapse"
+                    href="#hdrDetails"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="hdrDetails">
+                    <i class="bi bi-chevron-down chev"></i>
+                    <span>Details</span>
                   </a>
+
                   <div class="collapse mt-2" id="hdrDetails">
                     <div class="text-muted small">
-                      <i class="bi bi-clock-fill me-1"></i>
-                      <span><%= @restaurant.opening_hours.presence || "—" %></span>
+                      <div class="mb-1">
+                        <i class="bi bi-tag-fill me-1"></i>
+                        <%= @restaurant.category.presence || "—" %>
+                      </div>
+                      <div class="text-truncate mb-1">
+                        <i class="bi bi-geo-alt-fill me-1"></i>
+                        <%= @restaurant.address.presence || "—" %>
+                      </div>
+                      <div>
+                        <i class="bi bi-clock-fill me-1"></i>
+                        <span><%= @restaurant.opening_hours.presence || "—" %></span>
+                      </div>
                     </div>
                   </div>
                 </div>
+
 
               </div><!-- /grow -->
             </div>
@@ -210,6 +216,9 @@
       @media (min-width: 768px){
         .btn-recommend.gap-2 { gap: .25rem !important; } /* turns gap-2 ≈ 0.5rem into ~0.25rem */
       }
+
+      .collapse-toggle .chev { transition: transform .18s ease; }
+      .collapse-toggle:not(.collapsed) .chev { transform: rotate(180deg); }
     </style>
 
     <hr class="my-4">
