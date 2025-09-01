@@ -273,7 +273,8 @@ turbo-frame#main_content,
 
 /* Let the nav itself sit above the notch */
 .navbar.fixed-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-top: 4px;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
 }
 
 /* Older iOS fallback */
