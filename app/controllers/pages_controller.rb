@@ -15,6 +15,7 @@ class PagesController < ApplicationController
 
 def home
   base = Recommendation.includes(:user, restaurant: :saved_by_users, photos_attachments: [blob: [variant_records: {image_attachment: :blob}]])
+  @wishlists = current_user&.wishlists || []
 
   @recommendations =
     if current_user # when logged in

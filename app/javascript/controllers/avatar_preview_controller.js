@@ -11,3 +11,4 @@ export default class extends Controller {
     if (this.filenameTarget) this.filenameTarget.textContent = file.name
   }
 }
+

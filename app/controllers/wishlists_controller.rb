@@ -16,14 +16,32 @@ class WishlistsController < ApplicationController
   end
 
   def create
-    current_user.wishlists.create(restaurant: @restaurant)
-    redirect_to @restaurant, notice: "Added to wishlist!"
+   if params[:wishlist_ids].present?
+      # Find the selected wishlists
+      selected_wishlists = current_user.wishlists.where(id: params[:wishlist_ids])
+
+      # Associate the restaurant with each wishlist, avoiding duplicates
+      selected_wishlists.each do |wishlist|
+        wishlist.restaurants << @restaurant unless wishlist.restaurants.include?(@restaurant)
+      end
+
+      flash[:notice] = "Added to selected wishlists!"
+    else
+      flash[:alert] = "Please select at least one wishlist."
+    end
+
+    redirect_back(fallback_location: @restaurant)
   end
 
   def destroy
-    wishlist = current_user.wishlists.find_by(restaurant: @restaurant)
-    wishlist.destroy if wishlist
+    wishlist = current_user.wishlists.find(params[:wishlist_id])
+    restaurant = Restaurant.find(params[:restaurant_id])
+    wishlist.restaurants.delete(restaurant)
     redirect_to @restaurant, notice: "Removed from wishlist."
+    
+    # wishlist = current_user.wishlists.find_by(restaurant: @restaurant)
+    # wishlist.destroy if wishlist
+    # redirect_to @restaurant, notice: "Removed from wishlist."
   end
 
   private

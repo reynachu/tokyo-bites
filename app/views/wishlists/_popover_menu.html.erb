@@ -1,0 +1,23 @@
+<ul class="list-unstyled m-0 p-0">
+  <% current_user.wishlists.each do |wishlist| %>
+    <% bookmarked = wishlist.restaurants.exists?(restaurant.id) %>
+    <%# Map wishlist to custom icon and correct style %>
+    <% icon_class, icon_style = case wishlist.id
+      when 1 then ["fa-heart", "fa-regular"]
+      when 2 then ["fa-users", "fa-solid"]
+      when 3 then ["fa-map-marker-alt", "fa-solid"]
+      when 4 then ["fa-star", "fa-regular"]
+      else ["fa-bookmark", "fa-regular"]
+    end %>
+
+    <li class="d-flex align-items-center mb-2 p-1 rounded hover-bg-light" style="cursor: pointer;">
+      <i class="fs-5 me-2 fa <%= bookmarked ? 'fa-solid' : icon_style %> <%= icon_class %>"
+         role="button"
+         data-wishlist-target="icon"
+         data-id="<%= wishlist.id %>"
+         data-action="click->wishlist#toggle"></i>
+      <span><%= wishlist.name %></span>
+    </li>
+  <% end %>
+</ul>
+

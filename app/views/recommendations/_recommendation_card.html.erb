@@ -105,21 +105,36 @@
       <%= turbo_frame_tag dom_id(recommendation, :likes) do %>
         <%= render "recommendations/like_button", recommendation: recommendation %>
       <% end %>
-      <!-- Right: Bookmark toggle (icon-only) -->
-    <% if user_signed_in? %>
-      <% saved = recommendation.restaurant.saved_by_users.include?(current_user) %>
-      <button
-        type="button"
-        class="bookmark-btn d-flex align-items-center justify-content-center p-2 border-0 bg-transparent"
-        aria-label="<%= saved ? 'Remove bookmark' : 'Add bookmark' %>"
-        aria-pressed="<%= saved %>"
-        data-controller="bookmark"
-        data-bookmark-restaurantid-value="<%= recommendation.restaurant.id %>"
-        data-action="click->bookmark#<%= saved ? 'deleteBookmark' : 'addBookmark' %>">
-        <i class="fa-bookmark <%= saved ? 'fa-solid' : 'fa-regular' %> fa-lg"></i>
-      </button>
-    <% else %>
-      <%= link_to "Sign in to bookmark", new_user_session_path, class: "small text-decoration-none text-primary" %>
-    <% end %>
+
+    <!-- Bookmark toggle button -->
+<button popovertarget="mypopover-<%= recommendation.restaurant.id %>"
+        class="btn btn-link p-0 m-0 border-0"
+        aria-label="Save to Wishlist"
+        style="color: inherit; text-decoration: none;">
+  <i class="fa-regular fa-bookmark fs-5"></i>
+</button>
+
+<!-- Popover content -->
+<div id="mypopover-<%= recommendation.restaurant.id %>"
+     popover
+     class="p-2 rounded shadow bg-white"
+     style="min-width: 200px;"
+     data-controller="wishlist"
+     data-restaurant-id="<%= recommendation.restaurant.id %>">
+
+  <h6 class="fw-semibold mb-2">Select Wishlist</h6>
+
+  <%= render partial: "wishlists/popover_menu", locals: { restaurant: recommendation.restaurant } %>
+</div>
+
+
+
+
+
+
+
+    <%# <% else %>
+      <%# <%= link_to "Sign in to bookmark", new_user_session_path, class: "small text-decoration-none text-primary" %>
+    <%# <% end %>
     </div>
   </div>
