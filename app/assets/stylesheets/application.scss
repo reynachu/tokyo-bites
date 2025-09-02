@@ -286,3 +286,23 @@ turbo-frame#main_content,
     padding-bottom: constant(safe-area-inset-bottom);
   }
 }
+.navbar .search-dropdown { max-height: 70vh; overflow: auto; }
+/* Prevent iOS Safari from zooming inputs on focus by keeping font-size >= 16px */
+.no-zoom-input { font-size: 16px; }
+
+/* (Optional) Be extra safe on iOS only */
+@supports (-webkit-touch-callout: none) {
+  .no-zoom-input { font-size: 16px !important; }
+}
+/* Keep the mobile search from pushing the avatar off-screen */
+@media (max-width: 575.98px) {
+  .mobile-search { max-width: 60vw; } /* was inline style; now a class */
+}
+
+/* Slimmer input without dropping font-size (prevents iOS zoom) */
+.compact-search { padding-top: .3rem; padding-bottom: .3rem; }
+
+/* (Optional) If your dropdown ever sits behind the navbar, uncomment:
+.navbar { z-index: 1030; }   // Bootstrap default is usually fine
+.search-dropdown { z-index: 1050; } // Higher than navbar
+*/
