@@ -40,9 +40,10 @@
       <!-- Row 2: Restaurant name -->
       <h5 class="card-title mt-1 mb-0">
         <%= link_to recommendation.restaurant.name,
-                  restaurant_path(recommendation.restaurant),
-                  class: "fw-semibold fs-5 link-dark link-underline-opacity-0 link-underline-opacity-100-hover" %>
+              restaurant_path(recommendation.restaurant),
+              class: "fw-semibold fs-5 link-dark text-decoration-underline" %>
       </h5>
+
     </div>
     <%# --- DELETE X (owner only) --- %>
     <% if current_user == recommendation.user %>
