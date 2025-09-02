@@ -1,56 +1,82 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "tokyo_bites.png" %>
+<div class="navbar navbar-light navbar-lewagon">
+  <div class="container-fluid align-items-center">
+
+    <!-- Brand (clicks to home) -->
+    <%= link_to root_path, class: "navbar-brand me-2" do %>
+      <%= image_tag "tokyo_bites.png", alt: "Tokyo Bites" %>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- CENTER AREA: holds both mobile & desktop search, stays on one line -->
+    <div class="flex-grow-1 d-flex justify-content-center">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <%# <li class="nav-item active"> %>
-            <%# <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
-          <%# <li class="nav-item"> %>
-            <%# <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
+      <!-- MOBILE search (centered) -->
+      <div class="d-sm-none w-100 mobile-search">
+        <div class="position-relative" data-controller="search">
+          <%= form_with url: search_path, method: :get, local: false, html: { autocomplete: "off" } do |f| %>
+            <%= f.search_field :q,
+                  placeholder: "Search users or restaurants...",
+                  class: "form-control rounded-pill text-center no-zoom-input compact-search",
+                  inputmode: "search", enterkeyhint: "search",
+                  autocapitalize: "off", autocorrect: "off",
+                  aria: { controls: "search-results-mobile", expanded: "false", autocomplete: "list" },
+                  data: {
+                    action: "input->search#submit blur->search#hideOnBlur keydown.esc->search#hideOnEsc",
+                    search_target: "input"
+                  } %>
+          <% end %>
 
-      <div class="position-relative" data-controller="search">
-        <%= form_with url: search_path, method: :get, local: false, html: { autocomplete: "off" } do |f| %>
-          <%= f.text_field :q,
-                placeholder: "Search users or restaurants...",
-                class: "form-control",
-                data: { action: "input->search#submit", search_target: "input" } %>
-        <% end %>
-
-        <!-- Dropdown -->
-        <ul class="search-dropdown list-unstyled border rounded shadow-sm mt-1 bg-white d-none" data-search-target="results">
-          <%# Results will be injected by Stimulus %>
-        </ul>
+          <ul id="search-results-mobile"
+              class="search-dropdown list-unstyled border rounded shadow-sm mt-1 bg-white d-none position-absolute w-100 z-3"
+              role="listbox"
+              data-search-target="results"
+              data-action="click->search#closeOnResultClick">
+          </ul>
+        </div>
       </div>
 
+      <!-- DESKTOP/TABLET search (fixed width, centered) -->
+      <div class="d-none d-sm-block" style="min-width:320px; max-width:480px; width:40%;">
+        <div class="position-relative" data-controller="search">
+          <%= form_with url: search_path, method: :get, local: false, html: { autocomplete: "off" } do |f| %>
+            <%= f.text_field :q,
+                  placeholder: "Search users or restaurants...",
+                  class: "form-control",
+                  aria: { controls: "search-results-desktop", expanded: "false", autocomplete: "list" },
+                  data: {
+                    action: "input->search#submit blur->search#hideOnBlur keydown.esc->search#hideOnEsc",
+                    search_target: "input"
+                  } %>
+          <% end %>
 
+          <ul id="search-results-desktop"
+              class="search-dropdown list-unstyled border rounded shadow-sm mt-1 bg-white d-none position-absolute w-100 z-3"
+              role="listbox"
+              data-search-target="results"
+              data-action="click->search#closeOnResultClick">
+          </ul>
+        </div>
+      </div>
 
-          <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F005%2F129%2F844%2Fnon_2x%2Fprofile-user-icon-isolated-on-white-background-eps10-free-vector.jpg&f=1&nofb=1&ipt=3e128654ad941b4612602c01d72f76d70b5f7ef757bae99c7dcbc2a0e6fac0ea", class: "avatar", alt: "dropdown menu" %>
+    </div> <!-- ← added missing close for center area -->
+
+    <!-- RIGHT: avatar/login (stays on one line) -->
+    <div class="d-flex align-items-center ms-2">
+      <% if user_signed_in? %>
+        <div class="nav-item dropdown">
+          <a href="#" id="navbarDropdown" class="avatar d-inline-block" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= image_tag "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F005%2F129%2F844%2Fnon_2x%2Fprofile-user-icon-isolated-on-white-background-eps10-free-vector.jpg&f=1&nofb=1&ipt=3e128654ad941b4612602c01d72f76d70b5f7ef757bae99c7dcbc2a0e6fac0ea",
+                         class: "avatar", alt: "Account" %>
           </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%# <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%# <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+          </div>
+        </div>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+      <% end %>
     </div>
+
   </div>
 </div>
+
 <%= turbo_frame_tag "search_results" %>
