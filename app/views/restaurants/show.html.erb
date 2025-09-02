@@ -11,13 +11,13 @@
         <div class="card shadow-sm border-0 compact-header">
           <div class="card-body py-3">
             <div class="d-flex gap-3 align-items-start">
-              <div class="flex-shrink-0">
+              <!-- <div class="flex-shrink-0">
                 <% if primary_photo %>
                   <%= image_tag primary_photo, class: "rounded object-cover", style: "width:84px; height:84px;" %>
                 <% else %>
                   <%= image_tag "default_avatar.png", class: "rounded object-cover", style: "width:84px; height:84px;" %>
                 <% end %>
-              </div>
+              </div> -->
 
               <div class="flex-grow-1 min-w-0">
                 <h2 class="h5 fw-bold mb-1 text-truncate"><%= @restaurant.name %></h2>
@@ -89,7 +89,7 @@
 
       <!-- DESKTOP/TABLET: -->
       <div class="row g-4 align-items-start mb-0 d-none d-md-flex">
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <% if primary_photo %>
             <%= image_tag primary_photo,
                   class: "img-fluid rounded shadow-sm w-100 object-cover-md",
@@ -99,7 +99,7 @@
                   class: "img-fluid rounded shadow-sm w-100 object-cover-md",
                   style: "height: 220px; object-fit: cover;" %>
           <% end %>
-        </div>
+        </div> -->
 
         <div class="col-md-8">
           <div class="d-flex justify-content-between align-items-start">
@@ -270,7 +270,7 @@
 
       <!-- RIGHT: Map -->
       <div class="col-lg-5">
-        <h3 class="mb-3">🗺 Map</h3>
+        <!-- <h3 class="mb-3">🗺 Map</h3> -->
         <div
           data-controller="map"
           data-map-markers-value='<%= @markers.to_json %>'
