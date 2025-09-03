@@ -259,10 +259,10 @@ turbo-frame {
 :root { --bottom-nav-h: 56px; }
 
 /* Give every page room under the fixed bar */
-html, body {
-  /* iOS safe area + the actual nav height */
-  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
-}
+// html, body {
+//   /* iOS safe area + the actual nav height */
+//   padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+// } miz- commented this out for now as its creating a big gap on the map page and we shouldn't need this if the turbo frames have padding anyway?
 
 /* If your content scrolls inside a frame or wrapper, pad that too */
 turbo-frame#main_content,
