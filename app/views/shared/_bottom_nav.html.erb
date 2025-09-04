@@ -17,11 +17,11 @@
     <% end %>
 
     <!-- Explore / Map -->
-    <%= link_to map_path,
-                data: { turbo_frame: "main_content", turbo_action: 'advance' },
-                class: "nav-link #{map_active ? 'is-active' : ''}",
-                aria: { label: "Explore", current: (map_active ? 'page' : nil) },
-                title: "Explore" do %>
+    <%= link_to (user_signed_in? ? map_path : new_user_session_path),
+            class: "nav-link #{map_active ? 'is-active' : ''}",
+            data: (user_signed_in? ? { turbo_frame: "main_content", turbo_action: 'advance' } : {}),
+            aria: { label: "Explore", current: (map_active ? 'page' : nil) },
+            title: "Explore" do %>
       <%= map_active ? "✦" : "⌖" %>
     <% end %>
 
@@ -35,11 +35,11 @@
     <% end %>
 
     <!-- Wishlist -->
-    <%= link_to wishlists_path,
-                data: { turbo_frame: "main_content", turbo_action: 'advance' },
-                class: "nav-link #{wishlist_active ? 'is-active' : ''}",
-                aria: { label: "Wishlist", current: (wishlist_active ? 'page' : nil) },
-                title: "Wishlist" do %>
+    <%= link_to (user_signed_in? ? wishlists_path : new_user_session_path),
+            class: "nav-link #{wishlist_active ? 'is-active' : ''}",
+            data: (user_signed_in? ? { turbo_frame: "main_content", turbo_action: 'advance' } : {}),
+            aria: { label: "Wishlist", current: (wishlist_active ? 'page' : nil) },
+            title: "Wishlist" do %>
       <%= wishlist_active ? "♥" : "♡" %>
     <% end %>
 

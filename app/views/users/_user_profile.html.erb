@@ -45,24 +45,33 @@
 
           <!-- Follow/Unfollow (non-owner) -->
           <% if current_user != user %>
-            <div class="mt-2">
+            <div class="mt-2 d-flex">
               <% if current_user.follows?(user) %>
-                <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success btn-sm" %>
+                <%= button_to "Following",
+                      user_unfollow_path(user),
+                      method: :delete,
+                      class: "btn btn-outline-recommend btn-sm rounded-pill px-3 py-1 d-flex justify-content-center align-items-center gap-1 flex-grow-1" %>
               <% else %>
-                <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary btn-sm" %>
+                <%= button_to "Follow",
+                      user_follow_path(user),
+                      method: :post,
+                      class: "btn btn-recommend btn-sm rounded-pill px-3 py-1 d-flex justify-content-center align-items-center gap-1 flex-grow-1" %>
               <% end %>
             </div>
           <% end %>
 
-          <!-- Badges: icon-first, compact -->
-          <div class="d-flex flex-wrap align-items-center gap-3 mt-2 small text-muted">
-            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-award"></i> Newcomer</span>
-            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-fire"></i> Streak x3</span>
-            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-star-fill"></i> Foodie</span>
-            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-geo-fill"></i> Explorer</span>
+          <!-- Badge preview -->
+          <div class="d-flex align-items-center gap-2 mt-2 small text-muted">
+            <div class="d-flex badge-stack">
+              <span class="badge-circle bg-light border">🏅</span>
+              <span class="badge-circle bg-light border">🔥</span>
+              <span class="badge-circle bg-light border">🍜</span>
+              <span class="badge-circle bg-light border">🌍</span>
+            </div>
+            <span class="fw-semibold">Badges <span class="ms-1">&gt;</span></span>
           </div>
 
-          <!-- (Owner) collapsible edit form (kept out of the way) -->
+          <!-- (Owner) collapsible edit form -->
           <% if current_user == user %>
             <div id="profile-edit" class="collapse mt-3">
               <details open>
@@ -130,31 +139,13 @@
                       <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
                     </div>
                   <% end %>
-
-                  <!-- REMOVE PHOTO: separate form or link (not nested) -->
-                  <!-- <% if user.profile_picture.attached? %>
-                    <div class="mt-2">
-                      <%= button_to "Remove photo",
-                            remove_profile_picture_user_path(user),
-                            method: :delete,
-                            form: { data: { turbo_confirm: "Remove your profile picture?" } },
-                            class: "btn btn-outline-danger btn-sm" %>
-                       Alternatively (no extra form markup):
-                      <%= link_to "Remove photo",
-                            remove_profile_picture_user_path(user),
-                            data: { turbo_method: :delete, turbo_confirm: "Remove your profile picture?" },
-                            class: "btn btn-outline-danger btn-sm" %>
-                    </div>
-                  <% end %> -->
                 </div>
               </details>
             </div>
           <% end %>
-
-        </div>
-      </div>
-
-    </div>
+        </div> <!-- /Right side -->
+      </div>   <!-- /d-flex align-items-start -->
+    </div>     <!-- /MOBILE header -->
 
     <!-- Desktop Profile header -->
     <div class="d-none d-md-block">
@@ -239,13 +230,6 @@
 
                   <div class="mt-3 d-flex gap-2">
                     <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
-                    <!-- <% if user.profile_picture.attached? %>
-                      <%= button_to "Remove photo",
-                            remove_profile_picture_user_path(user),
-                            method: :delete,
-                            form: { data: { turbo_confirm: "Remove your profile picture?" } },
-                            class: "btn btn-outline-danger btn-sm" %>
-                    <% end %> -->
                   </div>
                 <% end %>
               </div>
@@ -256,7 +240,6 @@
           <div class="d-flex flex-wrap gap-4 my-3 small text-muted">
             <span><%= user.followers(User).count %> Followers</span>
             <span><%= user.followees(User).count %> Following</span>
-            <%# If you compute @places_visited_count in controller, use it; else remove the rand line %>
             <% if defined?(@places_visited_count) && @places_visited_count.present? %>
               <span><%= @places_visited_count %> Places visited</span>
             <% else %>
@@ -268,24 +251,32 @@
           <% if current_user != user %>
             <div class="mt-1 text-start">
               <% if current_user.follows?(user) %>
-                <%= button_to "Following", user_unfollow_path(user), method: :delete, class: "btn btn-success btn-sm" %>
+                <%= button_to "Following",
+                      user_unfollow_path(user),
+                      method: :delete,
+                      class: "btn btn-outline-recommend btn-sm rounded-pill px-3 py-2 d-flex justify-content-center align-items-center gap-1" %>
               <% else %>
-                <%= button_to "Follow", user_follow_path(user), method: :post, class: "btn btn-primary btn-sm" %>
+                <%= button_to "Follow",
+                      user_follow_path(user),
+                      method: :post,
+                      class: "btn btn-recommend btn-sm rounded-pill px-3 py-2 d-flex justify-content-center align-items-center gap-1" %>
               <% end %>
             </div>
           <% end %>
 
-          <!-- Badges -->
           <hr class="my-3">
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge rounded-pill text-bg-light"><i class="bi bi-award me-1"></i> Newcomer</span>
-            <span class="badge rounded-pill text-bg-light"><i class="bi bi-fire me-1"></i> Streak x3</span>
-            <span class="badge rounded-pill text-bg-light"><i class="bi bi-star-fill me-1"></i> Foodie</span>
-            <span class="badge rounded-pill text-bg-light"><i class="bi bi-geo-fill me-1"></i> Explorer</span>
+          <div class="d-flex align-items-center gap-3">
+            <div class="d-flex badge-stack">
+              <span class="badge-circle bg-light border">🏅</span>
+              <span class="badge-circle bg-light border">🔥</span>
+              <span class="badge-circle bg-light border">🍜</span>
+              <span class="badge-circle bg-light border">🌍</span>
+            </div>
+            <span class="fw-semibold text-muted">Achievements <span class="ms-1">&gt;</span></span>
           </div>
-        </div>
-      </div>
-    </div>
+        </div> <!-- /col -->
+      </div>   <!-- /row -->
+    </div>     <!-- /Desktop header -->
 
     <hr class="my-4">
 
@@ -295,18 +286,16 @@
       <div class="col-lg-7">
         <!-- Recommended restaurants (top 5 by frequency) -->
         <section class="mb-4">
-          <h2 class="h5 mb-2">Top Recommended restaurants</h2>
+          <h2 class="h5 mb-2">Top Recommended Restaurants</h2>
           <% if @top5.present? %>
-            <ol class="small mb-0 ps-3" style="list-style-position: inside;">
+            <ol class="small mb-0 ps-3 " style="list-style-position: inside;">
               <% @top5.each do |r, _count| %>
                 <li class="mb-1">
                   <i class="bi bi-geo-alt me-2"></i>
-                  <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
+                  <%= link_to r.name, restaurant_path(r), class: "fw-semibold link-dark text-decoration-none" %>
                 </li>
               <% end %>
             </ol>
-
-
           <% else %>
             <p class="text-muted small mb-0">No restaurants yet.</p>
           <% end %>
@@ -314,7 +303,7 @@
 
         <!-- Posts: mini-timeline (matches restaurant page) -->
         <section>
-          <h2 class="h5 mb-3">Posts</h2>
+          <h2 class="h5 mb-3">Recommendations</h2>
           <% if @recommendations.present? %>
             <div class="rounded border bg-body overflow-auto mini-timeline" style="max-height: 65vh;">
               <div class="p-2 d-flex flex-column gap-2">
@@ -356,7 +345,7 @@
             <ul class="list-group small">
               <% @most_revisited.each do |r, visits| %>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <%= link_to r.name, restaurant_path(r), class: "text-decoration-none" %>
+                  <%= link_to r.name, restaurant_path(r), class: "fw-semibold link-dark text-decoration-none" %>
                   <span class="badge bg-secondary rounded-pill"><%= visits %>×</span>
                 </li>
               <% end %>
@@ -365,9 +354,9 @@
             <p class="text-muted small mb-0">No revisits yet.</p>
           <% end %>
         </section>
+
         <!-- Recommendations on the map -->
         <section class="mb-4">
-          <h2 class="h5 mb-3">Recommendations</h2>
           <div class="row">
             <div class="col-lg-12">
               <%= turbo_frame_tag "user_map" do %>
@@ -390,7 +379,7 @@
     </div> -->
   </div>
 
-  <!-- Mini timeline shared styles (same as restaurant show) -->
+  <!-- Mini timeline + stacked badge helpers -->
   <style>
     .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
     .mini-timeline .card-body     { padding: .5rem .6rem !important; }
@@ -409,5 +398,17 @@
       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    /* Badge circles + overlap */
+    .badge-circle {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      font-size: 16px; line-height: 1;
+      background-color: #f8f9fa;
+    }
+    .badge-stack .badge-circle + .badge-circle { margin-left: -10px; }
   </style>
 </turbo-frame>

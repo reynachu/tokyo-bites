@@ -308,7 +308,6 @@ turbo-frame#main_content,
 */
 
 
-
 .hover-shadow:hover {
   transform: translateY(-6px);
   box-shadow: 0 15px 35px rgba(0,0,0,0.15);
@@ -360,4 +359,34 @@ turbo-frame#main_content,
   color: #555555; /* subtle gray */
   line-height: 1.5;
   margin-bottom: 0;
+/* Same red as your recommend button */
+/* === Custom button overrides === */
+/* Filled red button (same as Recommend) */
+.btn-recommend {
+  color: #fff;
+  background-color: #dc3545;   /* replace with your brand red */
+  border: 1px solid #dc3545;
+}
+.btn-recommend:hover,
+.btn-recommend:focus {
+  color: #fff;
+  background-color: darken(#dc3545, 7%);
+  border-color: darken(#dc3545, 7%);
+}
+
+/* Outline red button (inverse style) */
+.btn-outline-recommend {
+  color: #dc3545;
+  background-color: #fff;
+  border: 1px solid #dc3545;
+}
+.btn-outline-recommend:hover,
+.btn-outline-recommend:focus {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-recommend,
+.btn-outline-recommend {
+  transition: all 0.2s ease-in-out;
 }
