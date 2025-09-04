@@ -306,3 +306,35 @@ turbo-frame#main_content,
 .navbar { z-index: 1030; }   // Bootstrap default is usually fine
 .search-dropdown { z-index: 1050; } // Higher than navbar
 */
+
+/* Same red as your recommend button */
+/* === Custom button overrides === */
+/* Filled red button (same as Recommend) */
+.btn-recommend {
+  color: #fff;
+  background-color: #dc3545;   /* replace with your brand red */
+  border: 1px solid #dc3545;
+}
+.btn-recommend:hover,
+.btn-recommend:focus {
+  color: #fff;
+  background-color: darken(#dc3545, 7%);
+  border-color: darken(#dc3545, 7%);
+}
+
+/* Outline red button (inverse style) */
+.btn-outline-recommend {
+  color: #dc3545;
+  background-color: #fff;
+  border: 1px solid #dc3545;
+}
+.btn-outline-recommend:hover,
+.btn-outline-recommend:focus {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-recommend,
+.btn-outline-recommend {
+  transition: all 0.2s ease-in-out;
+}
