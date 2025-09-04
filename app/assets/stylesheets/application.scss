@@ -307,6 +307,58 @@ turbo-frame#main_content,
 .search-dropdown { z-index: 1050; } // Higher than navbar
 */
 
+
+.hover-shadow:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+.transition {
+  transition: all 0.3s ease-in-out;
+}
+.badge {
+  font-size: 0.8rem;
+  padding: 0.35em 0.6em;
+  border-radius: 0.5rem;
+}
+
+/* Pastel colors for category badges */
+.bg-pastel-red { background-color: #ffdadb; }
+.bg-pastel-green { background-color: #d3ffd3; }
+.bg-pastel-yellow { background-color: #fffbe0; }
+.bg-pastel-pink { background-color: #ffe0f0; }
+.bg-pastel-orange { background-color: #ffe3cc; }
+.bg-pastel-blue { background-color: #d0e0ff; }
+
+/* Button hover */
+.btn-outline-secondary.hover-btn:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Modern font for restaurant name */
+.restaurant-name {
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2b2b2b; /* neutral dark gray */
+  line-height: 1.25;
+  transition: color 0.2s;
+}
+
+/* Ensure link inside name inherits neutral color */
+.restaurant-link {
+  color: #2b2b2b; /* no blue */
+  text-decoration: none;
+}
+
+/* Modern font for restaurant description */
+.restaurant-description {
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 0.9rem;
+  color: #555555; /* subtle gray */
+  line-height: 1.5;
+  margin-bottom: 0;
 /* Same red as your recommend button */
 /* === Custom button overrides === */
 /* Filled red button (same as Recommend) */
