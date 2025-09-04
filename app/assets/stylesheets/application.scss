@@ -308,36 +308,6 @@ turbo-frame#main_content,
 */
 
 
-/* Responsive padding for the container holding the cards */
-#main_content {
-  padding-top: 2rem;       /* top padding for mobile */
-  padding-left: 1rem;      /* horizontal padding for mobile */
-  padding-right: 1rem;
-}
-
-@media (min-width: 576px) {
-  #main_content {
-    padding-top: 3rem;     /* small devices */
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 768px) {
-  #main_content {
-    padding-top: 4rem;     /* tablets */
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 992px) {
-  #main_content {
-    padding-top: 5rem;     /* desktops */
-    padding-left: 0;       /* use normal Bootstrap gutters */
-    padding-right: 0;
-  }
-}
 
 .hover-shadow:hover {
   transform: translateY(-6px);

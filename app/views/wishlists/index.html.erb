@@ -1,7 +1,7 @@
 <turbo-frame id="main_content">
 
   <% if @restaurants.any? %>
-    <div class="row g-4">
+    <div class="row g-4 pt-5 px-2">
       <% first_wishlist_restaurants = current_user.first_wishlist.restaurants.includes(:bookmarks) %>
 
       <% first_wishlist_restaurants.each do |restaurant| %>
