@@ -34,18 +34,20 @@
                     Recommend
                   <% end %>
 
-                  <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
-                    <%= button_to "Remove from Wishlist",
-                                  restaurant_bookmarks_path(@restaurant),
-                                  method: :delete,
-                                  form: { class: "d-inline mb-0" },
-                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-3 py-1" %>
+                  <% if user_signed_in? %>
+                    <% saved = Bookmark.find_by(user: current_user, restaurant: @restaurant).present? %>
+                  <button
+                      type="button"
+                      class="bookmark-btn d-flex align-items-center justify-content-center p-2 border-0 bg-transparent"
+                      aria-label="<%= saved ? "Remove bookmark" : "Add bookmark" %>"
+                      aria-pressed="<%= saved %>"
+                      data-controller="bookmark"
+                      data-bookmark-restaurantid-value="<%= @restaurant.id %>"
+                      data-action="click->bookmark#<%= saved ? "deleteBookmark" : "addBookmark" %>">
+                      <i class="fa-bookmark <%= saved ? "fa-solid" : "fa-regular" %> fa-lg"></i>
+                    </button>
                   <% else %>
-                    <%= button_to "Add to Wishlist",
-                                  restaurant_bookmarks_path(@restaurant),
-                                  method: :post,
-                                  form: { class: "d-inline mb-0" },
-                                  class: "btn btn-outline-secondary btn-sm rounded-pill px-3 py-1" %>
+                    <%= link_to "Sign in to bookmark this restaurant", new_user_session_path, class: "small text-decoration-none text-primary" %>
                   <% end %>
                 </div>
 
@@ -127,18 +129,20 @@
               <i class="bi bi-stars"></i><span>Recommend</span>
             <% end %>
 
-            <% if current_user.first_wishlist.bookmarks.exists?(restaurant: @restaurant) %>
-              <%= button_to "Remove from Wishlist",
-                            restaurant_bookmarks_path(@restaurant),
-                            method: :delete,
-                            class: "btn btn-outline-secondary rounded-pill px-3 py-2",
-                            form: { class: "d-inline" } %>
+            <% if user_signed_in? %>
+              <% saved = Bookmark.find_by(user: current_user, restaurant: @restaurant).present? %>
+            <button
+                type="button"
+                class="bookmark-btn d-flex align-items-center justify-content-center p-2 border-0 bg-transparent"
+                aria-label="<%= saved ? "Remove bookmark" : "Add bookmark" %>"
+                aria-pressed="<%= saved %>"
+                data-controller="bookmark"
+                data-bookmark-restaurantid-value="<%= @restaurant.id %>"
+                data-action="click->bookmark#<%= saved ? "deleteBookmark" : "addBookmark" %>">
+                <i class="fa-bookmark <%= saved ? "fa-solid" : "fa-regular" %> fa-lg"></i>
+              </button>
             <% else %>
-              <%= button_to "Add to Wishlist",
-                            restaurant_bookmarks_path(@restaurant),
-                            method: :post,
-                            class: "btn btn-outline-secondary rounded-pill px-3 py-2",
-                            form: { class: "d-inline" } %>
+              <%= link_to "Sign in to bookmark this restaurant", new_user_session_path, class: "small text-decoration-none text-primary" %>
             <% end %>
           </div>
         </div>
