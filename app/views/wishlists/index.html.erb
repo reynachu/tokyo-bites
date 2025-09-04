@@ -1,38 +1,74 @@
 <turbo-frame id="main_content">
-  <h1>My Wishlist</h1>
 
   <% if @restaurants.any? %>
-    <ul class="list-group">
-      <% # Preload restaurants for the user's first wishlist to avoid N+1 queries %>
+    <div class="row g-4">
       <% first_wishlist_restaurants = current_user.first_wishlist.restaurants.includes(:bookmarks) %>
 
       <% first_wishlist_restaurants.each do |restaurant| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span>
-            <%= link_to restaurant.name, restaurant_path(restaurant), class: "fw-bold text-decoration-none" %>
-            <small class="text-muted">(<%= restaurant.category %>)</small>
-          </span>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden hover-shadow transition">
 
-          <%# Check if the restaurant is already in the first wishlist %>
-          <% if current_user.first_wishlist.restaurants.include?(restaurant) %>
-            <%= button_to "Remove",
-                  restaurant_bookmarks_path(restaurant),
-                  method: :delete,
-                  params: { redirect: true },
-                  class: "btn btn-sm btn-outline-danger",
-                  data: { turbo_confirm: "Remove from wishlist?" } %>
-          <% else %>
-            <%= button_to "Add",
-                  restaurant_bookmarks_path(restaurant),
-                  method: :post,
-                  class: "btn btn-sm btn-outline-primary" %>
-          <% end %>
-        </li>
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+
+              <%# Name and category badge %>
+              <div>
+                <h5 class="card-title mb-2 d-flex align-items-center justify-content-between restaurant-name">
+                  <%= link_to restaurant.name, restaurant_path(restaurant), class: "text-decoration-none restaurant-link" %>
+
+                  <% if restaurant.category.present? %>
+                    <% badge_color, icon_color = case restaurant.category.downcase
+                       when "italian" then ["bg-pastel-red text-dark", "#ff6b6b"]
+                       when "japanese" then ["bg-pastel-green text-dark", "#32cd32"]
+                       when "coffee" then ["bg-pastel-yellow text-dark", "#ffea7f"]
+                       when "dessert" then ["bg-pastel-pink text-dark", "#ff8ed6"]
+                       when "mexican" then ["bg-pastel-orange text-dark", "#ffb677"]
+                       else ["bg-pastel-blue text-dark", "#5aa0ff"]
+                       end %>
+
+                    <% icon_class = case restaurant.category.downcase
+                       when "italian" then "fa-solid fa-pizza-slice"
+                       when "japanese" then "fa-solid fa-fish"
+                       when "coffee" then "fa-solid fa-mug-saucer"
+                       when "dessert" then "fa-solid fa-ice-cream"
+                       when "mexican" then "fa-solid fa-pepper-hot"
+                       else "fa-solid fa-utensils"
+                       end %>
+
+                    <span class="badge <%= badge_color %> d-flex align-items-center px-2 py-1">
+                      <i class="<%= icon_class %> me-1" style="color: <%= icon_color %>;"></i>
+                      <%= restaurant.category %>
+                    </span>
+                  <% end %>
+                </h5>
+
+                <p class="card-text restaurant-description mb-3">
+                  Explore this amazing restaurant!
+                </p>
+              </div>
+
+              <%# Remove button below card content %>
+              <% if current_user.first_wishlist.restaurants.include?(restaurant) %>
+                <div class="mt-3">
+                  <%= button_to restaurant_bookmarks_path(restaurant),
+                        method: :delete,
+                        params: { redirect: true },
+                        class: "btn btn-outline-secondary w-100 rounded-pill d-flex align-items-center justify-content-center fw-semibold hover-btn",
+                        data: { turbo_confirm: "Remove from wishlist?" } do %>
+                    <i class="fa-solid fa-trash me-2"></i>
+                  <% end %>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
       <% end %>
-    </ul>
+    </div>
+
   <% else %>
     <div class="alert alert-info mt-3">
       You haven’t added any restaurants yet.
     </div>
   <% end %>
+
 </turbo-frame>
