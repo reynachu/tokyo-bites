@@ -1,5 +1,5 @@
 <turbo-frame id="main_content">
-  <div class="container py-4">
+  <div class="container py-4 user-profile">
     <!-- MOBILE header (shown < md) -->
     <div class="d-md-none">
       <div class="d-flex align-items-start">
@@ -386,5 +386,11 @@
       background-color: #f8f9fa;
     }
     .badge-stack .badge-circle + .badge-circle { margin-left: -10px; }
+
+    /* === White background overrides (scoped to user profile) === */
+    .user-profile .mini-timeline .card { background-color: #ffffff !important; }
+    .user-profile .list-group-item     { background-color: #ffffff !important; }
+    /* If you also want every recommendation card white anywhere on the profile */
+    .user-profile .recommendation-card.card { background-color: #ffffff !important; }
   </style>
 </turbo-frame>
