@@ -1,14 +1,16 @@
 <turbo-frame id="main_content">
-  <div class="container my-5">
+  <div class="container my-5 restaurant-show">
 
     <!-- Header: compact on mobile -->
-    <div class="mb-3 mb-md-4">
+    <!-- removed bg-white shadow to blend with site bg -->
+    <div class="mb-3 mb-md-4 header-surface rounded-4 p-3 p-md-4">
 
       <% primary_photo = @restaurant.photos.attached? ? @restaurant.photos.first : nil %>
 
       <!-- MOBILE: compact media card (shown < md) -->
       <div class="d-md-none">
-        <div class="card shadow-sm border-0 compact-header">
+        <!-- keep .card for spacing but override bg/shadow via CSS below -->
+        <div class="card border-0 compact-header">
           <div class="card-body py-3">
             <div class="d-flex gap-3 align-items-start">
               <!-- <div class="flex-shrink-0">
@@ -51,8 +53,7 @@
                   <% end %>
                 </div>
 
-
-                <!-- collapsible details to avoid vertical sprawl -->
+                <!-- collapsible details -->
                 <div class="mt-2">
                   <a class="small text-decoration-none d-inline-flex align-items-center gap-1 collapsed collapse-toggle"
                     data-bs-toggle="collapse"
@@ -82,7 +83,6 @@
                   </div>
                 </div>
 
-
               </div><!-- /grow -->
             </div>
           </div>
@@ -91,18 +91,7 @@
 
       <!-- DESKTOP/TABLET: -->
       <div class="row g-4 align-items-start mb-0 d-none d-md-flex">
-        <!-- <div class="col-md-4">
-          <% if primary_photo %>
-            <%= image_tag primary_photo,
-                  class: "img-fluid rounded shadow-sm w-100 object-cover-md",
-                  style: "height: 220px; object-fit: cover;" %>
-          <% else %>
-            <%= image_tag "default_avatar.png",
-                  class: "img-fluid rounded shadow-sm w-100 object-cover-md",
-                  style: "height: 220px; object-fit: cover;" %>
-          <% end %>
-        </div> -->
-
+        <!-- optional photo block removed for brevity -->
         <div class="col-md-8">
           <div class="d-flex justify-content-between align-items-start">
             <h1 class="fw-bold mb-2 h3"><%= @restaurant.name %></h1>
@@ -149,13 +138,15 @@
       </div>
     </div>
 
-
-
     <style>
       :root{
         --brand-bg: #faf1e8;
         --brand-accent: #c72b17;
+
+        /* site body background (manila) */
+        --site-bg: #FFF8F0;
       }
+
       .btn-recommend{
         background-color: var(--brand-accent);
         color:#fff; border:0;
@@ -175,54 +166,33 @@
       .compact-header .object-cover { object-fit: cover; }
       .compact-header .text-truncate { max-width: 100%; }
 
-      /* >>> Updated button rules (full text, no icon sizing) */
-      .compact-header .btn {
-        font-size: 0.875rem;
-        padding: 0.4rem 0.9rem;
-        line-height: 1.2;
-        min-height: 36px;          /* comfy touch target */
-        white-space: nowrap;        /* keep label on one line */
-      }
-      .compact-header form {        /* button_to wraps a form; keep it inline so flex works */
-        display: inline-flex;
-        margin-bottom: 0;
-      }
+      /* Buttons */
+      .compact-header .btn { font-size: .875rem; padding: .4rem .9rem; line-height: 1.2; min-height: 36px; white-space: nowrap; }
+      .compact-header form { display: inline-flex; margin-bottom: 0; }
+      .compact-header .d-flex.flex-wrap .btn { flex: 0 1 auto; min-width: 110px; }
 
-      /* optional: allow wrap when it truly doesn't fit */
-      .compact-header .d-flex.flex-wrap .btn {
-        flex: 0 1 auto;
-        min-width: 110px;
-      }
-
-      /* Make the HR slimmer to save some fold space on mobile */
-      @media (max-width: 767.98px){
-        hr.my-4 { margin: .75rem 0 !important; }
-      }
-
-      /* Center labels/icons inside buttons perfectly */
-      .compact-header .btn,
-      .btn-recommend {
-        display: inline-flex;           /* switch from inline-block */
-        align-items: center;            /* vertical center */
-        justify-content: center;        /* horizontal center */
-        line-height: 1;                 /* remove baseline weirdness */
-      }
-
-      /* Keep your comfy touch target on mobile buttons */
-      .compact-header .btn {
-        min-height: 36px;
-        font-size: 0.875rem;
-        padding: 0.4rem 0.9rem;
-        white-space: nowrap;
-      }
-
-      /* Desktop Recommend button: reduce icon spacing slightly for visual balance */
-      @media (min-width: 768px){
-        .btn-recommend.gap-2 { gap: .25rem !important; } /* turns gap-2 ≈ 0.5rem into ~0.25rem */
-      }
-
+      @media (max-width: 767.98px){ hr.my-4 { margin: .75rem 0 !important; } }
       .collapse-toggle .chev { transition: transform .18s ease; }
       .collapse-toggle:not(.collapsed) .chev { transform: rotate(180deg); }
+
+      /* ===== Surfaces & timeline colors ===== */
+      /* Header + mobile header inherit site background, no shadow */
+      .restaurant-show .header-surface,
+      .restaurant-show .compact-header.card {
+        background-color: var(--site-bg) !important;
+        box-shadow: none !important;
+        border: 0;
+      }
+
+      /* Mini-timeline uses the same site background (no distinct panel color) */
+      .restaurant-show .mini-timeline {
+        background-color: var(--site-bg) !important;
+        /* keep or remove border—comment out next line to remove */
+        border-color: #e9dfd2;
+      }
+
+      /* Keep individual recommendation cards white for readability */
+      .restaurant-show .mini-timeline .card { background-color: #fff; }
     </style>
 
     <hr class="my-4">
@@ -234,7 +204,7 @@
         <h3 class="mb-3">🍽 Recommendations</h3>
 
         <% if @recommendations.present? %>
-          <div class="rounded border bg-body overflow-auto mini-timeline" style="max-height: 65vh;">
+          <div class="rounded border overflow-auto mini-timeline" style="max-height: 65vh;">
             <div class="p-2 d-flex flex-column gap-2">
               <%= render partial: "recommendations/recommendation_card",
                         collection: @recommendations,
@@ -253,8 +223,8 @@
         .mini-timeline .card-body     { padding: .5rem .6rem !important; }
         .mini-timeline .rounded-circle{ width: 28px !important; height: 28px !important; }
 
-        /* shorter media area (works for any .ratio inside the card, including carousel slides) */
-        .mini-timeline .ratio         { --bs-aspect-ratio: 42%; } /* tweak: 38–48% */
+        /* shorter media area (works for any .ratio inside the card, including carousel) */
+        .mini-timeline .ratio         { --bs-aspect-ratio: 42%; }
         .mini-timeline .carousel .ratio { --bs-aspect-ratio: 42%; }
 
         /* typography tightening */
@@ -263,8 +233,7 @@
         .mini-timeline .card .text-muted,
         .mini-timeline .card .badge   { font-size: .85rem !important; }
 
-
-        /* optional: clamp long descriptions to 3 lines */
+        /* clamp long descriptions to 3 lines */
         .mini-timeline .card p {
           margin-bottom: .35rem;
           display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
@@ -274,7 +243,6 @@
 
       <!-- RIGHT: Map -->
       <div class="col-lg-5">
-        <!-- <h3 class="mb-3">🗺 Map</h3> -->
         <div
           data-controller="map"
           data-map-markers-value='<%= @markers.to_json %>'

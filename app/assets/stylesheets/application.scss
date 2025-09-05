@@ -399,3 +399,35 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: $headers-font;
 }
+
+/* Recommendation cards: always white */
+.recommendation-card.card {
+  background-color: #ffffff !important;
+}
+
+/* User profile: Top Categories & Most Revisited lists */
+.user-profile .list-group-item {
+  background-color: #ffffff !important;
+}
+
+/* User profile: mini-timeline wrapper */
+.user-profile .mini-timeline .card {
+  background-color: #ffffff !important;
+}
+/* Mini-timeline container: subtle manila variant */
+.user-profile .mini-timeline {
+  background-color:  #FDEFD9 !important;  /* slightly darker than #FFF8F0 */
+  border-radius: 0.5rem;
+  border: 1px solid #f0e0d0;  /* optional soft border */
+}
+
+/* Neutralize "Details" link color */
+.collapse-toggle {
+  color: #555555 !important;   /* or use #1A1A1A for your main text color */
+}
+
+.collapse-toggle:hover,
+.collapse-toggle:focus {
+  color: #333333 !important;   /* slightly darker on hover/focus */
+  text-decoration: none;
+}
