@@ -1,6 +1,5 @@
 <turbo-frame id="main_content">
   <div class="container py-4">
-
     <!-- MOBILE header (shown < md) -->
     <div class="d-md-none">
       <div class="d-flex align-items-start">
@@ -12,25 +11,21 @@
             <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle", size: "64x64", alt: "#{user.username}'s avatar" %>
           <% end %>
         </div>
-
         <!-- Right side -->
         <div class="ms-3 flex-grow-1 min-w-0">
           <!-- Username + (owner) Edit -->
           <div class="d-flex align-items-center gap-2">
             <h1 class="h6 mb-0 text-truncate"><%= user.username %></h1>
-
             <% if current_user == user %>
               <%= link_to "Edit", "#profile-edit",
                     class: "btn btn-outline-secondary btn-sm py-0 px-2",
                     data: { bs_toggle: "collapse" } %>
             <% end %>
           </div>
-
           <!-- Names (optional) + inline counters -->
           <% if [user.first_name, user.last_name].any?(&:present?) %>
             <div class="text-muted small text-truncate"><%= [user.first_name, user.last_name].compact_blank.join(" ") %></div>
           <% end %>
-
           <div class="small text-muted d-flex flex-wrap gap-2 mt-1">
             <span><%= user.followers(User).count %> Followers</span>
             <span>·</span>
@@ -42,7 +37,6 @@
               <span><%= rand(12..87) %> Places</span>
             <% end %>
           </div>
-
           <!-- Follow/Unfollow (non-owner) -->
           <% if current_user != user %>
             <div class="mt-2 d-flex">
@@ -59,7 +53,6 @@
               <% end %>
             </div>
           <% end %>
-
           <!-- Badge preview -->
           <div class="d-flex align-items-center gap-2 mt-2 small text-muted">
             <div class="d-flex badge-stack">
@@ -70,18 +63,15 @@
             </div>
             <span class="fw-semibold">Badges <span class="ms-1">&gt;</span></span>
           </div>
-
           <!-- (Owner) collapsible edit form -->
           <% if current_user == user %>
             <div id="profile-edit" class="collapse mt-3">
               <details open>
                 <summary class="visually-hidden">Edit profile</summary>
-
                 <div data-controller="avatar-preview">
                   <%= form_with model: user,
                         data: { turbo_frame: "main_content" },
                         html: { multipart: true } do |f| %>
-
                     <!-- Avatar preview + picker -->
                     <div class="d-flex align-items-center gap-3">
                       <%= image_tag(
@@ -90,7 +80,6 @@
                             class: "rounded-circle border",
                             data: { avatar_preview_target: "img" }
                           ) %>
-
                       <div class="flex-grow-1">
                         <label class="form-label mb-1">Upload new image</label>
                         <%= f.file_field :profile_picture,
@@ -104,7 +93,6 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Names + username -->
                     <div class="row mt-3 g-2">
                       <div class="col-sm-6">
@@ -124,17 +112,17 @@
                         <div class="form-text">3–30 chars, letters/numbers/underscore.</div>
                       </div>
                     </div>
-
                     <!-- Errors -->
                     <% if user.errors.any? %>
                       <div class="alert alert-danger mt-3 small">
                         <strong>Couldn’t save:</strong>
                         <ul class="mb-0">
-                          <% user.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+                          <% user.errors.full_messages.each do |m| %>
+                            <li><%= m %></li>
+                          <% end %>
                         </ul>
                       </div>
                     <% end %>
-
                     <div class="mt-3 d-flex gap-2">
                       <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
                     </div>
@@ -143,10 +131,12 @@
               </details>
             </div>
           <% end %>
-        </div> <!-- /Right side -->
-      </div>   <!-- /d-flex align-items-start -->
-    </div>     <!-- /MOBILE header -->
-
+        </div>
+ <!-- /Right side -->
+      </div>
+   <!-- /d-flex align-items-start -->
+    </div>
+     <!-- /MOBILE header -->
     <!-- Desktop Profile header -->
     <div class="d-none d-md-block">
       <div class="row align-items-center g-3">
@@ -158,26 +148,22 @@
             <%= image_tag "https://i.pravatar.cc/100?u=#{user.id}", class: "rounded-circle me-2", size: "150x150", alt: "#{user.username}'s avatar" %>
           <% end %>
         </div>
-
         <!-- Identity + actions -->
         <div class="col">
           <h1 class="h3 mb-1"><%= user.username %></h1>
           <% if [user.first_name, user.last_name].any?(&:present?) %>
             <p class="text-muted mb-2"><%= [user.first_name, user.last_name].compact_blank.join(" ") %></p>
           <% end %>
-
           <!-- Edit user profile (owner only) -->
           <% if current_user == user %>
             <details class="mt-2">
               <summary class="btn btn-outline-secondary btn-sm">Edit profile</summary>
-
               <div class="mt-3" data-controller="avatar-preview">
                 <%= form_with model: user,
                       url: user_path(user),
                       method: :patch,
                       data: { turbo_frame: "main_content" },
                       html: { multipart: true } do |f| %>
-
                   <!-- Avatar preview + picker -->
                   <div class="d-flex align-items-center gap-3">
                     <%= image_tag(
@@ -186,7 +172,6 @@
                           class: "rounded-circle border",
                           data: { avatar_preview_target: "img" }
                         ) %>
-
                     <div class="flex-grow-1">
                       <label class="form-label mb-1">Upload new image</label>
                       <%= f.file_field :profile_picture,
@@ -200,7 +185,6 @@
                       </div>
                     </div>
                   </div>
-
                   <!-- Names + username -->
                   <div class="row mt-3 g-2">
                     <div class="col-sm-6">
@@ -217,17 +201,17 @@
                       <div class="form-text">3–30 chars, letters/numbers/underscore.</div>
                     </div>
                   </div>
-
                   <!-- Errors -->
                   <% if user.errors.any? %>
                     <div class="alert alert-danger mt-3 small">
                       <strong>Couldn’t save:</strong>
                       <ul class="mb-0">
-                        <% user.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+                        <% user.errors.full_messages.each do |m| %>
+                          <li><%= m %></li>
+                        <% end %>
                       </ul>
                     </div>
                   <% end %>
-
                   <div class="mt-3 d-flex gap-2">
                     <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
                   </div>
@@ -235,7 +219,6 @@
               </div>
             </details>
           <% end %>
-
           <!-- Counters -->
           <div class="d-flex flex-wrap gap-4 my-3 small text-muted">
             <span><%= user.followers(User).count %> Followers</span>
@@ -246,7 +229,6 @@
               <span><%= rand(12..87) %> Places visited</span>
             <% end %>
           </div>
-
           <!-- Follow/Unfollow -->
           <% if current_user != user %>
             <div class="mt-1 text-start">
@@ -263,7 +245,6 @@
               <% end %>
             </div>
           <% end %>
-
           <hr class="my-3">
           <div class="d-flex align-items-center gap-3">
             <div class="d-flex badge-stack">
@@ -274,12 +255,13 @@
             </div>
             <span class="fw-semibold text-muted">Achievements <span class="ms-1">&gt;</span></span>
           </div>
-        </div> <!-- /col -->
-      </div>   <!-- /row -->
-    </div>     <!-- /Desktop header -->
-
+        </div>
+ <!-- /col -->
+      </div>
+   <!-- /row -->
+    </div>
+     <!-- /Desktop header -->
     <hr class="my-4">
-
     <!-- Bottom layout -->
     <div class="row g-4">
       <!-- LEFT COLUMN -->
@@ -300,7 +282,6 @@
             <p class="text-muted small mb-0">No restaurants yet.</p>
           <% end %>
         </section>
-
         <!-- Posts: mini-timeline (matches restaurant page) -->
         <section>
           <h2 class="h5 mb-3">Recommendations</h2>
@@ -318,12 +299,11 @@
           <% end %>
         </section>
       </div>
-
       <!-- RIGHT COLUMN -->
       <div class="col-lg-5">
         <!-- Top categories -->
         <section class="mb-4">
-          <h2 class="h5 mb-3">Top categories</h2>
+          <h2 class="h5 mb-3">Top Categories</h2>
           <% if @top_categories.present? %>
             <ul class="list-group small">
               <% @top_categories.each do |cat, count| %>
@@ -337,10 +317,9 @@
             <p class="text-muted small mb-0">No categories yet.</p>
           <% end %>
         </section>
-
         <!-- Most revisited (top 3 by this user's recommendation count) -->
         <section class="mb-4">
-          <h2 class="h5 mb-3">Most revisited</h2>
+          <h2 class="h5 mb-3">Most Revisited</h2>
           <% if @most_revisited.present? %>
             <ul class="list-group small">
               <% @most_revisited.each do |r, visits| %>
@@ -354,7 +333,6 @@
             <p class="text-muted small mb-0">No revisits yet.</p>
           <% end %>
         </section>
-
         <!-- Recommendations on the map -->
         <section class="mb-4">
           <div class="row">
@@ -373,12 +351,10 @@
         </section>
       </div>
     </div>
-
     <!-- <div class="mt-4 text-center">
       <%= link_to "Close", root_path, data: { turbo_frame: "_top" }, class: "btn btn-secondary" %>
     </div> -->
   </div>
-
   <!-- Mini timeline + stacked badge helpers -->
   <style>
     .mini-timeline .card          { margin-bottom: .25rem !important; box-shadow: var(--bs-box-shadow-sm); }
