@@ -338,7 +338,6 @@ turbo-frame#main_content,
 
 /* Modern font for restaurant name */
 .restaurant-name {
-  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
   color: #2b2b2b; /* neutral dark gray */
@@ -354,7 +353,6 @@ turbo-frame#main_content,
 
 /* Modern font for restaurant description */
 .restaurant-description {
-  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
   font-size: 0.9rem;
   color: #555555; /* subtle gray */
   line-height: 1.5;
@@ -395,5 +393,9 @@ turbo-frame#main_content,
 body {
   background-color: #FFF8F0;
   color: #1A1A1A;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: $body-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headers-font;
 }
