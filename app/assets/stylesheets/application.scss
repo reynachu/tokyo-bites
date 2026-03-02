@@ -306,3 +306,128 @@ turbo-frame#main_content,
 .navbar { z-index: 1030; }   // Bootstrap default is usually fine
 .search-dropdown { z-index: 1050; } // Higher than navbar
 */
+
+
+.hover-shadow:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+.transition {
+  transition: all 0.3s ease-in-out;
+}
+.badge {
+  font-size: 0.8rem;
+  padding: 0.35em 0.6em;
+  border-radius: 0.5rem;
+}
+
+/* Pastel colors for category badges */
+.bg-pastel-red { background-color: #ffdadb; }
+.bg-pastel-green { background-color: #d3ffd3; }
+.bg-pastel-yellow { background-color: #fffbe0; }
+.bg-pastel-pink { background-color: #ffe0f0; }
+.bg-pastel-orange { background-color: #ffe3cc; }
+.bg-pastel-blue { background-color: #d0e0ff; }
+
+/* Button hover */
+.btn-outline-secondary.hover-btn:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Modern font for restaurant name */
+.restaurant-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2b2b2b; /* neutral dark gray */
+  line-height: 1.25;
+  transition: color 0.2s;
+}
+
+/* Ensure link inside name inherits neutral color */
+.restaurant-link {
+  color: #2b2b2b; /* no blue */
+  text-decoration: none;
+}
+
+/* Modern font for restaurant description */
+.restaurant-description {
+  font-size: 0.9rem;
+  color: #555555; /* subtle gray */
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+/* Same red as your recommend button */
+/* === Custom button overrides === */
+/* Filled red button (same as Recommend) */
+.btn-recommend {
+  color: #fff;
+  background-color: #dc3545;   /* replace with your brand red */
+  border: 1px solid #dc3545;
+}
+.btn-recommend:hover,
+.btn-recommend:focus {
+  color: #fff;
+  background-color: darken(#dc3545, 7%);
+  border-color: darken(#dc3545, 7%);
+}
+
+/* Outline red button (inverse style) */
+.btn-outline-recommend {
+  color: #dc3545;
+  background-color: #fff;
+  border: 1px solid #dc3545;
+}
+.btn-outline-recommend:hover,
+.btn-outline-recommend:focus {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-recommend,
+.btn-outline-recommend {
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  background-color: #FFF8F0;
+  color: #1A1A1A;
+  font-family: $body-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headers-font;
+}
+
+/* Recommendation cards: always white */
+.recommendation-card.card {
+  background-color: #ffffff !important;
+}
+
+/* User profile: Top Categories & Most Revisited lists */
+.user-profile .list-group-item {
+  background-color: #ffffff !important;
+}
+
+/* User profile: mini-timeline wrapper */
+.user-profile .mini-timeline .card {
+  background-color: #ffffff !important;
+}
+/* Mini-timeline container: subtle manila variant */
+.user-profile .mini-timeline {
+  background-color:  #FDEFD9 !important;  /* slightly darker than #FFF8F0 */
+  border-radius: 0.5rem;
+  border: 1px solid #f0e0d0;  /* optional soft border */
+}
+
+/* Neutralize "Details" link color */
+.collapse-toggle {
+  color: #555555 !important;   /* or use #1A1A1A for your main text color */
+}
+
+.collapse-toggle:hover,
+.collapse-toggle:focus {
+  color: #333333 !important;   /* slightly darker on hover/focus */
+  text-decoration: none;
+}
